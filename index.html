@@ -1,0 +1,4266 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1100, user-scalable=no">
+
+<!-- علامات مشاركة الصورة محدثة -->
+<meta property="og:title" content="حلقات مسجد إبراهيم الحاج حسن">
+<meta property="og:description" content="نظام إدارة حلقات تحفيظ القرآن الكريم - متابعة الطلاب وتقييم الأداء">
+<meta property="og:image" content="https://i.postimg.cc/zXRftG5y/cropped-circle-image.png"> 
+<meta property="og:image:width" content="600"> 
+<meta property="og:image:height" content="400"> 
+<meta property="og:image:type" content="image/png">
+<meta property="og:url" content="https://qurankareem.wuaze.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="حلقات مسجد إبراهيم الحاج حسن">
+<meta property="og:locale" content="ar_SA">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="حلقات مسجد إبراهيم الحاج حسن">
+<meta name="twitter:description" content="نظام إدارة حلقات تحفيظ القرآن الكريم - متابعة الطلاب وتقييم الأداء">
+<meta name="twitter:image" content="https://i.postimg.cc/zXRftG5y/cropped-circle-image.png">
+<meta name="twitter:site" content="@mosque_ibrahim">
+
+<meta name="description" content="نظام إدارة حلقات تحفيظ القرآن الكريم - متابعة الطلاب وتقييم الأداء في مسجد إبراهيم الحاج حسن">
+<meta name="keywords" content="قرآن, تحفيظ, حلقات, مسجد, إبراهيم الحاج حسن, طلاب, تقييم">
+<meta name="author" content="حلقات مسجد إبراهيم الحاج حسن">
+
+<title>حلقات مسجد إبراهيم الحاج حسن</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ========= إعدادات التصميم الأساسية ========= */
+:root{
+  --bg:#f4f6f8; --card:#fff; --accent:#006400; --gold:#D4AF37; --muted:#666;
+  --cum-gold:#D4AF37; --cum-blue:#4DA6FF; --cum-green:#4CAF50; --cum-gray:#9E9E9E; --cum-orange:#FF8C00; --cum-red:#E53935;
+  --maxw:1100px;
+  --gap:10px;
+  
+  /* متغيرات حجم الخط المستقلة */
+  --homework-font-size: 16px; 
+  --grades-font-size: 16px;
+  --group-name-size: 1.4rem;
+  --sticker-name-size: 1.1rem;
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  min-width: 1100px;
+  font-size: 16px;
+}
+
+/* السماح بالتحديد في حقول الإدخال فقط */
+input, textarea, select, [contenteditable] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+  touch-action: auto !important;
+  font-size: 1rem !important;
+  transform: scale(1) !important;
+  max-height: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+body{
+  margin:0;
+  padding:0.75rem;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+  background:var(--bg); 
+  color:#111; 
+  direction:rtl;
+  min-width: 1100px;
+  overflow-x: auto;
+  font-size: 1rem;
+}
+
+.container{
+  max-width:var(--maxw);
+  margin:0.625rem auto;
+  background:var(--card);
+  padding:0.875rem;
+  border-radius:0.75rem;
+  box-shadow:0 0.625rem 1.875rem rgba(0,0,0,.08); 
+  width: 100%;
+  min-width: 1100px;
+}
+
+/* العنوان الرئيسي */
+.header{
+  padding: 0.625rem 0;
+  border-radius: 0;
+  color: #111;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  font-size: 2.2rem;
+  text-shadow: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9375rem;
+}
+.header-logo {
+  height: 11.25rem; 
+  width: 11.25rem; 
+  background: url('https://i.postimg.cc/zXRftG5y/cropped-circle-image.png') center center / cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0.3125rem rgba(0,0,0,0.5);
+}
+
+.row{display:flex;gap:var(--gap);align-items:center;flex-wrap:wrap}
+.button{background:var(--accent);color:#fff;border:0;padding:0.5rem 0.75rem;border-radius:0.5rem;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:0.375rem;transition:all 0.3s ease;font-size:0.9rem}
+.button:hover{transform:translateY(-2px);box-shadow:0 0.25rem 0.5rem rgba(0,0,0,0.2)}
+.button.small{padding:0.375rem 0.5rem;font-size:0.8rem}
+.button.ghost{background:transparent;border:1px solid #ddd;color:#333}
+.button.gold{background:var(--gold);color:#000}
+.button.danger{background:#dc3545;color:#fff}
+.button.excel{background:#1D6F42;color:#fff;}
+.card{background:#fff;padding:0.625rem;border-radius:0.5rem;border:1px solid #eee;margin-bottom:0.75rem}
+.group{border-radius:0.5rem;border:1px solid #eee;padding:0.625rem;margin-bottom:0.625rem;background:#fafafa}
+.sticker{border:1px dashed #e6e6e6;padding:0.5rem;border-radius:0.5rem;margin-bottom:0.625rem;background:#fff}
+
+/* تعديل الجداول للسماح بالالتفاف النصي الكامل */
+.table-wrap {
+  width: 100%;
+  overflow-x: hidden !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid #eee;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+th:nth-child(1) { width: 5%; }
+th:nth-child(2) { width: 25%; }
+
+th{background:var(--accent);color:#fff;position:sticky;top:0}
+.notes{font-size:0.8rem;text-align:right;color:#333}
+.badge{display:inline-block;padding:0.25rem 0.5rem;border-radius:0.375rem;color:#fff;font-weight:700;font-size:0.8rem}
+.cum-emtiaz{background:var(--cum-gold);color:#000}
+.cum-mumtaz{background:var(--cum-blue)}
+.cum-very-good{background:var(--cum-green)}
+.cum-good{background:var(--cum-gray)}
+.cum-weak{background:var(--cum-orange)}
+.cum-very-weak{background:var(--cum-red)}
+.att-excused td{background:#e6f7ff}
+.att-unexcused td{background:#ffecec}
+
+/* نافذة الرسائل */
+.messages-area{
+  margin-top:1.25rem;
+  padding:1.25rem;
+  border-radius:0.75rem;
+  background:linear-gradient(180deg,#eaf6ff,#fff);
+  border:2px solid #90caf9;
+  box-shadow:0 0.25rem 0.75rem rgba(0,0,0,0.1);
+}
+.messages-box{
+  background:#fff;
+  border:3px dashed #90caf9;
+  padding:1.5rem;
+  border-radius:0.75rem;
+  min-height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:1.1rem;
+  font-weight:600;
+  color:#1565C0;
+  text-align:center;
+  transition:all 0.3s ease;
+  flex-direction: column;
+}
+.messages-box:hover{ background:#f0f8ff; transform:scale(1.02); }
+.messages-controls{display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap}
+.auth-only{display:none}
+.user-info{background:#f1fff3;padding:0.5rem;border-radius:0.375rem;border-right:4px solid var(--accent);margin-bottom:0.625rem;text-align:center;font-size:0.9rem}
+.login-area{margin-top:0.75rem;border-top:1px solid #eee;padding-top:0.75rem}
+.login-row{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #ccc;font-size:0.9rem}
+.buttons-container{display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.5rem 0}
+.name-readonly { background-color: #f5f5f5; color: #666; cursor: not-allowed; }
+.notes-separator { border-top: 1px dashed #ccc; margin: 0.25rem 0; width: 100%; }
+
+/* تحسين عناوين المجموعات */
+.group-title {
+  font-size: var(--group-name-size) !important;
+  font-weight: 800 !important;
+  color: #8B4513 !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+  border-radius: 0.625rem;
+  border-right: 4px solid var(--gold);
+  margin-bottom: 0.625rem;
+  transition: font-size 0.2s ease;
+}
+
+/* تحسين عناوين الستكرات */
+.sticker-title {
+  font-size: var(--sticker-name-size) !important;
+  font-weight: 700 !important;
+  color: #2E7D32 !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+  padding: 0.375rem 0.75rem;
+  background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+  border-radius: 0.5rem;
+  border-right: 3px solid #4CAF50;
+  margin-bottom: 0.5rem;
+  transition: font-size 0.2s ease;
+}
+
+/* تحسينات للأداء */
+.loading-spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.message-image {
+    max-width: 100%;
+    max-height: 15.625rem;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    margin-top: 0.625rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+
+/* تبويب التبديل بين التقديرات والواجبات */
+.tabs-container {
+  display: flex;
+  margin-bottom: 1.25rem;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #f8f9fa;
+}
+.tab-button {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+}
+.tab-button.active {
+  background: var(--accent);
+  color: white;
+}
+.tab-button:hover:not(.active) {
+  background: #e9ecef;
+}
+
+/* ستايلات الواجبات */
+.homework-cell-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  width: 100%;
+}
+.homework-editable {
+  width: 100%;
+  min-height: 5rem; /* زيادة الارتفاع حسب الطلب */
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  resize: none;
+  font-family: inherit;
+  
+  text-align: right;
+  cursor: text;
+  
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  
+  transition: all 0.2s ease;
+  background: transparent;
+  line-height: 1.6 !important;
+}
+.homework-editable:focus {
+  outline: none;
+  border-color: var(--accent);
+  background-color: #f9fff9;
+  box-shadow: 0 0 0 2px rgba(0,100,0,0.1);
+}
+.homework-readonly {
+  background-color: #f9f9f9;
+  color: #666;
+  cursor: default;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* ========= تطبيق أحجام الخطوط المتغيرة ========= */
+
+/* جدول الواجبات */
+.homework-table td, 
+.homework-table th, 
+.homework-table .homework-editable, 
+.homework-table .homework-readonly {
+    font-size: var(--homework-font-size) !important;
+    line-height: 1.5;
+    transition: font-size 0.2s ease;
+}
+
+/* جدول التقديرات - التكبير المطلوب */
+.grades-table th,
+.grades-table td:nth-child(2),  /* اسم الطالب */
+.grades-table td:nth-child(4),  /* تقدير الحفظ */
+.grades-table td:nth-child(5),  /* تقدير الورد */
+.grades-table td:nth-child(6) { /* تقدير الأخلاق */
+    font-size: var(--grades-font-size) !important;
+    transition: font-size 0.2s ease;
+}
+
+.grades-table td:nth-child(2) { /* اسم الطالب */
+    font-weight: 700;
+}
+
+/* إصلاح حجم الـ select ليتناسب مع الخلية */
+.grades-table select {
+    font-size: 0.9em !important; 
+    padding: 0.2rem !important;
+}
+
+.history-btn {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  color: #555;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.history-btn:hover { background: #e0e0e0; color: #000; }
+.homework-modified {
+  background-color: #fff9e6;
+  border: 1px solid #ffd54f;
+}
+
+/* History Modal items */
+.history-list {
+    max-height: 18.75rem;
+    overflow-y: auto;
+    text-align: right;
+}
+.history-item {
+    padding: 0.625rem;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+    margin-bottom: 0.3125rem;
+    border-radius: 0.375rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.history-item:last-child { border-bottom: none; }
+.history-info { flex: 1; }
+.history-date { font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; }
+.history-val { font-weight: 600; color: #333; }
+.history-del-btn {
+    background: #ffecec;
+    color: #dc3545;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+    transition: all 0.2s;
+}
+.history-del-btn:hover { background: #dc3545; color: white; }
+
+/* روابط أسماء الطلاب للصفحات الشخصية */
+.student-name-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+.student-name-link:hover {
+  background: rgba(0, 100, 0, 0.1);
+  color: #004d00;
+}
+
+/* تحسينات للعرض على جميع الشاشات */
+@media screen and (max-width: 75rem) {
+  body {
+    overflow-x: auto;
+  }
+  
+  .container {
+    padding: 0.625rem;
+    margin: 0.3125rem auto;
+  }
+  
+  .table-wrap {
+    overflow-x: hidden;
+  }
+  
+  table {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 48rem) {
+  body {
+    padding: 0.5rem;
+    overflow-x: auto;
+    min-width: 68.75rem;
+  }
+  
+  .container {
+    padding: 0.5rem;
+    margin: 0.125rem auto;
+    min-width: 68.75rem;
+  }
+  
+  .header {
+    font-size: 1.7rem;
+    padding: 0.9375rem 0;
+    flex-direction: column;
+  }
+  
+  .header-logo {
+    height: 7.5rem;
+    width: 7.5rem;
+  }
+  
+  .homework-editable {
+    min-height: 4rem;
+  }
+  
+  .messages-box {
+    padding: 0.9375rem;
+    font-size: 1rem;
+  }
+  
+  .group-title {
+    font-size: 1.3rem !important;
+  }
+  
+  .sticker-title {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media screen and (max-width: 30rem) {
+  body {
+    padding: 0.3125rem;
+    overflow-x: auto;
+    min-width: 68.75rem;
+  }
+  
+  .container {
+    padding: 0.375rem;
+    min-width: 68.75rem;
+  }
+  
+  .header {
+    font-size: 1.4rem;
+  }
+  
+  .header-logo {
+    height: 6.25rem;
+    width: 6.25rem;
+  }
+  
+  table {
+    min-width: 100%;
+  }
+  
+  th, td {
+    padding: 0.375rem;
+    font-size: 0.8rem;
+  }
+  
+  .button {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ستايلات نظام الورد التلقائي (المنقح) */
+.quran-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 15px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.surah-checkbox-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+  min-height: 50px;
+}
+
+.surah-checkbox-item:hover {
+  border-color: var(--accent);
+  background: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.surah-checkbox-item input[type="checkbox"] {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.surah-checkbox-item input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.surah-checkbox-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.surah-checkbox-item label {
+  flex: 1;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.surah-checkbox-item small {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.wird-container {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 3px solid #4CAF50;
+  margin: 1rem 0;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.wird-title {
+  color: #2E7D32;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px dashed rgba(46, 125, 50, 0.2);
+}
+
+.wird-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.6;
+  background: rgba(255,255,255,0.9);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border: 2px dashed #4CAF50;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wird-stats {
+  font-size: 0.95rem;
+  color: #555;
+  background: rgba(255,255,255,0.7);
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quick-select-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.quick-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 15px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+  transition: all 0.2s;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.quick-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.quick-btn.select-all {
+  background: #e8f5e9;
+  color: #2E7D32;
+  border-color: #c8e6c9;
+}
+
+.quick-btn.clear-all {
+  background: #ffebee;
+  color: #c62828;
+  border-color: #ffcdd2;
+}
+
+/* ستايلات محددات الصفحات الجديدة */
+.page-range-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.range-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+.range-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0,100,0,0.1);
+}
+
+.range-add-btn {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.range-add-btn:hover {
+  background: #004d00;
+  transform: translateY(-2px);
+}
+
+.saved-ranges-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.saved-range-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.saved-range-info {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.saved-range-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.range-action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.range-edit-btn {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.range-delete-btn {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* إصلاح مشكلة ظهور التحديد في checkboxes */
+.surah-checkbox-item input[type="checkbox"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ستايلات الصفحة الشخصية للطالب */
+.student-profile-modal {
+  width: 95% !important;
+  max-width: 1200px !important;
+  max-height: 95vh !important;
+  overflow-y: auto !important;
+  background: white !important;
+  border-radius: 12px !important;
+  padding: 0 !important;
+  margin: 1rem !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.student-profile-header {
+  background: linear-gradient(135deg, var(--accent) 0%, #004d00 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.student-profile-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-profile-close {
+  background: white !important;
+  color: var(--accent) !important;
+  border: none;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.student-profile-close:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.student-profile-content {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  min-height: 400px;
+}
+
+.profile-section {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.profile-section h3 {
+  color: var(--accent);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--gold);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* تخطيط أفقي للتقديرات في الصفحة الشخصية */
+.grades-horizontal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.grade-box {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  transition: transform 0.3s ease;
+}
+
+.grade-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.grade-title {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.grade-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+.grade-rating {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* حاوية الشهادات مع تمرير */
+.certificates-scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.certificate-card {
+  position: relative;
+  height: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.certificate-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.certificate-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* تحسينات الورد اليومي في الصفحة الشخصية */
+.wird-simple-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.wird-stat-box {
+  text-align: center;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  min-width: 150px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.wird-stat-box:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.wird-stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.wird-stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+}
+
+/* تصميم معلومات الطالب الأساسية */
+.student-basic-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.student-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: white;
+  border: 4px solid white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.student-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+}
+
+.info-icon {
+  color: var(--accent);
+  font-size: 1.1rem;
+  width: 24px;
+}
+
+.info-text {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.info-value {
+  font-weight: 600;
+  color: #111;
+}
+
+/* تصميم الواجبات في الصفحة الشخصية */
+.homework-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.homework-item {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 10px;
+  padding: 1.2rem;
+  border-right: 4px solid var(--accent);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.homework-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.homework-item-content {
+  color: #444;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+/* تصميم الجداول في الصفحة الشخصية */
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.profile-table th {
+  background: var(--accent);
+  color: white;
+  padding: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.profile-table td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.profile-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.profile-table tr:hover {
+  background: #e9ecef;
+}
+
+/* زر إغلاق خاص لنافذة تعديل المحفوظ */
+.memorization-close-btn {
+  background: #6c757d !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.memorization-close-btn:hover {
+  background: #5a6268 !important;
+  transform: scale(1.05) !important;
+}
+
+/* ========= ستايلات خاصة بنظام الورد المنقح ========= */
+.wird-cycle-info {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #90caf9;
+}
+
+.wird-cycle-days {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.wird-day {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 6px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+  transition: all 0.2s;
+}
+
+.wird-day.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  font-weight: bold;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.wird-day-number {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.wird-day-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.wird-pages-count {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffecb3 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #e65100;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+</style>
+
+<script>
+// منع التكبير على الجوال
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('dblclick', function (event) {
+    event.preventDefault();
+  }, { passive: false });
+  
+  document.addEventListener('touchstart', function (event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+  
+  document.addEventListener('focusin', function(event) {
+    if (event.target.classList.contains('homework-editable')) {
+      document.documentElement.style.zoom = "1";
+    }
+  });
+});
+</script>
+   
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-logo"></div>
+  </div>
+
+  <div id="userInfo" class="user-info" style="display:none"></div>
+
+  <div id="loadingIndicator" class="loading-overlay" style="display:none">
+    <div style="text-align:center">
+      <div class="loading-spinner"></div>
+      <div>جاري تحميل بيانات الطلاب...</div>
+    </div>
+  </div>
+
+  <div class="tabs-container">
+    <button id="tabGrades" class="tab-button active">تقديرات الطلاب</button>
+    <button id="tabHomework" class="tab-button">واجبات الطلاب</button>
+  </div>
+
+  <div id="groupsContainer"></div>
+
+  <div id="homeworkSaveContainer" class="auth-only" style="display:none; margin-top: 15px; text-align: center;">
+    <button id="btnSaveHomework" class="button gold"><i class="fas fa-save"></i> حفظ جميع الواجبات</button>
+  </div>
+
+  <div class="messages-area card" id="messagesArea">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px">
+      <h3 style="margin:0;color:#1565C0;font-size:1.4rem">من هدايات القرآن لأهل الإيمان</h3>
+      <div style="color:var(--muted);font-size:0.9rem">تتقلب كل 10 ثواني — اضغط على الصندوق للتقليب الفوري</div>
+    </div>
+
+    <div id="messagesBox" class="messages-box" title="اضغط للتقليب">
+      <div id="currentMessage">مرحباً بكم في حلقات مسجد إبراهيم الحاج حسن</div>
+      </div>
+
+    <div id="messagesControls" class="messages-controls auth-only" style="display:none">
+      <input id="newMessage" type="text" placeholder="أضف رسالة جديدة (نص أو رابط صورة مباشر)..." style="flex:1"/>
+      <button id="btnUploadImage" class="button" style="background:#9C27B0;"><i class="fas fa-image"></i> رفع صورة</button>
+      <button id="btnAddMessage" class="button gold"><i class="fas fa-plus"></i> إضافة</button>
+      <button id="btnEditMessage" class="button"><i class="fas fa-edit"></i> تعديل الحالية</button>
+      <button id="btnDeleteMessage" class="button danger"><i class="fas fa-trash"></i> حذف الحالية</button>
+    </div>
+
+    <div id="visitorsBox" class="card auth-only" style="display:none;margin-top:12px;text-align:center;background:#faf8f2;border:1px solid #eee;border-radius:10px;padding:10px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:700;color:#333">👁 عدد الزوار:</div>
+        <div id="visitorsCount" style="font-weight:800;color:var(--accent);font-size:1.1rem">0</div>
+        <div id="lastResetText" style="color:var(--muted);font-size:0.9rem">(آخر تصفير: -)</div>
+        <button id="btnResetVisitors" class="button danger small" style="margin-right:8px"><i class="fas fa-undo"></i> تصفير العداد</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="cumulativeArea" class="card auth-only" style="display:none;margin-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+      <h3 style="margin:0;color:#156515">المعدل التراكمي (مدير)</h3>
+      <div class="buttons-container">
+        <button id="btnCalcCum" class="button gold"><i class="fas fa-calculator"></i> حساب التراكمي للجميع</button>
+        <button id="btnUndoCum" class="button" style="background:#6c757d;"><i class="fas fa-undo"></i> تراجع</button>
+        <button id="btnResetCum" class="button danger"><i class="fas fa-eraser"></i> تصفير التراكمي</button>
+        <button id="btnExportData" class="button excel"><i class="fas fa-file-excel"></i> تصدير البيانات (Excel)</button>
+        <button id="btnZoomIn" class="button"><i class="fas fa-search-plus"></i> تكبير التقديرات</button>
+        <button id="btnZoomOut" class="button"><i class="fas fa-search-minus"></i> تصغير التقديرات</button>
+        <button id="btnZoomReset" class="button"><i class="fas fa-sync-alt"></i> عادي</button>
+        <button id="btnZoomGroupIn" class="button"><i class="fas fa-text-height"></i> تكبير المجموعات</button>
+        <button id="btnZoomGroupOut" class="button"><i class="fas fa-text-height"></i> تصغير المجموعات</button>
+        <button id="btnZoomGroupReset" class="button"><i class="fas fa-sync-alt"></i> عادي</button>
+      </div>
+    </div>
+    <div id="cumResults" style="margin-top:10px"></div>
+  </div>
+
+  <div class="login-area card" id="loginArea">
+    <h3 style="margin:0 0 8px 0">تسجيل الدخول</h3>
+    <div class="login-row">
+      <input id="loginUser" type="text" placeholder="اسم المستخدم" />
+      <input id="loginPass" type="password" placeholder="كلمة المرور" />
+      <button id="btnLogin" class="button"><i class="fas fa-sign-in-alt"></i> دخول</button>
+      <button id="btnLogout" class="button danger" style="display:none"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;text-align:center;color:var(--muted);font-size:0.9rem">جميع الحقوق محفوظة © حلقات مسجد إبراهيم الحاج حسن</div>
+</div>
+
+<!-- المودال الأساسية -->
+<div id="modalBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;padding:14px;border-radius:10px;width:420px;max-width:95%;direction:rtl;text-align:right">
+    <h3 style="margin:0 0 8px 0"><i class="fas fa-edit"></i> تعديل بيانات الطالب</h3>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <input id="modalName" placeholder="اسم الطالب"/>
+      <select id="modalAttendance">
+        <option value="present">حاضر</option>
+        <option value="absent_excused">غائب بعذر</option>
+        <option value="absent_unexcused">غائب بغير عذر</option>
+      </select>
+      <select id="modalHifz"></select>
+      <select id="modalWard"></select>
+      <select id="modalAkhlak"></select>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="modalCancel" class="button danger"><i class="fas fa-times"></i> إلغاء</button>
+        <button id="modalSave" class="button"><i class="fas fa-save"></i> حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalMessageBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;padding:14px;border-radius:10px;width:500px;max-width:95%;direction:rtl;text-align:right">
+    <h3 style="margin:0 0 8px 0"><i class="fas fa-edit"></i> تعديل الرسالة الحالية</h3>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <textarea id="modalMessageText" placeholder="نص الرسالة..." rows="4" style="width:100%;resize:vertical"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="modalMessageCancel" class="button danger"><i class="fas fa-times"></i> إلغاء</button>
+        <button id="modalMessageSave" class="button"><i class="fas fa-save"></i> حفظ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- مودال نقل الطلاب الجديد المبسط -->
+<div id="modalMoveBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;padding:14px;border-radius:10px;width:420px;max-width:95%;direction:rtl;text-align:right">
+    <h3 style="margin:0 0 8px 0"><i class="fas fa-exchange-alt"></i> نقل الطالب</h3>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div id="moveCurrentStudentInfo" style="padding:8px;background:#f5f5f5;border-radius:6px;border:1px solid #ddd">
+        <!-- سيتم تعبئتها بالجافاسكريبت -->
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px">المجموعة الهدف:</label>
+        <select id="modalTargetGroup" style="width:100%">
+          <option value="">-- اختر المجموعة --</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px">الستكر الهدف:</label>
+        <select id="modalTargetSticker" style="width:100%">
+          <option value="">-- اختر الستكر --</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="modalMoveCancel" class="button danger"><i class="fas fa-times"></i> إلغاء</button>
+        <button id="modalMoveSave" class="button" style="background:#9C27B0;"><i class="fas fa-exchange-alt"></i> نقل</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalHistoryBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;padding:14px;border-radius:10px;width:450px;max-width:95%;direction:rtl;text-align:right">
+    <h3 style="margin:0 0 12px 0; color:var(--accent)"><i class="fas fa-history"></i> سجل التعديلات</h3>
+    <div id="historyContent" class="history-list"></div>
+    <div style="margin-top:12px;text-align:center">
+        <button onclick="document.getElementById('modalHistoryBackdrop').style.display='none'" class="button small ghost">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- مودال الصفحة الشخصية للطالب -->
+<div id="studentProfileModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999;padding:1rem;">
+  <div class="student-profile-modal">
+    <!-- المحتوى سيتم تعبئته بالجافاسكريبت -->
+    <div id="studentProfileContent"></div>
+  </div>
+</div>
+
+<!-- مودال تعديل محفوظ الطالب (للمدير فقط) -->
+<div id="memorizationModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999;padding:1rem;">
+  <div style="background:#fff;border-radius:10px;width:95%;max-width:900px;max-height:90vh;overflow-y:auto;direction:rtl">
+    <div id="memorizationModalContent"></div>
+  </div>
+</div>
+
+<script type="module">
+/* ===========================================================
+   Firebase-integrated script (Independent Zoom per Tab)
+   مع دمج نظام الورد التلقائي من الملف الأول
+   =========================================================== */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* ================== Firebase config ================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBu28HyFN5bzZVGK8m8yC6oADp9l-2dvPg",
+  authDomain: "quran2-eafc8.firebaseapp.com",
+  projectId: "quran2-eafc8",
+  storageBucket: "quran2-eafc8.firebasestorage.app",
+  messagingSenderId: "1046329218545",
+  appId: "1:1046329218545:web:33ad1cdfe0ec8837022050",
+  measurementId: "G-J3K2PK948D",
+  databaseURL: "https://quran2-eafc8-default-rtdb.firebaseio.com/"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* ========= بيانات سور القرآن الكريمة (من الملف الأول) ========= */
+const QURAN_DATA = [
+    {i:1, n:"الفاتحة", s:1, e:1}, {i:2, n:"البقرة", s:2, e:49}, {i:3, n:"آل عمران", s:50, e:76},
+    {i:4, n:"النساء", s:77, e:106}, {i:5, n:"المائدة", s:106, e:127}, {i:6, n:"الأنعام", s:128, e:150},
+    {i:7, n:"الأعراف", s:151, e:176}, {i:8, n:"الأنفال", s:177, e:186}, {i:9, n:"التوبة", s:187, e:207},
+    {i:10, n:"يونس", s:208, e:221}, {i:11, n:"هود", s:221, e:235}, {i:12, n:"يوسف", s:235, e:248},
+    {i:13, n:"الرعد", s:249, e:255}, {i:14, n:"إبراهيم", s:255, e:261}, {i:15, n:"الحجر", s:262, e:267},
+    {i:16, n:"النحل", s:267, e:281}, {i:17, n:"الإسراء", s:282, e:293}, {i:18, n:"الكهف", s:293, e:304},
+    {i:19, n:"مريم", s:305, e:312}, {i:20, n:"طه", s:312, e:321}, {i:21, n:"الأنبياء", s:322, e:331},
+    {i:22, n:"الحج", s:332, e:341}, {i:23, n:"المؤمنون", s:342, e:349}, {i:24, n:"النور", s:350, e:359},
+    {i:25, n:"الفرقان", s:359, e:366}, {i:26, n:"الشعراء", s:367, e:376}, {i:27, n:"النمل", s:377, e:385},
+    {i:28, n:"القصص", s:385, e:396}, {i:29, n:"العنكبوت", s:396, e:404}, {i:30, n:"الروم", s:404, e:410},
+    {i:31, n:"لقمان", s:411, e:414}, {i:32, n:"السجدة", s:415, e:417}, {i:33, n:"الأحزاب", s:418, e:427},
+    {i:34, n:"سبأ", s:428, e:434}, {i:35, n:"فاطر", s:434, e:440}, {i:36, n:"يس", s:440, e:445},
+    {i:37, n:"الصافات", s:446, e:452}, {i:38, n:"ص", s:453, e:458}, {i:39, n:"الزمر", s:458, e:467},
+    {i:40, n:"غافر", s:467, e:476}, {i:41, n:"فصلت", s:477, e:482}, {i:42, n:"الشورى", s:483, e:489},
+    {i:43, n:"الزخرف", s:489, e:495}, {i:44, n:"الدخان", s:496, e:498}, {i:45, n:"الجاثية", s:499, e:502},
+    {i:46, n:"الأحقاف", s:502, e:506}, {i:47, n:"محمد", s:507, e:510}, {i:48, n:"الفتح", s:511, e:515},
+    {i:49, n:"الحجرات", s:515, e:517}, {i:50, n:"ق", s:518, e:520}, {i:51, n:"الذاريات", s:520, e:523},
+    {i:52, n:"الطور", s:523, e:525}, {i:53, n:"النجم", s:526, e:528}, {i:54, n:"القمر", s:528, e:531},
+    {i:55, n:"الرحمن", s:531, e:534}, {i:56, n:"الواقعة", s:534, e:537}, {i:57, n:"الحديد", s:537, e:541},
+    {i:58, n:"المجادلة", s:542, e:545}, {i:59, n:"الحشر", s:545, e:548}, {i:60, n:"الممتحنة", s:549, e:551},
+    {i:61, n:"الصف", s:551, e:552}, {i:62, n:"الجمعة", s:553, e:554}, {i:63, n:"المنافقون", s:554, e:555},
+    {i:64, n:"التغابن", s:556, e:557}, {i:65, n:"الطلاق", s:558, e:559}, {i:66, n:"التحريم", s:560, e:561},
+    {i:67, n:"الملك", s:562, e:564}, {i:68, n:"القلم", s:564, e:566}, {i:69, n:"الحاقة", s:566, e:568},
+    {i:70, n:"المعارج", s:568, e:570}, {i:71, n:"نوح", s:570, e:572}, {i:72, n:"الجن", s:572, e:573},
+    {i:73, n:"المزمل", s:574, e:575}, {i:74, n:"المدثر", s:575, e:577}, {i:75, n:"القيامة", s:577, e:578},
+    {i:76, n:"الإنسان", s:578, e:580}, {i:77, n:"المرسلات", s:580, e:581}, {i:78, n:"النبأ", s:582, e:583},
+    {i:79, n:"النازعات", s:583, e:584}, {i:80, n:"عبس", s:585, e:585}, {i:81, n:"التكوير", s:586, e:586},
+    {i:82, n:"الانفطار", s:587, e:587}, {i:83, n:"المطففين", s:587, e:589}, {i:84, n:"الإنشقاق", s:589, e:590},
+    {i:85, n:"البروج", s:590, e:590}, {i:86, n:"الطارق", s:591, e:591}, {i:87, n:"الأعلى", s:591, e:592},
+    {i:88, n:"الغاشية", s:592, e:592}, {i:89, n:"الفجر", s:593, e:594}, {i:90, n:"البلد", s:594, e:594},
+    {i:91, n:"الشمس", s:595, e:595}, {i:92, n:"الليل", s:595, e:596}, {i:93, n:"الضحى", s:596, e:596},
+    {i:94, n:"الشرح", s:596, e:596}, {i:95, n:"التين", s:597, e:597}, {i:96, n:"العلق", s:597, e:598},
+    {i:97, n:"القدر", s:598, e:598}, {i:98, n:"البينة", s:598, e:599}, {i:99, n:"الزلزلة", s:599, e:599},
+    {i:100, n:"العاديات", s:599, e:600}, {i:101, n:"القارعة", s:600, e:600}, {i:102, n:"التكاثر", s:600, e:600},
+    {i:103, n:"العصر", s:601, e:601}, {i:104, n:"الهمزة", s:601, e:601}, {i:105, n:"الفيل", s:601, e:601},
+    {i:106, n:"قريش", s:602, e:602}, {i:107, n:"الماعون", s:602, e:602}, {i:108, n:"الكوثر", s:602, e:602},
+    {i:109, n:"الكافرون", s:603, e:603}, {i:110, n:"النصر", s:603, e:603}, {i:111, n:"المسد", s:603, e:603},
+    {i:112, n:"الإخلاص", s:604, e:604}, {i:113, n:"الفلق", s:604, e:604}, {i:114, n:"الناس", s:604, e:604}
+];
+
+/* ========= بيانات افتراضية ========= */
+const STORAGE_KEY = 'quran_v_final_v1';
+const MESSAGES_KEY = 'quran_msgs_v1';
+const CUM_KEY = 'quran_cum_v1';
+const USER_KEY = 'quran_user_v1';
+const CUM_BACKUP_KEY = 'quran_cum_backup_v1';
+const HOMEWORK_KEY = 'quran_homework_v1';
+
+function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+}
+
+const defaultData = [
+  {
+    name: "مجموعة عبدالله بن مسعود",
+    username: "masoud",
+    password: "1111",
+    showStudents: true,
+    stickers: [
+      { title: "ذهبية", visible: true, students: [
+          { id: generateUniqueId(), name: "علي أحمد", attendance: 'present', gradeHifz: "9", gradeWard: "8", gradeAkhlak: "10", cumulative: "", count: 0 },
+          { id: generateUniqueId(), name: "محمد سعيد", attendance: 'absent_unexcused', gradeHifz: "", gradeWard: "", gradeAkhlak: "", cumulative: "", count: 0 }
+        ]},
+      { title: "برونزية", visible: true, students: [] }
+    ]
+  },
+  {
+    name: "مجموعة عبدالله بن عباس",
+    username: "abbas",
+    password: "2222",
+    showStudents: true,
+    stickers: [
+      { title: "أحمد محمد", visible: true, students: [
+        { id: generateUniqueId(), name: "أحمد محمد", attendance: 'present', gradeHifz: "8", gradeWard: "9", gradeAkhlak: "10", cumulative: "", count: 0 }
+      ] },
+      { title: "برونزية", visible: true, students: [] },
+      { title: "براعم", visible: true, students: [] }
+    ]
+  }
+];
+
+const defaultMessages = [
+  "مرحباً بكم في حلقات مسجد إبراهيم الحاج حسن",
+  "القرآن الكريم نور القلوب وهداية الحياة",
+  "خيركم من تعلم القرآن وعلمه"
+];
+
+/* ========= محليًا/عالميًا ========= */
+let data = [];
+let messages = [];
+let cumHistory = {};
+let homeworkData = {};
+let studentProfiles = {}; // بيانات الصفحات الشخصية للطلاب
+let cumBackup = null;
+let currentUser = JSON.parse(localStorage.getItem(USER_KEY)) || null;
+let role = currentUser ? currentUser.type : null;
+let currentView = 'grades'; 
+let homeworkModified = false; 
+
+/* admin credentials */
+const ADMIN_USER = 'aahhmmaadd2005';
+const ADMIN_PASS = 'Aahhmmaadd1#';
+
+/* ========= DOM Elements ========= */
+const groupsContainer = document.getElementById('groupsContainer');
+const userInfo = document.getElementById('userInfo');
+const messagesBox = document.getElementById('messagesBox');
+const currentMessageEl = document.getElementById('currentMessage');
+const messagesControls = document.getElementById('messagesControls');
+const btnAddMessage = document.getElementById('btnAddMessage');
+const btnUploadImage = document.getElementById('btnUploadImage');
+const btnEditMessage = document.getElementById('btnEditMessage');
+const btnDeleteMessage = document.getElementById('btnDeleteMessage');
+const newMessageInput = document.getElementById('newMessage');
+const btnCalcCum = document.getElementById('btnCalcCum');
+const btnUndoCum = document.getElementById('btnUndoCum');
+const btnResetCum = document.getElementById('btnResetCum');
+const btnExportData = document.getElementById('btnExportData');
+const btnZoomIn = document.getElementById('btnZoomIn');
+const btnZoomOut = document.getElementById('btnZoomOut');
+const btnZoomReset = document.getElementById('btnZoomReset');
+const btnZoomGroupIn = document.getElementById('btnZoomGroupIn');
+const btnZoomGroupOut = document.getElementById('btnZoomGroupOut');
+const btnZoomGroupReset = document.getElementById('btnZoomGroupReset');
+const cumResults = document.getElementById('cumResults');
+const loginUser = document.getElementById('loginUser');
+const loginPass = document.getElementById('loginPass');
+const btnLogin = document.getElementById('btnLogin');
+const btnLogout = document.getElementById('btnLogout');
+const loadingIndicator = document.getElementById('loadingIndicator');
+const homeworkSaveContainer = document.getElementById('homeworkSaveContainer');
+const btnSaveHomework = document.getElementById('btnSaveHomework');
+const tabGrades = document.getElementById('tabGrades');
+const tabHomework = document.getElementById('tabHomework');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalName = document.getElementById('modalName');
+const modalAttendance = document.getElementById('modalAttendance');
+const modalHifz = document.getElementById('modalHifz');
+const modalWard = document.getElementById('modalWard');
+const modalAkhlak = document.getElementById('modalAkhlak');
+const modalSave = document.getElementById('modalSave');
+const modalCancel = document.getElementById('modalCancel');
+const modalMessageBackdrop = document.getElementById('modalMessageBackdrop');
+const modalMessageText = document.getElementById('modalMessageText');
+const modalMessageSave = document.getElementById('modalMessageSave');
+const modalMessageCancel = document.getElementById('modalMessageCancel');
+const modalMoveBackdrop = document.getElementById('modalMoveBackdrop');
+const modalMoveCancel = document.getElementById('modalMoveCancel');
+const modalMoveSave = document.getElementById('modalMoveSave');
+const modalTargetGroup = document.getElementById('modalTargetGroup');
+const modalTargetSticker = document.getElementById('modalTargetSticker');
+const moveStudentInfo = document.getElementById('moveStudentInfo');
+const visitorsCountEl = document.getElementById('visitorsCount');
+const visitorsBoxEl = document.getElementById('visitorsBox');
+const btnResetVisitors = document.getElementById('btnResetVisitors');
+const lastResetTextEl = document.getElementById('lastResetText');
+const modalHistoryBackdrop = document.getElementById('modalHistoryBackdrop');
+const historyContent = document.getElementById('historyContent');
+
+// عناصر الصفحة الشخصية
+const studentProfileModal = document.getElementById('studentProfileModal');
+const studentProfileContent = document.getElementById('studentProfileContent');
+const memorizationModal = document.getElementById('memorizationModal');
+const memorizationModalContent = document.getElementById('memorizationModalContent');
+
+/* ========= helpers ========= */
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function fillGrade(sel, val){ sel.innerHTML=''; const e=document.createElement('option'); e.value=''; e.text='-'; sel.appendChild(e); for(let v=10; v>=1; v--){ const o=document.createElement('option'); o.value=String(v); o.text=String(v); sel.appendChild(o);} sel.value = val || ''; }
+function getCumulativeLabel(avg){ if(avg===''||avg===undefined||isNaN(Number(avg))) return {text:'—',cls:''}; const n=Number(avg); if(n>=10) return {text:'امتياز',cls:'cum-emtiaz'}; if(n>=9) return {text:'ممتاز',cls:'cum-mumtaz'}; if(n>=8) return {text:'جيد جدًا',cls:'cum-very-good'}; if(n>=7) return {text:'جيد',cls:'cum-good'}; if(n>=6) return {text:'مقبول',cls:'cum-weak'}; if(n>=5) return {text:'ضعيف',cls:'cum-weak'}; return {text:'ضعيف جدًا',cls:'cum-very-weak'}; }
+function isImageURL(url) {
+    if (!url || typeof url !== 'string') return false;
+    const regex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
+    return (url.startsWith('http://') || url.startsWith('https://')) && regex.test(url.split('?')[0]);
+}
+
+function showToast(msg, ok=true){
+  try{
+    const el = document.createElement('div');
+    el.textContent = msg;
+    el.style.position='fixed';
+    el.style.left='50%';
+    el.style.transform='translateX(-50%)';
+    el.style.bottom='20px';
+    el.style.padding='10px 16px';
+    el.style.borderRadius='8px';
+    el.style.zIndex='10000';
+    el.style.fontWeight='700';
+    el.style.boxShadow='0 6px 18px rgba(0,0,0,0.12)';
+    el.style.background = ok ? 'linear-gradient(90deg,#d4edda,#c3e6cb)' : 'linear-gradient(90deg,#f8d7da,#f5c6cb)';
+    el.style.color = ok ? '#155724' : '#721c24';
+    document.body.appendChild(el);
+    setTimeout(()=> el.remove(), 3500);
+  }catch(e){}
+}
+
+/* ========= وظائف التحكم في حجم الخط ========= */
+function updateZoomButtonsLabels() {
+    if(currentView === 'grades') {
+        btnZoomIn.innerHTML = '<i class="fas fa-search-plus"></i> تكبير أسماء الطلاب والتقديرات';
+        btnZoomOut.innerHTML = '<i class="fas fa-search-minus"></i> تصغير أسماء الطلاب والتقديرات';
+        btnZoomReset.title = "استعادة حجم خط الأسماء والتقديرات";
+    } else {
+        btnZoomIn.innerHTML = '<i class="fas fa-search-plus"></i> تكبير الواجبات';
+        btnZoomOut.innerHTML = '<i class="fas fa-search-minus"></i> تصغير الواجبات';
+        btnZoomReset.title = "استعادة حجم خط الواجبات";
+    }
+}
+
+async function changeFontSize(direction) {
+  if (role !== 'admin') {
+      showToast('❌ تغيير حجم الخط مسموح للمدير فقط، وسيتغير عند الجميع', false);
+      return;
+  }
+  
+  let cssVar, dbPath, currentLabel;
+  
+  if (currentView === 'grades') {
+      cssVar = '--grades-font-size';
+      dbPath = 'settings/gradesFontSize';
+      currentLabel = 'أسماء الطلاب والتقديرات';
+  } else {
+      cssVar = '--homework-font-size';
+      dbPath = 'settings/homeworkFontSize';
+      currentLabel = 'الواجبات';
+  }
+  
+  let currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(cssVar)) || 16;
+  let newSize;
+  
+  if (direction === 'in') {
+    newSize = Math.min(currentSize * 1.1, 60);
+  } else if (direction === 'out') {
+    newSize = Math.max(currentSize * 0.9, 12);
+  } else {
+    newSize = 16;
+  }
+  
+  document.documentElement.style.setProperty(cssVar, newSize + 'px');
+  
+  try {
+      set(ref(db, dbPath), newSize);
+      showToast(`✅ تم تحديث خط ${currentLabel}: ${Math.round(newSize)}px`, true);
+      render();
+  } catch(err) {
+      console.error('Error setting font size:', err);
+  }
+}
+
+async function changeGroupFontSize(direction) {
+  if (role !== 'admin') {
+      showToast('❌ تغيير حجم خط المجموعات مسموح للمدير فقط، وسيتغير عند الجميع', false);
+      return;
+  }
+  
+  let cssVar, dbPath, currentLabel;
+  
+  cssVar = '--group-name-size';
+  dbPath = 'settings/groupNameSize';
+  currentLabel = 'أسماء المجموعات';
+  
+  let currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(cssVar)) || 1.4;
+  let newSize;
+  
+  if (direction === 'in') {
+    newSize = Math.min(currentSize * 1.1, 2.5);
+  } else if (direction === 'out') {
+    newSize = Math.max(currentSize * 0.9, 1.0);
+  } else {
+    newSize = 1.4;
+  }
+  
+  document.documentElement.style.setProperty(cssVar, newSize + 'rem');
+  
+  cssVar = '--sticker-name-size';
+  currentLabel = 'أسماء الستكرات';
+  currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(cssVar)) || 1.1;
+  
+  if (direction === 'in') {
+    newSize = Math.min(currentSize * 1.1, 2.0);
+  } else if (direction === 'out') {
+    newSize = Math.max(currentSize * 0.9, 0.9);
+  } else {
+    newSize = 1.1;
+  }
+  
+  document.documentElement.style.setProperty(cssVar, newSize + 'rem');
+  
+  try {
+      set(ref(db, 'settings/groupFontSizes'), {
+          groupNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--group-name-size')),
+          stickerNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticker-name-size'))
+      });
+      showToast(`✅ تم تحديث خط المجموعات والستكرات`, true);
+      render();
+  } catch(err) {
+      console.error('Error setting group font size:', err);
+  }
+}
+
+function setupFontSizeControls() {
+  if (btnZoomIn) btnZoomIn.addEventListener('click', () => changeFontSize('in'));
+  if (btnZoomOut) btnZoomOut.addEventListener('click', () => changeFontSize('out'));
+  if (btnZoomReset) btnZoomReset.addEventListener('click', () => changeFontSize('reset'));
+  if (btnZoomGroupIn) btnZoomGroupIn.addEventListener('click', () => changeGroupFontSize('in'));
+  if (btnZoomGroupOut) btnZoomGroupOut.addEventListener('click', () => changeGroupFontSize('out'));
+  if (btnZoomGroupReset) btnZoomGroupReset.addEventListener('click', () => changeGroupFontSize('reset'));
+}
+
+/* ========= Write helpers ========= */
+function writeGroupsToFirebase(g){
+  set(ref(db, 'groups'), g).catch(err => {
+    console.error('خطأ أثناء حفظ المجموعات في Firebase:', err);
+    showToast('❌ حدث خطأ أثناء الحفظ التلقائي', false);
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(g));
+}
+
+function writeMessagesToFirebase(m){
+  const sanitizedMessages = m.map(msg => {
+    if (typeof msg === 'string' && isImageURL(msg)) return { text: msg, type: 'image' };
+    if (typeof msg === 'string') return { text: msg, type: 'text' };
+    return msg; 
+  });
+  set(ref(db, 'messages'), sanitizedMessages).catch(err => console.error(err));
+  localStorage.setItem(MESSAGES_KEY, JSON.stringify(sanitizedMessages));
+}
+
+function writeCumToFirebase(c){ 
+  set(ref(db, 'cumulative'), c).catch(err => console.error(err));
+  localStorage.setItem(CUM_KEY, JSON.stringify(c));
+}
+
+async function writeHomeworkToFirebase(h){
+  try {
+    await set(ref(db, 'homework'), h);
+    localStorage.setItem(HOMEWORK_KEY, JSON.stringify(h));
+    homeworkModified = false;
+    updateSaveButtonState();
+    showToast('✅ تم حفظ الواجبات بنجاح', true);
+  } catch(err){
+    console.error('Homework save error:', err);
+    showToast('❌ خطأ في حفظ الواجبات', false);
+  }
+}
+
+// حفظ بيانات الصفحات الشخصية
+async function writeStudentProfileToFirebase(studentId, profileData) {
+  try {
+    await set(ref(db, `studentProfiles/${studentId}`), profileData);
+    studentProfiles[studentId] = profileData;
+    localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
+  } catch(err) {
+    console.error('Error saving student profile:', err);
+  }
+}
+
+/* ========= تحسينات الأداء ========= */
+function showLoading() {
+  loadingIndicator.style.display = 'flex';
+}
+
+function hideLoading() {
+  loadingIndicator.style.display = 'none';
+}
+
+async function optimizedFirebaseFetch() {
+  showLoading();
+  
+  try {
+    const [groupsSnap, messagesSnap, cumSnap, homeworkSnap, settingsSnap, profilesSnap] = await Promise.all([
+      get(ref(db, 'groups')),
+      get(ref(db, 'messages')),
+      get(ref(db, 'cumulative')),
+      get(ref(db, 'homework')),
+      get(ref(db, 'settings')),
+      get(ref(db, 'studentProfiles'))
+    ]);
+
+    let localData = loadData();
+    let localMessages = loadMessages();
+    let localCum = loadCum();
+    let localHomework = loadHomework();
+
+    if (groupsSnap.exists()) {
+      data = groupsSnap.val();
+    } else {
+      data = localData;
+      writeGroupsToFirebase(data);
+    }
+
+    if (messagesSnap.exists()) {
+      let msgs = messagesSnap.val();
+      messages = msgs.map(msg => {
+          if (typeof msg === 'string') {
+              if (isImageURL(msg)) return { text: msg, type: 'image' };
+              return { text: msg, type: 'text' };
+          }
+          return msg;
+      });
+    } else {
+      messages = localMessages;
+      writeMessagesToFirebase(messages);
+    }
+
+    if (cumSnap.exists()) {
+      cumHistory = cumSnap.val();
+    } else {
+      cumHistory = localCum;
+      writeCumToFirebase(cumHistory);
+    }
+
+    if (homeworkSnap.exists()) {
+      homeworkData = homeworkSnap.val();
+    } else {
+      homeworkData = localHomework;
+      localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
+    }
+    
+    if (profilesSnap.exists()) {
+      studentProfiles = profilesSnap.val();
+    } else {
+      studentProfiles = {};
+      localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
+    }
+    
+    if(settingsSnap.exists()) {
+        const settings = settingsSnap.val();
+        if(settings.homeworkFontSize) {
+            document.documentElement.style.setProperty('--homework-font-size', settings.homeworkFontSize + 'px');
+        }
+        if(settings.gradesFontSize) {
+            document.documentElement.style.setProperty('--grades-font-size', settings.gradesFontSize + 'px');
+        }
+        if(settings.groupFontSizes) {
+            document.documentElement.style.setProperty('--group-name-size', settings.groupFontSizes.groupNameSize + 'rem');
+            document.documentElement.style.setProperty('--sticker-name-size', settings.groupFontSizes.stickerNameSize + 'rem');
+        }
+    }
+
+    normalizeData();
+    
+    return true;
+    
+  } catch (error) {
+    console.error('خطأ في جلب البيانات:', error);
+    data = loadData();
+    messages = loadMessages();
+    cumHistory = loadCum();
+    homeworkData = loadHomework();
+    try {
+      studentProfiles = JSON.parse(localStorage.getItem('studentProfiles')) || {};
+    } catch(e) {
+      studentProfiles = {};
+    }
+    normalizeData();
+    showToast('⚠️ استخدام البيانات المحلية بسبب مشكلة في الاتصال', false);
+    return true;
+  } finally {
+    hideLoading();
+  }
+}
+
+/* ========= تحميل / حفظ محلي ========= */
+function loadData(){
+  try{
+    const s = localStorage.getItem(STORAGE_KEY);
+    if(s) return JSON.parse(s);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(defaultData));
+}
+
+function loadMessages(){ 
+  try{ 
+    const s = localStorage.getItem(MESSAGES_KEY); 
+    if(s) {
+        return JSON.parse(s).map(msg => {
+            if (typeof msg === 'string') {
+                if (isImageURL(msg)) return { text: msg, type: 'image' };
+                return { text: msg, type: 'text' };
+            }
+            return msg;
+        });
+    }
+  }catch(e){} 
+  return defaultMessages.map(msg => ({ text: msg, type: 'text' }));
+}
+
+function loadCum(){ try{ const s = localStorage.getItem(CUM_KEY); if(s) return JSON.parse(s);}catch(e){} return {}; }
+function loadHomework(){ try{ const s = localStorage.getItem(HOMEWORK_KEY); if(s) return JSON.parse(s);}catch(e){} return {}; }
+function loadCumBackup(){ try{ const s = localStorage.getItem(CUM_BACKUP_KEY); if(s) return JSON.parse(s);}catch(e){} return null; }
+function saveCumBackup(){ localStorage.setItem(CUM_BACKUP_KEY, JSON.stringify(cumHistory)); }
+function saveUser(){ if(currentUser) localStorage.setItem(USER_KEY, JSON.stringify(currentUser)); else localStorage.removeItem(USER_KEY); }
+
+/* ========= تطبيع البيانات ========= */
+function normalizeData() {
+  if (!data || !Array.isArray(data)) {
+    data = JSON.parse(JSON.stringify(defaultData));
+    return;
+  }
+  
+  let needsUpdate = false;
+  
+  data.forEach(group => {
+    if (!group.stickers || !Array.isArray(group.stickers)) {
+      group.stickers = [{ title: "ذهبية", visible: true, students: [] }];
+      needsUpdate = true;
+    }
+    
+    group.stickers.forEach(sticker => {
+      if (!sticker.students || !Array.isArray(sticker.students)) {
+        sticker.students = [];
+        needsUpdate = true;
+      }
+      
+      sticker.students.forEach(student => {
+        if (!student.id) {
+            student.id = generateUniqueId();
+            needsUpdate = true;
+        }
+        
+        student.attendance = student.attendance || 'present';
+        student.gradeHifz = student.gradeHifz || '';
+        student.gradeWard = student.gradeWard || '';
+        student.gradeAkhlak = student.gradeAkhlak || '';
+        student.cumulative = student.cumulative || '';
+        student.count = student.count || 0;
+      });
+    });
+  });
+  
+  if(needsUpdate) {
+      writeGroupsToFirebase(data);
+  }
+}
+
+/* ========= تحسين الزيارات ========= */
+async function incrementVisitorIfNeeded(){
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    const localKey = 'visited_date_' + location.hostname;
+    const last = localStorage.getItem(localKey);
+    if(last === today) return;
+
+    const countRef = ref(db, 'visitors/count');
+    await runTransaction(countRef, (current)=>{
+      return (current || 0) + 1;
+    });
+
+    localStorage.setItem(localKey, today);
+  }catch(err){
+    console.error('visitor increment error', err);
+  }
+}
+
+async function readVisitorsOnce(){
+  try{
+    const snap = await get(ref(db, 'visitors'));
+    if(!snap.exists()) return {count:0, lastReset:null};
+    const val = snap.val();
+    return {count: val.count || 0, lastReset: val.lastReset || null};
+  }catch(err){
+    console.error('read visitors error', err);
+    return {count:0, lastReset:null};
+  }
+}
+
+async function resetVisitors(){
+  if(role !== 'admin'){ showToast('❌ المدير فقط', false); return; }
+  if(!confirm('هل أنت متأكد من تصفير عدد الزوار؟')) return;
+  try{
+    await set(ref(db, 'visitors/count'), 0);
+    const ts = new Date().toISOString();
+    await set(ref(db, 'visitors/lastReset'), ts);
+    showToast('✅ تم تصفير العداد بنجاح', true);
+    updateVisitorsUI(0, ts);
+  }catch(err){
+    console.error('reset visitors error', err);
+    showToast('❌ حدث خطأ أثناء التصفير', false);
+  }
+}
+
+function updateVisitorsUI(count, lastReset){
+  if(visitorsCountEl) visitorsCountEl.textContent = count || 0;
+  if(lastResetTextEl) lastResetTextEl.textContent = lastReset ? '(آخر تصفير: ' + lastReset.slice(0,10) + ')' : '(آخر تصفير: -)';
+}
+
+function renderVisitorsBoxForRole(r){
+  const box = document.getElementById('visitorsBox');
+  if(!box) return;
+  if(r === 'admin') box.style.display = 'block'; else box.style.display = 'none';
+}
+
+/* ========= realtime listeners ========= */
+let renderTimeout = null;
+function debouncedRender() {
+  if (renderTimeout) clearTimeout(renderTimeout);
+  renderTimeout = setTimeout(() => {
+    render();
+  }, 100);
+}
+
+onValue(ref(db, 'groups'), (snap) => {
+  if (!snap.exists()) return;
+  const val = snap.val();
+  if(JSON.stringify(val) !== JSON.stringify(data)) {
+      data = val;
+      normalizeData();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      if (isInitialized) debouncedRender();
+  }
+});
+
+onValue(ref(db, 'messages'), (snap) => {
+  if (!snap.exists()) return;
+  const val = snap.val();
+  messages = val;
+  messages = messages.map(msg => {
+      if (typeof msg === 'string') {
+          if (isImageURL(msg)) return { text: msg, type: 'image' };
+          return { text: msg, type: 'text' };
+      }
+      return msg;
+  });
+  localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+  if (isInitialized) {
+    messageIndex = 0;
+    startMessageRotation();
+    renderMessagesControls();
+  }
+});
+
+onValue(ref(db, 'cumulative'), (snap) => {
+  if (!snap.exists()) return;
+  const val = snap.val();
+  cumHistory = val;
+  localStorage.setItem(CUM_KEY, JSON.stringify(cumHistory));
+  if (isInitialized) debouncedRender();
+});
+
+onValue(ref(db, 'homework'), (snap) => {
+  if (!snap.exists()) return;
+  homeworkData = snap.val();
+  localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
+  if (isInitialized) debouncedRender();
+});
+
+onValue(ref(db, 'studentProfiles'), (snap) => {
+  if (!snap.exists()) return;
+  studentProfiles = snap.val();
+  localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
+});
+
+onValue(ref(db, 'settings'), (snap) => {
+    if(snap.exists()){
+        const settings = snap.val();
+        if(settings.homeworkFontSize) {
+            document.documentElement.style.setProperty('--homework-font-size', settings.homeworkFontSize + 'px');
+        }
+        if(settings.gradesFontSize) {
+            document.documentElement.style.setProperty('--grades-font-size', settings.gradesFontSize + 'px');
+        }
+        if(settings.groupFontSizes) {
+            document.documentElement.style.setProperty('--group-name-size', settings.groupFontSizes.groupNameSize + 'rem');
+            document.documentElement.style.setProperty('--sticker-name-size', settings.groupFontSizes.stickerNameSize + 'rem');
+        }
+    }
+});
+
+onValue(ref(db, 'visitors'), (snap)=>{
+  const v = snap.val() || {};
+  updateVisitorsUI(v.count || 0, v.lastReset || null);
+});
+
+/* ========= message rotation ========= */
+let messageIndex = 0;
+let messageTimer = null;
+function renderMessageContent(msgObj){ 
+    messagesBox.innerHTML = '';
+    const el = document.createElement('div');
+    el.id = 'currentMessage';
+    el.style.textAlign = 'center';
+    
+    if (msgObj.type === 'image' && isImageURL(msgObj.text)) {
+        const img = document.createElement('img');
+        img.src = msgObj.text;
+        img.className = 'message-image';
+        img.alt = 'صورة رسالة';
+        messagesBox.appendChild(img);
+        el.textContent = 'رسالة مصورة (اضغط للتقليب)';
+        el.style.marginTop = '10px';
+        el.style.fontSize = '1rem';
+        el.style.fontWeight = 'normal';
+    } else {
+        el.textContent = msgObj.text || ''; 
+    }
+    messagesBox.appendChild(el);
+}
+function showMessage(){ 
+    const msgObj = messages[messageIndex] || {text: 'مرحباً بكم في حلقات مسجد إبراهيم الحاج حسن', type: 'text'};
+    renderMessageContent(msgObj);
+}
+function startMessageRotation(){ 
+    if(messageTimer) clearInterval(messageTimer); 
+    showMessage(); 
+    messageTimer = setInterval(()=>{ 
+        messageIndex = (messageIndex+1) % messages.length; 
+        showMessage(); 
+    }, 10000); 
+}
+messagesBox.addEventListener('click', ()=>{ 
+    messageIndex = (messageIndex + 1) % messages.length; 
+    showMessage(); 
+});
+
+/* ========= message controls ========= */
+btnUploadImage.addEventListener('click', ()=>{
+  window.open('https://postimages.org/', '_blank', 'width=800,height=600');
+  showToast('📤 تم فتح نافذة جديدة لرفع الصورة. بعد الرفع، انسخ الرابط المباشر وألصقه في الصندوق ثم انقر على "إضافة"');
+});
+
+btnAddMessage.addEventListener('click', async ()=>{
+  if(role!=='admin'){ alert('صلاحيات المدير فقط'); return; }
+  const txt = newMessageInput.value.trim();
+  if(!txt) return alert('ادخل نص الرسالة أو رابط الصورة المباشر');
+  
+  let newMsgObj;
+  if (isImageURL(txt)) {
+      newMsgObj = { text: txt, type: 'image' };
+      if (!txt.startsWith('http')) {
+          showToast('❌ الرابط غير صحيح، يجب أن يبدأ بـ http/https', false);
+          return;
+      }
+  } else {
+      newMsgObj = { text: txt, type: 'text' };
+  }
+  
+  messages.push(newMsgObj);
+  writeMessagesToFirebase(messages);
+  newMessageInput.value=''; messageIndex = messages.length-1; showMessage(); startMessageRotation(); renderMessagesControls();
+  showToast('✅ تم إضافة الرسالة بنجاح', true);
+});
+
+btnEditMessage.addEventListener('click', ()=>{
+  if(role!=='admin'){ alert('صلاحيات المدير فقط'); return; }
+  modalMessageText.value = messages[messageIndex].text || '';
+  modalMessageBackdrop.style.display = 'flex';
+});
+
+modalMessageSave.addEventListener('click', async ()=>{
+  const txt = modalMessageText.value.trim();
+  if(!txt) return alert('ادخل نص الرسالة');
+
+  let updatedMsgObj;
+  if (isImageURL(txt)) {
+      updatedMsgObj = { text: txt, type: 'image' };
+  } else {
+      updatedMsgObj = { text: txt, type: 'text' };
+  }
+  
+  messages[messageIndex] = updatedMsgObj;
+  writeMessagesToFirebase(messages);
+  modalMessageBackdrop.style.display = 'none';
+  showMessage(); startMessageRotation(); renderMessagesControls();
+  showToast('✅ تم تعديل الرسالة بنجاح', true);
+});
+
+modalMessageCancel.addEventListener('click', ()=>{
+  modalMessageBackdrop.style.display = 'none';
+});
+
+btnDeleteMessage.addEventListener('click', async ()=>{
+  if(role!=='admin'){ alert('صلاحيات المدير فقط'); return; }
+  if(!confirm('حذف الرسالة الحالية؟')) return;
+  messages.splice(messageIndex,1);
+  if(messages.length===0) messages = defaultMessages.map(msg => ({ text: msg, type: 'text' }));
+  messageIndex = Math.min(messageIndex, messages.length-1);
+  writeMessagesToFirebase(messages);
+  showMessage(); renderMessagesControls();
+  showToast('✅ تم حذف الرسالة بنجاح', true);
+});
+
+function renderMessagesControls(){ 
+  messagesControls.style.display = (role==='admin') ? 'flex' : 'none'; 
+}
+
+/* ========= auth ========= */
+function login(username, pass){
+  if(username === ADMIN_USER && pass === ADMIN_PASS){
+    role = 'admin';
+    currentUser = { type:'admin', username:ADMIN_USER };
+    saveUser();
+    updateUIAfterAuth();
+    showToast('✅ تم تسجيل الدخول كمدير عام', true);
+    return true;
+  }
+  
+  for(let i=0;i<data.length;i++){
+    if(data[i].username === username && data[i].password === pass){
+      role = 'manager';
+      currentUser = { type:'manager', groupIndex:i, username: data[i].username, groupName: data[i].name };
+      saveUser();
+      updateUIAfterAuth();
+      showToast('✅ تم تسجيل الدخول كرئيس مجموعة', true);
+      return true;
+    }
+  }
+  showToast('❌ اسم المستخدم أو كلمة المرور غير صحيحة', false);
+  return false;
+}
+
+btnLogin.addEventListener('click', ()=>{ 
+  const username = loginUser.value.trim();
+  const password = loginPass.value.trim();
+  
+  if(!username || !password) {
+    showToast('❌ يرجى إدخال اسم المستخدم وكلمة المرور', false);
+    return;
+  }
+  
+  login(username, password); 
+});
+
+btnLogout.addEventListener('click', ()=>{ 
+  role = null; 
+  currentUser = null; 
+  saveUser(); 
+  window.location.reload();
+});
+
+function updateUIAfterAuth(){
+  renderMessagesControls();
+  document.getElementById('cumulativeArea').style.display = (role==='admin') ? 'block' : 'none';
+  userInfo.style.display = role ? 'block' : 'none';
+  if(role==='admin') userInfo.textContent = 'مسجل دخول: المدير العام';
+  else if(role==='manager') userInfo.textContent = `مسجل دخول: رئيس مجموعة — ${currentUser.groupName || ''}`;
+  document.getElementById('btnLogout').style.display = role ? 'inline-block' : 'none';
+  document.getElementById('btnLogin').style.display = role ? 'none' : 'inline-block';
+  loginUser.value=''; loginPass.value='';
+  render();
+  renderVisitorsBoxForRole(role);
+}
+
+/* ========= admin-only management functions ========= */
+async function adminSetGroupCreds(gi){
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  const u = prompt('اسم المستخدم للمشرف للمجموعة:', data[gi].username||'') || '';
+  const p = prompt('كلمة المرور:', data[gi].password||'') || '';
+  data[gi].username = u.trim(); data[gi].password = p.trim();
+  writeGroupsToFirebase(data);
+  render(); showToast('✅ تم تحديث بيانات المشرف للمجموعة', true);
+}
+async function adminAddGroup(){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const name = prompt('اسم المجموعة:'); if(!name) return; const username = prompt('اسم مستخدم للمشرف (اختياري):')||''; const pass = prompt('كلمة مرور المشرف (اختياري):')||''; data.push({name:name.trim(), username:username.trim(), password:pass.trim(), showStudents:true, stickers:[{title:'ذهبية',visible:true,students:[]}] }); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة مجموعة جديدة', true); }
+async function adminDeleteGroup(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } if(!confirm('حذف المجموعة؟')) return; data.splice(gi,1); writeGroupsToFirebase(data); render(); showToast('✅ تم حذف المجموعة', true); }
+async function adminEditGroupName(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const nn = prompt('اسم جديد:', data[gi].name); if(!nn) return; data[gi].name = nn.trim(); writeGroupsToFirebase(data); render(); showToast('✅ تم تعديل اسم المجموعة', true); }
+async function adminAddSticker(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const t = prompt('اسم الستكر:'); if(!t) return; data[gi].stickers.push({title:t.trim(), visible:true, students:[]}); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة ستكر', true); }
+async function adminToggleStickerVisibility(gi,si){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } data[gi].stickers[si].visible = !data[gi].stickers[si].visible; writeGroupsToFirebase(data); render(); showToast('✅ تم تغيير حالة ظهور الستكر', true); }
+async function adminToggleGroupShow(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } data[gi].showStudents = !data[gi].showStudents; writeGroupsToFirebase(data); render(); showToast('✅ تم تغيير حالة إظهار الأسماء', true); }
+
+async function adminAddStudent(gi,si){ 
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } 
+  const n = prompt('اسم الطالب:'); 
+  if(!n) return; 
+  const newStudent = {
+      id: generateUniqueId(),
+      name:n.trim(), 
+      attendance:'present', 
+      gradeHifz:'', 
+      gradeWard:'', 
+      gradeAkhlak:'', 
+      cumulative:'', 
+      count:0
+  };
+  data[gi].stickers[si].students.push(newStudent);
+  
+  // إضافة بيانات أولية للصفحة الشخصية
+  const profile = {
+    certificates: [],
+    memorizedSurahs: [], // سيتم تحويلها إلى customRanges
+    customRanges: [], // النظام الجديد
+    joinDate: new Date().toISOString().split('T')[0],
+    startDate: new Date().toISOString().split('T')[0]
+  };
+  
+  homeworkData[newStudent.id] = { 
+    recitation: '', 
+    memorization: '', 
+    review: '', 
+    history: [] 
+  };
+  
+  // حفظ البيانات
+  studentProfiles[newStudent.id] = profile;
+  writeStudentProfileToFirebase(newStudent.id, profile);
+  
+  render();
+  writeGroupsToFirebase(data); 
+  writeHomeworkToFirebase(homeworkData);
+  showToast('✅ تم إضافة الطالب', true); 
+}
+
+async function adminDeleteStudent(gi,si,sti){ 
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } 
+  const student = data[gi].stickers[si].students[sti];
+  if(!confirm(`حذف الطالب ${student.name}؟ سيتم حذف سجل التراكمي والواجبات المرتبطة به أيضاً.`)) return; 
+  
+  const idKey = student.id;
+  delete cumHistory[idKey];
+  delete cumHistory[idKey+'_count'];
+  writeCumToFirebase(cumHistory);
+
+  delete homeworkData[idKey];
+  writeHomeworkToFirebase(homeworkData);
+
+  if (studentProfiles[idKey]) {
+    delete studentProfiles[idKey];
+    set(ref(db, `studentProfiles/${idKey}`), null);
+  }
+
+  data[gi].stickers[si].students.splice(sti,1); 
+  render();
+  writeGroupsToFirebase(data); 
+  showToast('✅ تم حذف الطالب', true); 
+}
+
+async function adminEditStickerName(gi, si){
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  const current = data[gi].stickers[si].title || '';
+  const nn = prompt('اسم الستكر الجديد:', current);
+  if(!nn) return;
+  data[gi].stickers[si].title = nn.trim();
+  writeGroupsToFirebase(data);
+  render();
+  showToast('✅ تم تعديل اسم الستكر', true);
+}
+async function adminDeleteSticker(gi, si){
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  if(!confirm('هل تريد حذف الستكر؟')) return;
+  data[gi].stickers.splice(si,1);
+  writeGroupsToFirebase(data);
+  render();
+  showToast('✅ تم حذف الستكر', true);
+}
+
+/* ========= manager editing (grades & attendance) ========= */
+function canEditGroup(gi){
+  if(role==='admin') return true;
+  if(role==='manager' && currentUser && currentUser.groupIndex===gi) return true;
+  return false;
+}
+
+async function setAttendance(gi,si,sti,val,tr){
+  if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; }
+  const s = data[gi].stickers[si].students[sti];
+  s.attendance = val;
+  if(val === 'absent_unexcused'){ 
+    s.gradeHifz='0'; 
+    s.gradeWard='0'; 
+    s.gradeAkhlak='0'; 
+  }
+  if(val === 'present' || val === 'absent_excused'){ 
+    s.gradeHifz=''; 
+    s.gradeWard=''; 
+    s.gradeAkhlak=''; 
+  }
+  render();
+  writeGroupsToFirebase(data);
+}
+
+async function setGrade(gi,si,sti,field,val){
+  if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; }
+  const s = data[gi].stickers[si].students[sti];
+  if(s.attendance === 'absent_unexcused'){ showToast('❌ لا يمكن تعديل تقديرات الغائب بغير عذر', false); return; }
+  
+  if(field==='hifz') s.gradeHifz = val;
+  if(field==='ward') s.gradeWard = val;
+  if(field==='akhlak') s.gradeAkhlak = val;
+  
+  render();
+  writeGroupsToFirebase(data);
+}
+
+/* ========= Homework Logic ========= */
+function updateHomework(studentId, field, value) {
+  if(role !== 'admin') return;
+  if (!homeworkData[studentId]) homeworkData[studentId] = { history: [] };
+  
+  const oldValue = homeworkData[studentId][field];
+  if (oldValue !== value && oldValue && oldValue.trim() !== '') {
+    if (!homeworkData[studentId].history) homeworkData[studentId].history = [];
+    homeworkData[studentId].history.unshift({
+      field: field,
+      value: oldValue,
+      timestamp: new Date().toISOString()
+    });
+    homeworkData[studentId].history = homeworkData[studentId].history.slice(0, 10);
+  }
+  homeworkData[studentId][field] = value;
+  homeworkModified = true;
+  updateSaveButtonState();
+}
+
+btnSaveHomework.addEventListener('click', async () => {
+  if(!homeworkModified) return;
+  showLoading();
+  await writeHomeworkToFirebase(homeworkData);
+  hideLoading();
+});
+
+function updateSaveButtonState() {
+  if (homeworkModified) {
+    btnSaveHomework.style.backgroundColor = '#ff9800';
+    btnSaveHomework.innerHTML = '<i class="fas fa-exclamation-circle"></i> حفظ الواجبات (توجد تغييرات)';
+  } else {
+    btnSaveHomework.style.backgroundColor = '';
+    btnSaveHomework.innerHTML = '<i class="fas fa-save"></i> حفظ جميع الواجبات';
+  }
+}
+
+/* ========= View & Manage Homework History ========= */
+window.viewHomeworkHistory = function(studentId) {
+    if(!homeworkData[studentId] || !homeworkData[studentId].history || homeworkData[studentId].history.length === 0) {
+        historyContent.innerHTML = '<div style="text-align:center;color:#999">لا يوجد سجل تعديلات</div>';
+    } else {
+        let html = '';
+        const fieldNames = {'recitation':'واجب التلاوة','memorization':'واجب الحفظ','review':'واجب المراجعة'};
+        
+        homeworkData[studentId].history.forEach((item, index) => {
+            const date = new Date(item.timestamp).toLocaleString('ar-SA');
+            const field = fieldNames[item.field] || item.field;
+            
+            html += `<div class="history-item">
+                <div class="history-info">
+                    <div class="history-date">${date} - ${field}</div>
+                    <div class="history-val">${escapeHtml(item.value)}</div>
+                </div>`;
+            
+            if(role === 'admin') {
+                html += `<button class="history-del-btn" onclick="deleteHomeworkHistoryItem('${studentId}', ${index})" title="حذف السجل"><i class="fas fa-trash-alt"></i></button>`;
+            }
+            
+            html += `</div>`;
+        });
+        historyContent.innerHTML = html;
+    }
+    modalHistoryBackdrop.style.display = 'flex';
+};
+
+window.deleteHomeworkHistoryItem = async function(studentId, index) {
+    if(role !== 'admin') return;
+    if(!confirm('هل أنت متأكد من حذف هذا السجل؟')) return;
+    
+    homeworkData[studentId].history.splice(index, 1);
+    set(ref(db, 'homework/' + studentId), homeworkData[studentId]);
+    viewHomeworkHistory(studentId);
+    showToast('✅ تم حذف السجل بنجاح', true);
+};
+
+/* ========= Export Data Function ========= */
+btnExportData.addEventListener('click', () => {
+    if(role!=='admin') return;
+    
+    let csvContent = "\uFEFF"; 
+    csvContent += "المجموعة,الستكر,الطالب,التراكمي,عدد مرات التقييم,واجب التلاوة,واجب الحفظ,واجب المراجعة,النطاقات المحفوظة\n";
+
+    data.forEach(group => {
+        group.stickers.forEach(sticker => {
+            sticker.students.forEach(student => {
+                const hw = homeworkData[student.id] || {};
+                const profile = studentProfiles[student.id] || {};
+                const customRanges = profile.customRanges || [];
+                const rangeTexts = customRanges.map(range => {
+                    const startSurah = QURAN_DATA.find(q => q.i === range.sIdx);
+                    const endSurah = QURAN_DATA.find(q => q.i === range.eIdx);
+                    const startName = startSurah ? startSurah.n : `ص${range.start}`;
+                    const endName = endSurah ? endSurah.n : `ص${range.end}`;
+                    return range.start === range.end ? 
+                        `${startName} (ص${range.start})` : 
+                        `${startName} إلى ${endName} (ص${range.start}-${range.end})`;
+                }).join(' | ');
+                
+                const clean = (txt) => String(txt || '').replace(/,/g, ' ').replace(/\n/g, ' ').trim();
+                
+                const row = [
+                    clean(group.name),
+                    clean(sticker.title),
+                    clean(student.name),
+                    clean(student.cumulative),
+                    student.count || 0,
+                    clean(hw.recitation),
+                    clean(hw.memorization),
+                    clean(hw.review),
+                    clean(rangeTexts)
+                ].join(",");
+                csvContent += row + "\n";
+            });
+        });
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "بيانات_الطلاب_" + new Date().toISOString().slice(0,10) + ".csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('✅ تم تصدير البيانات بنجاح', true);
+});
+
+/* ========= نظام الورد التلقائي (من الملف الأول) ========= */
+function calculateDailyWird(studentProfile, studentId) {
+    // التأكد من وجود customRanges
+    if (!studentProfile || !studentProfile.customRanges || studentProfile.customRanges.length === 0) {
+        // محاولة تحويل memorizedSurahs القديمة إلى customRanges
+        if (studentProfile && studentProfile.memorizedSurahs && studentProfile.memorizedSurahs.length > 0) {
+            // تحويل السور المحفوظة إلى نطاقات صفحات
+            const newRanges = [];
+            studentProfile.memorizedSurahs.forEach(surahId => {
+                const surah = QURAN_DATA.find(q => q.i === surahId);
+                if (surah) {
+                    newRanges.push({
+                        start: surah.s,
+                        end: surah.e,
+                        sIdx: surah.i,
+                        eIdx: surah.i
+                    });
+                }
+            });
+            
+            // حفظ النطاقات الجديدة
+            studentProfile.customRanges = newRanges;
+            delete studentProfile.memorizedSurahs;
+            writeStudentProfileToFirebase(studentId, studentProfile);
+            
+            if (newRanges.length > 0) {
+                // إعادة الحساب بالنطاقات الجديدة
+                return calculateDailyWird(studentProfile, studentId);
+            }
+        }
+        
+        return {
+            displayText: "لم يتم تحديد محفوظ بعد",
+            statsText: "يرجى تحديد النطاقات المحفوظة أولاً",
+            todayPages: [],
+            totalPages: 0,
+            cycleDay: 0,
+            isRestDay: false
+        };
+    }
+
+    // 1. جمع كل الصفحات المحفوظة من النطاقات
+    let allPages = [];
+    studentProfile.customRanges.forEach(range => {
+        for (let page = range.start; page <= range.end; page++) {
+            allPages.push(page);
+        }
+    });
+    
+    // إزالة التكرارات وترتيب الصفحات
+    allPages = [...new Set(allPages)].sort((a, b) => a - b);
+    
+    const totalPages = allPages.length;
+    if (totalPages === 0) {
+        return {
+            displayText: "لا يوجد محفوظ",
+            statsText: "لم يتم تحديد أي صفحات محفوظة",
+            todayPages: [],
+            totalPages: 0,
+            cycleDay: 0,
+            isRestDay: false
+        };
+    }
+
+    // 2. حساب يوم الأسبوع في الدورة الشخصية
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const startDate = studentProfile.startDate ? new Date(studentProfile.startDate) : new Date(studentProfile.joinDate);
+    if (isNaN(startDate.getTime())) {
+        startDate = new Date();
+    }
+    startDate.setHours(0, 0, 0, 0);
+    
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const dayIdx = diffDays % 7; // 0-6
+
+    // 3. التوزيع العادل للصفحات على 7 أيام (نفس خوارزمية الملف الأول)
+    let buckets = [[], [], [], [], [], [], []];
+    const base = Math.floor(totalPages / 7);
+    const extra = totalPages % 7;
+    let currentIndex = 0;
+
+    for (let d = 0; d < 7; d++) {
+        // الأيام الأولى تأخذ صفحة إضافية إذا وجد باقي
+        let count = base + (d < extra ? 1 : 0);
+        for (let k = 0; k < count; k++) {
+            if (currentIndex < totalPages) {
+                buckets[d].push(allPages[currentIndex++]);
+            }
+        }
+    }
+
+    // 4. الحصول على صفحات اليوم
+    const todayPages = buckets[dayIdx];
+
+    // 5. إذا لم يكن هناك صفحات لليوم (أيام راحة)
+    if (!todayPages || todayPages.length === 0) {
+        return {
+            displayText: "مراجعة عامة / راحة",
+            statsText: `إجمالي المحفوظ: ${totalPages} صفحة`,
+            todayPages: [],
+            totalPages: totalPages,
+            cycleDay: dayIdx + 1,
+            isRestDay: true
+        };
+    }
+
+    // 6. تجميع الصفحات المتتالية في نطاقات
+    let ranges = [];
+    if (todayPages.length > 0) {
+        let startP = todayPages[0];
+        let endP = todayPages[0];
+
+        for (let i = 1; i < todayPages.length; i++) {
+            if (todayPages[i] === endP + 1) {
+                endP = todayPages[i];
+            } else {
+                ranges.push({ s: startP, e: endP });
+                startP = todayPages[i];
+                endP = todayPages[i];
+            }
+        }
+        ranges.push({ s: startP, e: endP });
+    }
+
+    // 7. تحويل النطاقات إلى أسماء سور مع تطبيق الشروط الذكية
+    let parts = ranges.map(r => {
+        let involvedSurahs = QURAN_DATA.filter(q => (q.s <= r.e && q.e >= r.s));
+
+        // تطبيق الشروط الذكية (تجاهل السور السابقة/التالية)
+        involvedSurahs = involvedSurahs.filter(surah => {
+            // الشرط الأول: بداية الورد (تجاهل السورة السابقة)
+            const configStart = studentProfile.customRanges.find(cr => cr.start === r.s);
+            if (configStart && configStart.sIdx) {
+                // إذا كانت السورة الحالية ترتيبها قبل السورة التي اختارها المستخدم
+                if (surah.i < configStart.sIdx) {
+                    // الشرط: السورة السابقة موجودة في صفحات سابقة
+                    if (surah.s < r.s) return false; // إخفاء
+                }
+            }
+
+            // الشرط الثاني: نهاية الورد (تجاهل السورة التالية)
+            const configEnd = studentProfile.customRanges.find(cr => cr.end === r.e);
+            if (configEnd && configEnd.eIdx) {
+                // إذا كانت السورة الحالية ترتيبها بعد السورة التي اختارها المستخدم
+                if (surah.i > configEnd.eIdx) {
+                    return false; // إخفاء
+                }
+            }
+
+            return true;
+        });
+
+        let uniqueNames = [...new Set(involvedSurahs.map(x => x.n))];
+        let nameStr = uniqueNames.join("، ");
+        let rangeStr = (r.s === r.e) ? `ص${r.s}` : `ص${r.s}-${r.e}`;
+        return `${nameStr} (${rangeStr})`;
+    });
+
+    const displayText = parts.join(' ، ');
+
+    return {
+        displayText: displayText,
+        statsText: `إجمالي المحفوظ: ${totalPages} صفحة | صفحات اليوم: ${todayPages.length}`,
+        todayPages: todayPages,
+        totalPages: totalPages,
+        cycleDay: dayIdx + 1,
+        isRestDay: false
+    };
+}
+
+/* ========= دالة مساعدة لجلب اسم السورة بناء على الصفحة ========= */
+function getSurahLabel(page, surahIdx) {
+    if (!surahIdx) {
+        let surahs = QURAN_DATA.filter(q => page >= q.s && page <= q.e);
+        return surahs.map(s => s.n).join("، ");
+    } else {
+        const s = QURAN_DATA.find(q => q.i === surahIdx);
+        return s ? s.n : `ص${page}`;
+    }
+}
+
+/* ========= دالة لملء قوائم اختيار الصفحات ========= */
+function populatePageSelectors(startSelectId, endSelectId, selectedStart = null, selectedEnd = null) {
+    const startSelect = document.getElementById(startSelectId);
+    const endSelect = document.getElementById(endSelectId);
+    
+    if (!startSelect || !endSelect) return;
+    
+    let html = '<option value="">صفحة...</option>';
+    
+    for (let i = 1; i <= 604; i++) {
+        let surahsOnPage = QURAN_DATA.filter(q => i >= q.s && i <= q.e);
+        if (surahsOnPage.length > 0) {
+            // ننشئ خيارًا لكل سورة موجودة في الصفحة
+            // Value Format: PageNumber-SurahID (e.g., "385-27")
+            surahsOnPage.forEach(s => {
+                const value = `${i}-${s.i}`;
+                const selectedStartAttr = (selectedStart === value) ? 'selected' : '';
+                const selectedEndAttr = (selectedEnd === value) ? 'selected' : '';
+                html += `<option value="${value}" ${selectedStartAttr}>${i} - ${s.n}</option>`;
+            });
+        } else {
+            const value = `${i}-0`;
+            const selectedStartAttr = (selectedStart === value) ? 'selected' : '';
+            const selectedEndAttr = (selectedEnd === value) ? 'selected' : '';
+            html += `<option value="${value}" ${selectedStartAttr}>${i}</option>`;
+        }
+    }
+    
+    startSelect.innerHTML = html;
+    endSelect.innerHTML = html.replace(/selected/g, ''); // إزالة selected من النسخة الثانية
+    
+    // تعيين القيم المحددة إذا وجدت
+    if (selectedStart) {
+        startSelect.value = selectedStart;
+    }
+    if (selectedEnd) {
+        endSelect.value = selectedEnd;
+    }
+}
+
+/* ========= نظام نقل الطلاب الجديد المبسط مع دعم النقل داخل نفس المجموعة ========= */
+let currentMoveData = null;
+
+window.openMoveModal = function(gi, si, sti) {
+    if (role !== 'admin') {
+        showToast('❌ صلاحيات المدير فقط', false);
+        return;
+    }
+    
+    const student = data[gi].stickers[si].students[sti];
+    currentMoveData = { gi, si, sti, studentId: student.id };
+    
+    // عرض معلومات الطالب الحالي
+    document.getElementById('moveCurrentStudentInfo').innerHTML = `
+        <strong>${student.name}</strong><br>
+        <small>المجموعة الحالية: ${data[gi].name} - ${data[gi].stickers[si].title}</small>
+    `;
+    
+    // تعبئة قائمة المجموعات الهدف (تضمين جميع المجموعات بما فيها الحالية)
+    const groupSelect = document.getElementById('modalTargetGroup');
+    groupSelect.innerHTML = '<option value="">-- اختر المجموعة --</option>';
+    
+    data.forEach((group, groupIndex) => {
+        const option = document.createElement('option');
+        option.value = groupIndex;
+        option.textContent = group.name;
+        if (groupIndex === gi) {
+            option.textContent += ' (الحالية)';
+        }
+        groupSelect.appendChild(option);
+    });
+    
+    // تعبئة قائمة الستكرات عند تغيير المجموعة
+    groupSelect.onchange = function() {
+        const targetGroupIndex = parseInt(this.value);
+        const stickerSelect = document.getElementById('modalTargetSticker');
+        stickerSelect.innerHTML = '<option value="">-- اختر الستكر --</option>';
+        
+        if (!isNaN(targetGroupIndex)) {
+            data[targetGroupIndex].stickers.forEach((sticker, stickerIndex) => {
+                const option = document.createElement('option');
+                option.value = stickerIndex;
+                option.textContent = sticker.title;
+                // تمييز الستكر الحالي إذا كانت نفس المجموعة
+                if (targetGroupIndex === gi && stickerIndex === si) {
+                    option.textContent += ' (الحالي)';
+                }
+                stickerSelect.appendChild(option);
+            });
+        }
+    };
+    
+    // اختيار المجموعة الحالية افتراضيًا
+    groupSelect.value = gi;
+    
+    // تعبئة الستكرات للمجموعة المختارة (الحالية)
+    const stickerSelect = document.getElementById('modalTargetSticker');
+    stickerSelect.innerHTML = '<option value="">-- اختر الستكر --</option>';
+    data[gi].stickers.forEach((sticker, stickerIndex) => {
+        const option = document.createElement('option');
+        option.value = stickerIndex;
+        option.textContent = sticker.title;
+        if (stickerIndex === si) {
+            option.textContent += ' (الحالي)';
+        }
+        stickerSelect.appendChild(option);
+    });
+    
+    // إظهار المودال
+    modalMoveBackdrop.style.display = 'flex';
+};
+
+// زر حفظ النقل
+modalMoveSave.addEventListener('click', async function() {
+    if (!currentMoveData) {
+        showToast('❌ لم يتم تحديد طالب للنقل', false);
+        return;
+    }
+    
+    const targetGroupIndex = parseInt(document.getElementById('modalTargetGroup').value);
+    const targetStickerIndex = parseInt(document.getElementById('modalTargetSticker').value);
+    
+    if (isNaN(targetGroupIndex) || isNaN(targetStickerIndex)) {
+        showToast('❌ يجب اختيار المجموعة والستكر الهدف', false);
+        return;
+    }
+    
+    const { gi, si, sti, studentId } = currentMoveData;
+    
+    // العثور على الطالب
+    const student = data[gi].stickers[si].students[sti];
+    
+    // التحقق من عدم نقل الطالب لنفس المكان بالضبط
+    if (gi === targetGroupIndex && si === targetStickerIndex) {
+        showToast('❌ الطالب موجود بالفعل في هذا الستكر في نفس المجموعة', false);
+        return;
+    }
+    
+    try {
+        // إضافة الطالب إلى الستكر الهدف
+        data[targetGroupIndex].stickers[targetStickerIndex].students.push(student);
+        
+        // حذف الطالب من موقعه القديم (فقط إذا كان في ستكر مختلف)
+        data[gi].stickers[si].students.splice(sti, 1);
+        
+        // إعادة التصيير والحفظ
+        render();
+        writeGroupsToFirebase(data);
+        
+        // إغلاق المودال
+        modalMoveBackdrop.style.display = 'none';
+        currentMoveData = null;
+        showToast(`✅ تم نقل الطالب ${student.name} بنجاح`, true);
+    } catch (error) {
+        console.error('خطأ في نقل الطالب:', error);
+        showToast('❌ حدث خطأ أثناء نقل الطالب', false);
+    }
+});
+
+// زر إلغاء النقل
+modalMoveCancel.addEventListener('click', function() {
+    modalMoveBackdrop.style.display = 'none';
+    currentMoveData = null;
+});
+
+/* ========= الصفحة الشخصية للطالب ========= */
+window.openStudentProfile = async function(studentId) {
+    // البحث عن بيانات الطالب
+    let studentData = null;
+    let studentGroup = null;
+    let studentSticker = null;
+    
+    for (let gi = 0; gi < data.length; gi++) {
+        const group = data[gi];
+        for (let si = 0; si < group.stickers.length; si++) {
+            const sticker = group.stickers[si];
+            const student = sticker.students.find(s => s.id === studentId);
+            if (student) {
+                studentData = student;
+                studentGroup = group;
+                studentSticker = sticker;
+                break;
+            }
+        }
+        if (studentData) break;
+    }
+    
+    if (!studentData) {
+        showToast('❌ لم يتم العثور على بيانات الطالب', false);
+        return;
+    }
+    
+    // الحصول على بيانات الصفحة الشخصية
+    const profile = studentProfiles[studentId] || {
+        certificates: [],
+        customRanges: [],
+        joinDate: new Date().toISOString().split('T')[0],
+        startDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // التأكد من وجود customRanges
+    if (!profile.customRanges) {
+        profile.customRanges = [];
+    }
+    
+    // الواجبات
+    const hw = homeworkData[studentId] || {};
+    
+    // حساب الورد اليومي باستخدام النظام الجديد
+    const wirdData = calculateDailyWird(profile, studentId);
+    
+    // المعدل التراكمي
+    const cumulative = studentData.cumulative || 'غير محسوب';
+    let rating = 'لا يوجد';
+    let ratingClass = 'cum-gray';
+    
+    if (cumulative !== 'غير محسوب' && !isNaN(parseFloat(cumulative))) {
+        const avg = parseFloat(cumulative);
+        if (avg >= 9.5) {
+            rating = 'ممتاز';
+            ratingClass = 'cum-mumtaz';
+        } else if (avg >= 8.5) {
+            rating = 'جيد جداً';
+            ratingClass = 'cum-very-good';
+        } else if (avg >= 7.5) {
+            rating = 'جيد';
+            ratingClass = 'cum-good';
+        } else if (avg >= 6) {
+            rating = 'مقبول';
+            ratingClass = 'cum-weak';
+        } else {
+            rating = 'ضعيف';
+            ratingClass = 'cum-very-weak';
+        }
+    }
+    
+    
+    // إنشاء محتوى الصفحة الشخصية مع الترتيب الجديد
+    studentProfileContent.innerHTML = `
+        <div class="student-profile-header">
+            <h2><i class="fas fa-user-graduate"></i> الصفحة الشخصية للطالب</h2>
+            <button class="student-profile-close" onclick="closeStudentProfile()">
+                <i class="fas fa-times"></i> إغلاق
+            </button>
+        </div>
+        
+        <div class="student-profile-content">
+            <!-- معلومات الطالب الأساسية -->
+            <div class="profile-section">
+                <div class="student-basic-info">
+                    <div class="student-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="student-details">
+                        <h2 style="color: var(--accent); margin: 0 0 1rem 0; font-size: 1.8rem; grid-column: 1/-1;">${escapeHtml(studentData.name)}</h2>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-users"></i></div>
+                            <div class="info-text">المجموعة: <span class="info-value">${escapeHtml(studentGroup.name)}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-sticky-note"></i></div>
+                            <div class="info-text">الستكر: <span class="info-value">${escapeHtml(studentSticker.title)}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="info-text">تاريخ الانضمام: <span class="info-value">${profile.joinDate}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="info-text">المعدل التراكمي: <span class="info-value">${cumulative}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="info-text">التقييم: <span class="badge ${ratingClass}" style="padding: 0.3rem 0.8rem;">${rating}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الورد اليومي -->
+            <div class="profile-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3><i class="fas fa-book-quran"></i> الورد اليومي</h3>
+                    ${role === 'admin' ? `
+                    <button onclick="openEditMemorizationModal('${studentId}')" style="background: var(--accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <i class="fas fa-edit"></i> تعديل المحفوظ
+                    </button>
+                    ` : ''}
+                </div>
+                
+                <div class="wird-container">
+         <div class="wird-title"><I class="fas fa-calendar-day"></i> ورد اليوم</div>
+                    <div class="wird-text">
+                        ${wirdData.displayText}
+                    </div>
+                    <div class="wird-stats">
+                        <div>${wirdData.statsText}</div>
+                        ${wirdData.isRestDay ? '' : `<div class="wird-pages-count">${wirdData.todayPages.length} صفحة اليوم</div>`}
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- الواجبات -->
+            <div class="profile-section">
+                <h3><i class="fas fa-tasks"></i> الواجبات الحالية</h3>
+                <div class="homework-items">
+                    ${renderHomework(hw)}
+                </div>
+            </div>
+            
+            <!-- التقديرات بشكل أفقي -->
+            <div class="profile-section">
+                <h3><i class="fas fa-chart-bar"></i> التقديرات</h3>
+                <div class="grades-horizontal">
+                    <div class="grade-box">
+                        <div class="grade-title">الحفظ</div>
+                        <div class="grade-value">${studentData.gradeHifz || '-'}</div>
+                        <span class="badge ${getCumulativeLabel(studentData.gradeHifz).cls} grade-rating">${getCumulativeLabel(studentData.gradeHifz).text}</span>
+                    </div>
+                    <div class="grade-box">
+                        <div class="grade-title">الورد</div>
+                        <div class="grade-value">${studentData.gradeWard || '-'}</div>
+                        <span class="badge ${getCumulativeLabel(studentData.gradeWard).cls} grade-rating">${getCumulativeLabel(studentData.gradeWard).text}</span>
+                    </div>
+                    <div class="grade-box">
+                        <div class="grade-title">الأخلاق</div>
+                        <div class="grade-value">${studentData.gradeAkhlak || '-'}</div>
+                        <span class="badge ${getCumulativeLabel(studentData.gradeAkhlak).cls} grade-rating">${getCumulativeLabel(studentData.gradeAkhlak).text}</span>
+                    </div>
+                    <div class="grade-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-color: #2196F3;">
+                        <div class="grade-title">المعدل</div>
+                        <div class="grade-value">${studentData.gradeHifz && studentData.gradeWard && studentData.gradeAkhlak ? 
+                            Math.round(((parseFloat(studentData.gradeHifz || 0) + parseFloat(studentData.gradeWard || 0) + parseFloat(studentData.gradeAkhlak || 0)) / 3) * 100) / 100 : '-'}</div>
+                        <span class="badge ${ratingClass} grade-rating">${rating}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الشهادات التقديرية -->
+            <div class="profile-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3><i class="fas fa-award"></i> الشهادات التقديرية</h3>
+                    ${role === 'admin' ? `
+                    <button onclick="openAddCertificateModal('${studentId}')" style="background: var(--accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <i class="fas fa-plus"></i> إضافة شهادة
+                    </button>
+                    ` : ''}
+                </div>
+                <div id="certificatesContainer-${studentId}" class="certificates-scroll">
+                    ${renderCertificates(profile.certificates || [], studentId)}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    studentProfileModal.style.display = 'flex';
+}
+
+function renderHomework(hw) {
+    const homeworkTypes = [
+        { key: 'recitation', title: 'واجب التلاوة', icon: 'fas fa-book-reader' },
+        { key: 'memorization', title: 'واجب الحفظ', icon: 'fas fa-brain' },
+        { key: 'review', title: 'واجب المراجعة', icon: 'fas fa-redo' }
+    ];
+    
+    const homeworkItems = homeworkTypes.map(type => {
+        if (hw[type.key]) {
+            return `
+                <div class="homework-item">
+                    <div class="homework-item-header">
+                        <i class="${type.icon}"></i>
+                        <span>${type.title}</span>
+                    </div>
+                    <div class="homework-item-content">
+                        ${escapeHtml(hw[type.key])}
+                    </div>
+                </div>
+            `;
+        }
+        return '';
+    }).join('');
+    
+    if (!homeworkItems) {
+        return '<div class="homework-item" style="text-align: center; color: #666; grid-column: 1/-1;">لا توجد واجبات حتى الآن</div>';
+    }
+    
+    return homeworkItems;
+}
+
+function renderCertificates(certificates, studentId) {
+    if (!certificates || certificates.length === 0) {
+        return '<div style="text-align: center; color: #666; grid-column: 1/-1; padding: 2rem;">لا توجد شهادات حتى الآن</div>';
+    }
+    
+    return certificates.map(cert => `
+        <div class="certificate-card">
+            <img src="${cert.imageUrl}" alt="${cert.title}" onclick="viewCertificateImage('${cert.imageUrl}')">
+            <div class="certificate-overlay">
+                ${escapeHtml(cert.title)}
+            </div>
+            ${role === 'admin' ? `
+            <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 5px;">
+                <button onclick="deleteCertificate('${studentId}', '${cert.id}')" style="background: rgba(220, 53, 69, 0.9); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            ` : ''}
+        </div>
+    `).join('');
+}
+
+window.closeStudentProfile = function() {
+    studentProfileModal.style.display = 'none';
+}
+
+/* ========= مودال تعديل المحفوظ للمدير (النظام الجديد) ========= */
+window.openEditMemorizationModal = async function(studentId) {
+    if (role !== 'admin') {
+        showToast('❌ صلاحيات المدير فقط', false);
+        return;
+    }
+    
+    const profile = studentProfiles[studentId] || {
+        certificates: [],
+        customRanges: [],
+        joinDate: new Date().toISOString().split('T')[0],
+        startDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // التأكد من وجود customRanges
+    if (!profile.customRanges) {
+        profile.customRanges = [];
+    }
+    
+    const customRanges = profile.customRanges || [];
+    const today = new Date().toISOString().split('T')[0];
+    
+    // إنشاء قائمة النطاقات المحفوظة
+    let savedRangesHtml = '';
+    if (customRanges.length === 0) {
+        savedRangesHtml = '<div style="text-align: center; color: #666; padding: 1rem;">لا توجد نطاقات محفوظة</div>';
+    } else {
+        customRanges.forEach((range, index) => {
+            const startName = getSurahLabel(range.start, range.sIdx);
+            const endName = (range.start !== range.end) ? getSurahLabel(range.end, range.eIdx) : startName;
+            
+            let display = (range.start !== range.end && startName !== endName) 
+                          ? `${startName} .. ${endName}` 
+                          : startName;
+            
+            display += ` (ص${range.start}-${range.end})`;
+            
+            savedRangesHtml += `
+                <div class="saved-range-item">
+                    <div class="saved-range-info">${display}</div>
+                    <div class="saved-range-actions">
+                        <button class="range-action-btn range-edit-btn" onclick="editExistingRange('${studentId}', ${index})">
+                            <i class="fas fa-edit"></i> تعديل
+                        </button>
+                        <button class="range-action-btn range-delete-btn" onclick="deleteRange('${studentId}', ${index})">
+                            <i class="fas fa-trash"></i> حذف
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    memorizationModalContent.innerHTML = `
+        <div style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin: 0; font-size: 1.5rem;">
+                    <i class="fas fa-book-quran"></i> تعديل المحفوظ - إدارة النطاقات المحفوظة
+                </h3>
+                <button id="closeMemorizationModalBtn" class="memorization-close-btn">
+                    <i class="fas fa-times"></i> إغلاق
+                </button>
+            </div>
+            
+            <!-- اختيار نطاق جديد -->
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <div style="font-weight: bold; margin-bottom: 0.5rem; color: var(--accent);">إضافة نطاق جديد:</div>
+                <div class="page-range-selector">
+                    <select id="rangeStart" class="range-select">
+                        <option value="">صفحة البداية...</option>
+                    </select>
+                    <span style="font-weight: bold; color: #555;">إلى</span>
+                    <select id="rangeEnd" class="range-select">
+                        <option value="">صفحة النهاية...</option>
+                    </select>
+                    <button id="addRangeBtn" class="range-add-btn" onclick="addNewRange('${studentId}')">
+                        <i class="fas fa-plus"></i> إضافة
+                    </button>
+                </div>
+            </div>
+            
+            <!-- النطاقات المحفوظة -->
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <div style="font-weight: bold; color: var(--accent);">
+                        <i class="fas fa-list-check"></i> النطاقات المحفوظة:
+                    </div>
+                    <div id="rangesCount" style="background: var(--accent); color: white; padding: 0.3rem 0.8rem; border-radius: 12px; font-weight: bold;">
+                        ${customRanges.length} نطاق
+                    </div>
+                </div>
+                <div id="savedRangesList" class="saved-ranges-list">
+                    ${savedRangesHtml}
+                </div>
+            </div>
+            
+            <!-- تاريخ بداية الدورة -->
+            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #555;">تاريخ بداية الدورة:</label>
+                    <input type="date" id="memorizationStartDate" value="${profile.startDate || today}" 
+                           style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div style="font-size: 0.9rem; color: #666; background: #e3f2fd; padding: 0.75rem; border-radius: 6px; max-width: 300px;">
+                    <i class="fas fa-info-circle"></i> سيتم حساب الورد اليومي بناءً على هذا التاريخ
+                </div>
+            </div>
+            
+            <!-- أزرار الحفظ -->
+            <div style="display: flex; justify-content: flex-end; gap: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                <button onclick="saveMemorization('${studentId}')" style="background: var(--accent); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-save"></i> حفظ المحفوظ
+                </button>
+            </div>
+        </div>
+    `;
+    
+    memorizationModal.style.display = 'flex';
+    
+    // تعبئة قوائم اختيار الصفحات بعد ظهور المودال
+    setTimeout(() => {
+        populatePageSelectors('rangeStart', 'rangeEnd');
+        
+        // إضافة حدث لزر الإغلاق
+        document.getElementById('closeMemorizationModalBtn').addEventListener('click', () => {
+            memorizationModal.style.display = 'none';
+        });
+    }, 100);
+};
+
+/* ========= وظائف إدارة النطاقات ========= */
+window.addNewRange = async function(studentId) {
+    const startSelect = document.getElementById('rangeStart');
+    const endSelect = document.getElementById('rangeEnd');
+    
+    const sVal = startSelect.value;
+    const eVal = endSelect.value;
+    
+    if (!sVal || !eVal) {
+        showToast('❌ الرجاء اختيار صفحة البداية والنهاية', false);
+        return;
+    }
+    
+    const [startPage, startSurahId] = sVal.split('-').map(Number);
+    const [endPage, endSurahId] = eVal.split('-').map(Number);
+    
+    if (startPage > endPage) {
+        showToast('❌ خطأ: صفحة البداية بعد النهاية', false);
+        return;
+    }
+    
+    const profile = studentProfiles[studentId] || {};
+    if (!profile.customRanges) profile.customRanges = [];
+    
+    // التحقق من عدم وجود تداخل
+    let existing = new Set();
+    profile.customRanges.forEach(r => {
+        for (let p = r.start; p <= r.end; p++) existing.add(p);
+    });
+    
+    for (let p = startPage; p <= endPage; p++) {
+        if (existing.has(p)) {
+            showToast('❌ نطاق مكرر! هناك صفحات موجودة بالفعل في نطاقات أخرى', false);
+            return;
+        }
+    }
+    
+    // إضافة النطاق الجديد
+    profile.customRanges.push({
+        start: startPage,
+        end: endPage,
+        sIdx: startSurahId,
+        eIdx: endSurahId
+    });
+    
+    // تحديث العرض
+    updateRangesDisplay(studentId, profile.customRanges);
+    
+    // مسح الحقول
+    startSelect.value = '';
+    endSelect.value = '';
+    
+    showToast('✅ تم إضافة النطاق بنجاح', true);
+};
+
+window.editExistingRange = function(studentId, rangeIndex) {
+    const profile = studentProfiles[studentId] || {};
+    if (!profile.customRanges || !profile.customRanges[rangeIndex]) return;
+    
+    const range = profile.customRanges[rangeIndex];
+    
+    // تعبئة الحقول بالقيم الحالية
+    setTimeout(() => {
+        const startVal = `${range.start}-${range.sIdx || 0}`;
+        const endVal = `${range.end}-${range.eIdx || 0}`;
+        
+        // تعبئة القوائم المنسدلة
+        populatePageSelectors('rangeStart', 'rangeEnd', startVal, endVal);
+        
+        // إزالة النطاق القديم
+        profile.customRanges.splice(rangeIndex, 1);
+        
+        // تحديث العرض
+        updateRangesDisplay(studentId, profile.customRanges);
+        
+        showToast('📝 يمكنك الآن تعديل النطاق في الحقول أعلاه', true);
+    }, 100);
+};
+
+window.deleteRange = function(studentId, rangeIndex) {
+    if (!confirm('هل أنت متأكد من حذف هذا النطاق؟')) return;
+    
+    const profile = studentProfiles[studentId] || {};
+    if (!profile.customRanges || !profile.customRanges[rangeIndex]) return;
+    
+    profile.customRanges.splice(rangeIndex, 1);
+    updateRangesDisplay(studentId, profile.customRanges);
+    
+    showToast('✅ تم حذف النطاق بنجاح', true);
+};
+
+function updateRangesDisplay(studentId, ranges) {
+    const rangesCount = document.getElementById('rangesCount');
+    const savedRangesList = document.getElementById('savedRangesList');
+    
+    if (!rangesCount || !savedRangesList) return;
+    
+    // تحديث العدد
+    rangesCount.textContent = `${ranges.length} نطاق`;
+    
+    // تحديث القائمة
+    if (ranges.length === 0) {
+        savedRangesList.innerHTML = '<div style="text-align: center; color: #666; padding: 1rem;">لا توجد نطاقات محفوظة</div>';
+    } else {
+        let html = '';
+        ranges.forEach((range, index) => {
+            const startName = getSurahLabel(range.start, range.sIdx);
+            const endName = (range.start !== range.end) ? getSurahLabel(range.end, range.eIdx) : startName;
+            
+            let display = (range.start !== range.end && startName !== endName) 
+                          ? `${startName} .. ${endName}` 
+                          : startName;
+            
+            display += ` (ص${range.start}-${range.end})`;
+            
+            html += `
+                <div class="saved-range-item">
+                    <div class="saved-range-info">${display}</div>
+                    <div class="saved-range-actions">
+                        <button class="range-action-btn range-edit-btn" onclick="editExistingRange('${studentId}', ${index})">
+                            <i class="fas fa-edit"></i> تعديل
+                        </button>
+                        <button class="range-action-btn range-delete-btn" onclick="deleteRange('${studentId}', ${index})">
+                            <i class="fas fa-trash"></i> حذف
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+        savedRangesList.innerHTML = html;
+    }
+}
+
+window.saveMemorization = async function(studentId) {
+    try {
+        const profile = studentProfiles[studentId] || {};
+        const startDate = document.getElementById('memorizationStartDate').value;
+        
+        profile.startDate = startDate;
+        
+        if (!profile.joinDate) {
+            profile.joinDate = new Date().toISOString().split('T')[0];
+        }
+        
+        await writeStudentProfileToFirebase(studentId, profile);
+        
+        showToast('✅ تم حفظ المحفوظ بنجاح', true);
+        
+        // تحديث عرض الصفحة الشخصية إذا كانت مفتوحة
+        setTimeout(() => {
+            if (studentProfileModal.style.display === 'flex') {
+                openStudentProfile(studentId);
+            }
+        }, 500);
+        
+        memorizationModal.style.display = 'none';
+        
+    } catch (error) {
+        console.error('خطأ في حفظ المحفوظ:', error);
+        showToast('❌ حدث خطأ أثناء حفظ المحفوظ', false);
+    }
+};
+
+/* ========= وظائف الشهادات ========= */
+window.openAddCertificateModal = async function(studentId) {
+    if (role !== 'admin') {
+        showToast('❌ صلاحيات المدير فقط', false);
+        return;
+    }
+    
+    const modalHtml = `
+        <div style="background: #fff; padding: 1.5rem; border-radius: 10px; width: 500px; max-width: 95%;">
+            <h3 style="color: var(--accent); margin: 0 0 1rem 0; text-align: center;">
+                <i class="fas fa-award"></i> إضافة شهادة جديدة
+            </h3>
+            <form id="certificateForm-${studentId}">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold;">عنوان الشهادة:</label>
+                    <input type="text" id="certTitle-${studentId}" placeholder="مثال: شهادة تفوق في الحفظ" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" required>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold;">تاريخ الشهادة:</label>
+                    <input type="date" id="certDate-${studentId}" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" required>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold;">رابط الصورة المباشر:</label>
+                    <input type="url" id="certImageUrl-${studentId}" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" required>
+                    <small style="color: #666; margin-top: 0.25rem; display: block;">
+                        يمكنك رفع الصورة على <a href="https://postimages.org/" target="_blank" style="color: var(--accent);">postimages.org</a> ثم نسخ الرابط المباشر
+                    </small>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold;">وصف الشهادة (اختياري):</label>
+                    <textarea id="certDescription-${studentId}" placeholder="تفاصيل إضافية عن الشهادة..." style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; min-height: 100px; resize: vertical;"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" onclick="closeAddCertificateModal('${studentId}')" style="background: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                    <button type="submit" style="background: var(--accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-save"></i> حفظ الشهادة
+                    </button>
+                </div>
+            </form>
+        </div>
+    `;
+    
+    // إنشاء مودال مؤقت
+    const tempModal = document.createElement('div');
+    tempModal.id = 'tempCertModal';
+    tempModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,.45); align-items: center; justify-content: center; z-index: 10000; display: flex;';
+    tempModal.innerHTML = modalHtml;
+    document.body.appendChild(tempModal);
+    
+    // تعيين تاريخ اليوم
+    document.getElementById(`certDate-${studentId}`).value = new Date().toISOString().split('T')[0];
+    
+    // إضافة معالج الحدث للنموذج
+    document.getElementById(`certificateForm-${studentId}`).addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById(`certTitle-${studentId}`).value.trim();
+        const date = document.getElementById(`certDate-${studentId}`).value;
+        const imageUrl = document.getElementById(`certImageUrl-${studentId}`).value.trim();
+        const description = document.getElementById(`certDescription-${studentId}`).value.trim();
+        
+        if (!title || !date || !imageUrl) {
+            alert('الرجاء ملء جميع الحقول المطلوبة');
+            return;
+        }
+        
+        try {
+            const certId = generateUniqueId();
+            const profile = studentProfiles[studentId] || {
+                certificates: [],
+                customRanges: [],
+                joinDate: new Date().toISOString().split('T')[0],
+                startDate: new Date().toISOString().split('T')[0]
+            };
+            
+            profile.certificates = profile.certificates || [];
+            profile.certificates.push({
+                id: certId,
+                title: title,
+                date: date,
+                imageUrl: imageUrl,
+                description: description,
+                addedBy: 'admin',
+                addedAt: new Date().toISOString()
+            });
+            
+            await writeStudentProfileToFirebase(studentId, profile);
+            
+            // تحديث العرض
+            const certificatesContainer = document.getElementById(`certificatesContainer-${studentId}`);
+            if (certificatesContainer) {
+                certificatesContainer.innerHTML = renderCertificates(profile.certificates, studentId);
+            }
+            
+            // إغلاق المودال
+            document.body.removeChild(tempModal);
+            
+            showToast('✅ تم إضافة الشهادة بنجاح', true);
+        } catch (error) {
+            console.error('خطأ في حفظ الشهادة:', error);
+            alert('حدث خطأ أثناء حفظ الشهادة');
+        }
+    });
+};
+
+window.closeAddCertificateModal = function(studentId) {
+    const tempModal = document.getElementById('tempCertModal');
+    if (tempModal) {
+        document.body.removeChild(tempModal);
+    }
+};
+
+window.deleteCertificate = async function(studentId, certId) {
+    if (role !== 'admin') {
+        showToast('❌ صلاحيات المدير فقط', false);
+        return;
+    }
+    
+    if (!confirm('هل أنت متأكد من حذف هذه الشهادة؟')) {
+        return;
+    }
+    
+    try {
+        const profile = studentProfiles[studentId];
+        if (profile && profile.certificates) {
+            profile.certificates = profile.certificates.filter(cert => cert.id !== certId);
+            await writeStudentProfileToFirebase(studentId, profile);
+            
+            // تحديث العرض
+            const certificatesContainer = document.getElementById(`certificatesContainer-${studentId}`);
+            if (certificatesContainer) {
+                certificatesContainer.innerHTML = renderCertificates(profile.certificates, studentId);
+            }
+            
+            showToast('✅ تم حذف الشهادة بنجاح', true);
+        }
+    } catch (error) {
+        console.error('خطأ في حذف الشهادة:', error);
+        alert('حدث خطأ أثناء حذف الشهادة');
+    }
+};
+
+window.viewCertificateImage = function(imageUrl) {
+    const modalHtml = `
+        <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 10000; display: flex;">
+            <div style="background: transparent; max-width: 90%; max-height: 90%;">
+                <button onclick="closeImageModal()" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-times"></i>
+                </button>
+                <img src="${imageUrl}" alt="صورة الشهادة" style="width: 100%; height: auto; border-radius: 5px;">
+            </div>
+        </div>
+    `;
+    
+    const tempModal = document.createElement('div');
+    tempModal.id = 'tempImageModal';
+    tempModal.innerHTML = modalHtml;
+    document.body.appendChild(tempModal);
+};
+
+window.closeImageModal = function() {
+    const tempModal = document.getElementById('tempImageModal');
+    if (tempModal) {
+        document.body.removeChild(tempModal);
+    }
+};
+
+/* ========= التبديل بين التبويبات ========= */
+tabGrades.addEventListener('click', ()=>{ 
+  currentView='grades'; 
+  tabGrades.classList.add('active'); 
+  tabHomework.classList.remove('active'); 
+  updateZoomButtonsLabels();
+  render(); 
+});
+
+tabHomework.addEventListener('click', ()=>{ 
+  currentView='homework'; 
+  tabHomework.classList.add('active'); 
+  tabGrades.classList.remove('active'); 
+  updateZoomButtonsLabels();
+  render(); 
+});
+
+/* ========= دالة التنقل بين خانات الواجبات ========= */
+function setupHomeworkNavigation() {
+  document.addEventListener('keydown', function(e) {
+    if (currentView !== 'homework' || role !== 'admin') return;
+    
+    if (e.key === 'Enter' && e.target.classList.contains('homework-editable')) {
+      e.preventDefault();
+      
+      const currentCell = e.target;
+      const allCells = Array.from(document.querySelectorAll('.homework-editable'));
+      const currentIndex = allCells.indexOf(currentCell);
+      
+      if (currentIndex < allCells.length - 1) {
+        const nextCell = allCells[currentIndex + 1];
+        nextCell.focus();
+        
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(nextCell);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  });
+}
+
+/* ========= render groups & students ========= */
+function render(){
+  groupsContainer.innerHTML = '';
+  homeworkSaveContainer.style.display = (currentView === 'homework' && role === 'admin') ? 'block' : 'none';
+
+  if (!data || data.length === 0) {
+    groupsContainer.innerHTML = '<div style="text-align:center;padding:40px;color:#666">لا توجد بيانات للعرض</div>';
+    return;
+  }
+  
+  if(role==='admin' && currentView === 'grades'){
+    const topDiv = document.createElement('div'); topDiv.style.marginBottom='8px';
+    const addG = document.createElement('button'); addG.className='button small'; addG.innerHTML = '<i class="fas fa-plus"></i> إضافة مجموعة'; addG.onclick = adminAddGroup;
+    topDiv.appendChild(addG);
+    groupsContainer.appendChild(topDiv);
+  }
+  
+  data.forEach((g, gi)=>{
+    if(currentView === 'homework') {
+    } else {
+      if(!role && (!g.showStudents || g.showStudents === false)) return;
+      if(role==='manager' && currentUser && currentUser.groupIndex !== gi) return;
+    }
+    
+    const groupDiv = document.createElement('div'); groupDiv.className = 'group';
+    const head = document.createElement('div'); head.style.display='flex'; head.style.justifyContent='space-between'; head.style.alignItems='center'; head.style.flexWrap='wrap'; head.style.gap='8px';
+    
+    const title = document.createElement('div'); 
+    title.textContent = g.name; 
+    title.className = 'group-title';
+    head.appendChild(title);
+    
+    const actions = document.createElement('div'); actions.className='buttons-container';
+    if(role==='admin' && currentView === 'grades'){
+      const editBtn = document.createElement('button'); editBtn.className='button small'; editBtn.innerHTML='<i class="fas fa-edit"></i> تعديل'; editBtn.onclick = ()=> adminEditGroupName(gi);
+      const credsBtn = document.createElement('button'); credsBtn.className='button small'; credsBtn.innerHTML='<i class="fas fa-user-cog"></i> بيانات المشرف'; credsBtn.onclick = ()=> adminSetGroupCreds(gi);
+      const addStickerBtn = document.createElement('button'); addStickerBtn.className='button small'; addStickerBtn.innerHTML='<i class="fas fa-sticky-note"></i> إضافة ستكر'; addStickerBtn.onclick = ()=> adminAddSticker(gi);
+      const toggleNames = document.createElement('button'); toggleNames.className='button small'; toggleNames.innerHTML = g.showStudents ? '<i class="fas fa-eye-slash"></i> إخفاء الأسماء' : '<i class="fas fa-eye"></i> إظهار الأسماء'; toggleNames.onclick = ()=> adminToggleGroupShow(gi);
+      const deleteBtn = document.createElement('button'); deleteBtn.className='button small danger'; deleteBtn.innerHTML='<i class="fas fa-trash"></i> حذف المجموعة'; deleteBtn.onclick = ()=> adminDeleteGroup(gi);
+      actions.appendChild(editBtn); actions.appendChild(credsBtn); actions.appendChild(addStickerBtn); actions.appendChild(toggleNames); actions.appendChild(deleteBtn);
+    }
+    head.appendChild(actions);
+    groupDiv.appendChild(head);
+
+    g.stickers.forEach((st, si)=>{
+      if(currentView === 'homework') {
+      } else {
+        if(!role && (!st.visible || st.visible === false)) return;
+      }
+      
+      const stDiv = document.createElement('div'); stDiv.className='sticker';
+      const stHead = document.createElement('div'); stHead.style.display='flex'; stHead.style.justifyContent='space-between'; stHead.style.alignItems='center'; stHead.style.flexWrap='wrap'; stHead.style.gap='8px';
+      
+      const stTitle = document.createElement('div'); 
+      stTitle.textContent = st.title; 
+      stTitle.className = 'sticker-title'; 
+      stHead.appendChild(stTitle);
+      
+      const stActions = document.createElement('div'); stActions.className='buttons-container';
+      if(role==='admin' && currentView === 'grades'){
+        const toggleVis = document.createElement('button'); toggleVis.className='button small'; toggleVis.innerHTML = st.visible ? '<i class="fas fa-eye-slash"></i> إخفاء عن الزوار' : '<i class="fas fa-eye"></i> إظهار للزوار'; toggleVis.onclick = ()=> adminToggleStickerVisibility(gi,si);
+        const editStickerBtn = document.createElement('button'); editStickerBtn.className='button small'; editStickerBtn.innerHTML='<i class="fas fa-edit"></i> تعديل الاسم'; editStickerBtn.onclick = ()=> adminEditStickerName(gi,si);
+        const delSt = document.createElement('button'); delSt.className='button small danger'; delSt.innerHTML='<i class="fas fa-trash"></i> حذف'; delSt.onclick = ()=> adminDeleteSticker(gi,si);
+        const addStu = document.createElement('button'); addStu.className='button small'; addStu.innerHTML='<i class="fas fa-user-plus"></i> إضافة طالب'; addStu.onclick = ()=> adminAddStudent(gi,si);
+        stActions.appendChild(toggleVis); stActions.appendChild(editStickerBtn); stActions.appendChild(delSt); stActions.appendChild(addStu);
+      }
+      stHead.appendChild(stActions);
+      stDiv.appendChild(stHead);
+
+      if(!role && !g.showStudents && currentView !== 'homework'){
+        const note = document.createElement('div'); note.style.color='#a00'; note.textContent = 'أسماء الطلاب مخفية عن الزوار'; stDiv.appendChild(note); groupDiv.appendChild(stDiv); return;
+      }
+
+      if (!st.students || st.students.length === 0) {
+        const emptyMsg = document.createElement('div'); 
+        emptyMsg.style.textAlign='center'; 
+        emptyMsg.style.padding='20px'; 
+        emptyMsg.style.color='#666';
+        emptyMsg.textContent = 'لا يوجد طلاب في هذا الستكر';
+        stDiv.appendChild(emptyMsg);
+        groupDiv.appendChild(stDiv);
+        return;
+      }
+
+      const wrap = document.createElement('div'); wrap.className='table-wrap';
+      const table = document.createElement('table');
+      if(currentView === 'homework') {
+          table.classList.add('homework-table');
+      } else {
+          table.classList.add('grades-table');
+      }
+      
+      const thead = document.createElement('thead');
+      
+      if (currentView === 'grades') {
+        thead.innerHTML = `<tr><th>#</th><th>اسم الطالب</th><th>الحضور/الغياب</th><th>تقدير الحفظ</th><th>تقدير الورد</th><th>تقدير الأخلاق</th><th>ملاحظات</th><th>الحساب التراكمي</th>${(role==='admin' || role==='manager')?'<th>إجراءات</th>':''}</tr>`;
+      } else {
+        thead.innerHTML = `<tr><th>#</th><th>اسم الطالب</th><th>واجب التلاوة</th><th>واجب الحفظ</th><th>واجب المراجعة</th></tr>`;
+      }
+      
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+
+      st.students.forEach((s, sti)=>{
+        const tr = document.createElement('tr');
+        if(s.attendance === 'absent_excused') tr.classList.add('att-excused');
+        if(s.attendance === 'absent_unexcused') tr.classList.add('att-unexcused');
+
+        tr.innerHTML = `<td>${sti+1}</td>`;
+        
+        // خلية اسم الطالب مع رابط الصفحة الشخصية
+        const nameTd = document.createElement('td');
+        nameTd.style.textAlign = 'right';
+        const nameLink = document.createElement('a');
+        nameLink.href = 'javascript:void(0)';
+        nameLink.className = 'student-name-link';
+        nameLink.innerHTML = escapeHtml(s.name);
+        nameLink.onclick = () => openStudentProfile(s.id);
+        nameTd.appendChild(nameLink);
+        tr.appendChild(nameTd);
+        
+        if (currentView === 'grades') {
+          const tdAtt = document.createElement('td');
+          if(canEditGroup(gi)){
+            const sel = document.createElement('select');
+            [['present','حاضر'],['absent_excused','غائب بعذر'],['absent_unexcused','غائب بغير عذر']].forEach(o=>{ const opt=document.createElement('option'); opt.value=o[0]; opt.text=o[1]; sel.appendChild(opt); });
+            sel.value = s.attendance || 'present';
+            sel.onchange = (e)=> setAttendance(gi,si,sti,e.target.value,tr);
+            tdAtt.appendChild(sel);
+          } else {
+            tdAtt.textContent = s.attendance==='present' ? 'حاضر' : (s.attendance==='absent_excused' ? 'غائب بعذر' : 'غائب بغير عذر');
+          }
+          tr.appendChild(tdAtt);
+
+          function gradeCell(field, value){
+            const td = document.createElement('td');
+            if(canEditGroup(gi)){
+              const sel = document.createElement('select');
+              if(s.attendance === 'absent_unexcused'){ 
+                  sel.innerHTML = '<option value="0">0</option>'; 
+                  sel.disabled = true; 
+              }
+              else {
+                const empty = document.createElement('option'); empty.value=''; empty.text='-'; sel.appendChild(empty);
+                for(let v=10; v>=1; v--){ const o=document.createElement('option'); o.value=String(v); o.text=String(v); sel.appendChild(o); }
+                sel.disabled = s.attendance !== 'present';
+              }
+              
+              sel.onchange = (e)=> setGrade(gi,si,sti,field,e.target.value); 
+              
+              sel.value = value || '';
+              td.appendChild(sel);
+            } else {
+              td.textContent = (s.attendance === 'absent_unexcused') ? '0' : (value || '-');
+            }
+            return td;
+          }
+          tr.appendChild(gradeCell('hifz', s.gradeHifz));
+          tr.appendChild(gradeCell('ward', s.gradeWard));
+          tr.appendChild(gradeCell('akhlak', s.gradeAkhlak));
+
+          const tdNotes = document.createElement('td'); tdNotes.className='notes';
+          if(s.attendance === 'present'){
+            const nH = noteForHifz(s.gradeHifz);
+            const nW = noteForWard(s.gradeWard);
+            if(nH || nW){
+              tdNotes.innerHTML = (nH ? `<div>${escapeHtml(nH)}</div>` : '');
+              if(nH && nW){ tdNotes.innerHTML += `<div class="notes-separator"></div>`; }
+              tdNotes.innerHTML += (nW ? `<div>${escapeHtml(nW)}</div>` : '');
+            }
+          } 
+          else if (s.attendance === 'absent_unexcused'){
+              tdNotes.innerHTML = ''; 
+          }
+          tr.appendChild(tdNotes);
+
+          const tdCum = document.createElement('td');
+          const cum = s.cumulative;
+          
+          if(cum !== "" && cum !== undefined && !isNaN(parseFloat(cum))){
+            const lbl = getCumulativeLabel(cum);
+            tdCum.innerHTML = `<div><strong>${cum}</strong></div><div style="margin-top:6px"><span class="badge ${lbl.cls}">${lbl.text}</span></div>`;
+          } else {
+            tdCum.innerHTML = '<div style="color:#6c757d;">-</div>';
+          }
+          tr.appendChild(tdCum);
+
+          if(role==='admin' || (role==='manager' && canEditGroup(gi))){
+            const tdAct = document.createElement('td');
+            const editBtn = document.createElement('button'); 
+            editBtn.className='button small'; 
+            editBtn.innerHTML='<i class="fas fa-edit"></i> تعديل'; 
+            editBtn.onclick = ()=> openEditModal(gi,si,sti);
+            tdAct.appendChild(editBtn);
+            
+            // زر النقل الجديد (للمدير فقط)
+            if(role==='admin'){
+              const moveBtn = document.createElement('button');
+              moveBtn.className='button small';
+              moveBtn.style.background = '#9C27B0';
+              moveBtn.innerHTML='<i class="fas fa-exchange-alt"></i> نقل';
+              moveBtn.onclick = () => openMoveModal(gi, si, sti);
+              tdAct.appendChild(moveBtn);
+              
+              const delBtn = document.createElement('button'); 
+              delBtn.className='button small danger'; 
+              delBtn.innerHTML='<i class="fas fa-trash"></i> حذف'; 
+              delBtn.onclick = ()=> adminDeleteStudent(gi,si,sti);
+              tdAct.appendChild(delBtn);
+            }
+            tr.appendChild(tdAct);
+          }
+        } else {
+          ['recitation','memorization','review'].forEach(field => {
+            const td = document.createElement('td');
+            const wrapper = document.createElement('div'); wrapper.className='homework-cell-wrapper';
+            const div = document.createElement('div');
+            div.className = role==='admin' ? 'homework-editable' : 'homework-readonly';
+            div.textContent = homeworkData[s.id] ? (homeworkData[s.id][field]||'') : '';
+            
+            if(role==='admin'){
+                div.contentEditable = true;
+                div.onfocus = ()=> div.classList.add('homework-modified');
+                div.onblur = ()=> {
+                    div.classList.remove('homework-modified');
+                    updateHomework(s.id, field, div.textContent);
+                };
+                wrapper.appendChild(div);
+                
+                const histBtn = document.createElement('div');
+                histBtn.className = 'history-btn';
+                histBtn.innerHTML = '<i class="fas fa-history"></i>';
+                histBtn.title = 'سجل التعديلات';
+                histBtn.onclick = () => window.viewHomeworkHistory(s.id);
+                wrapper.appendChild(histBtn);
+            } else {
+                wrapper.appendChild(div);
+            }
+            td.appendChild(wrapper);
+            tr.appendChild(td);
+          });
+        }
+
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      stDiv.appendChild(wrap);
+      groupDiv.appendChild(stDiv);
+    });
+
+    groupsContainer.appendChild(groupDiv);
+  });
+
+  renderMessagesControls();
+  updateSaveButtonState();
+}
+
+/* ========= notes helpers ========= */
+function noteForHifz(v){ 
+  if(!v || v==='0') return '';
+  const n = Number(v); 
+  if(n>=10) return 'ممتاز جداً في حفظك'; 
+  if(n>=9) return 'ممتاز في حفظك'; 
+  if(n>=8) return 'جيد جداً في حفظك'; 
+  if(n>=7) return 'جيد في حفظك'; 
+  if(n>=6) return 'ضعيف في حفظك'; 
+  return 'ضعيف جداً في حفظك'; 
+}
+function noteForWard(v){ 
+  if(!v || v==='0') return '';
+  const n = Number(v); 
+  if(n>=10) return 'ممتاز جداً في اختبار الورد'; 
+  if(n>=9) return 'ممتاز في اختبار الورد'; 
+  if(n>=8) return 'جيد جداً في اختبار الورد'; 
+  if(n>=7) return 'جيد في اختبار الورد'; 
+  if(n>=6) return 'ضعيف في اختبار الورد'; 
+  return 'ضعيف جداً في اختبار الورد'; 
+}
+
+/* ========= modal for edit student ========= */
+let currentEdit = null;
+function openEditModal(gi,si,sti){
+  if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; }
+  currentEdit = {gi,si,sti};
+  const s = data[gi].stickers[si].students[sti];
+  
+  modalName.value = s.name;
+  
+  const isNameEditable = (role === 'admin');
+  modalName.disabled = !isNameEditable;
+  modalName.className = isNameEditable ? '' : 'name-readonly';
+
+  modalAttendance.value = s.attendance || 'present';
+  fillGrade(modalHifz, s.gradeHifz || '');
+  fillGrade(modalWard, s.gradeWard || '');
+  fillGrade(modalAkhlak, s.gradeAkhlak || '');
+  modalBackdrop.style.display = 'flex';
+}
+modalCancel.addEventListener('click', ()=>{ 
+  modalBackdrop.style.display='none'; 
+  currentEdit=null; 
+  modalName.disabled = false;
+  modalName.className = ''; 
+});
+
+modalSave.addEventListener('click', async ()=>{
+  if(!currentEdit) return;
+  const gi = currentEdit.gi, si = currentEdit.si, sti = currentEdit.sti;
+  const s = data[gi].stickers[si].students[sti];
+  const name = modalName.value.trim();
+  const att = modalAttendance.value;
+  
+  if(role === 'admin') {
+      s.name = name;
+  }
+  
+  s.attendance = att;
+  if(att === 'absent_unexcused'){ 
+    s.gradeHifz='0'; 
+    s.gradeWard='0'; 
+    s.gradeAkhlak='0'; 
+  }
+  else if(att === 'absent_excused'){ 
+    s.gradeHifz=''; 
+    s.gradeWard=''; 
+    s.gradeAkhlak=''; 
+  }
+  else { 
+    s.gradeHifz = modalHifz.value || ''; 
+    s.gradeWard = modalWard.value || ''; 
+    s.gradeAkhlak = modalAkhlak.value || ''; 
+  }
+  
+  render();
+  writeGroupsToFirebase(data);
+  modalBackdrop.style.display='none'; 
+  currentEdit=null; 
+  modalName.disabled = false;
+  modalName.className = ''; 
+});
+
+/* ========= الحل الجذري للتراكمي ========= */
+async function calculateCumulativeAll(){
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  if(!confirm('حساب التراكمي لجميع الطلاب الآن؟')) return;
+  
+  showLoading();
+  
+  try {
+    cumBackup = JSON.parse(JSON.stringify({
+      cumHistory: {...cumHistory},
+      data: JSON.parse(JSON.stringify(data))
+    }));
+    localStorage.setItem(CUM_BACKUP_KEY, JSON.stringify(cumBackup));
+    
+    const updates = [];
+    let studentsProcessed = 0;
+    
+    data.forEach((group, gi)=>{
+      if(group.showStudents === false) return;
+      group.stickers.forEach((sticker, si)=>{
+        if(sticker.visible === false) return;
+        sticker.students.forEach((s, sti)=>{
+          if(!s.id) {
+              console.warn(`Student ${s.name} has no ID, skipping cumulative calculation.`);
+              return;
+          }
+          studentsProcessed++;
+          
+          const idKey = s.id;
+
+          let currentAvg = null;
+          let newCount = 0;
+          let prevCount = Number(cumHistory[idKey+'_count'] || 0);
+
+          if(s.attendance === 'absent_excused') {
+              return;
+          } 
+          
+          if(s.attendance === 'absent_unexcused') {
+            currentAvg = 0;
+            newCount = prevCount + 1;
+            
+          } else {
+            const h = Number(s.gradeHifz) || 0;
+            const w = Number(s.gradeWard) || 0;
+            const a = Number(s.gradeAkhlak) || 0;
+            
+            if(h===0 && w===0 && a===0) return;
+
+            currentAvg = (h + w + a) / 3;
+            newCount = prevCount + 1;
+          }
+          
+          const prev = Number(cumHistory[idKey] || 0);
+          
+          const newCum = prevCount>0 ? (prev*prevCount + currentAvg) / newCount : currentAvg;
+          
+          cumHistory[idKey] = Math.round(newCum * 100) / 100;
+          cumHistory[idKey+'_count'] = newCount;
+          
+          s.cumulative = cumHistory[idKey];
+          s.count = newCount;
+          
+          updates.push({
+            name:s.name, 
+            group:group.name, 
+            sticker:sticker.title, 
+            current: Math.round(currentAvg*100)/100, 
+            cumulative: s.cumulative, 
+            count: newCount
+          });
+        });
+      });
+    });
+    
+    writeCumToFirebase(cumHistory);
+    writeGroupsToFirebase(data);
+    
+    updates.sort((a,b)=> b.cumulative - a.cumulative);
+    renderCumulativeResults(updates);
+    showToast('✅ انتهى حساب التراكمي لعدد ' + updates.length + ' من ' + studentsProcessed + ' طالب', true);
+  } finally {
+    hideLoading();
+  }
+}
+
+async function undoCalculateCumulative(){
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  if(!cumBackup){ 
+    const backup = loadCumBackup();
+    if(!backup) {
+      showToast('❌ لا توجد نسخة احتياطية للتراجع', false); 
+      return;
+    }
+    cumBackup = backup;
+  }
+  
+  if(!confirm('التراجع عن آخر عملية تراكمي؟')) return;
+  
+  showLoading();
+  
+  try {
+    cumHistory = {...cumBackup.cumHistory};
+    data = JSON.parse(JSON.stringify(cumBackup.data));
+    
+    writeCumToFirebase(cumHistory);
+    writeGroupsToFirebase(data);
+    
+    render();
+    cumResults.innerHTML = '<div style="color:var(--muted);text-align:center">تم التراجع عن آخر عملية تراكمي</div>';
+    showToast('✅ تم التراجع بنجاح', true);
+  } finally {
+    hideLoading();
+  }
+}
+
+btnResetCum.addEventListener('click', async ()=>{
+  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
+  if(!confirm('هل أنت متأكد من تصفير كل التراكمي؟ سيتم مسح جميع السجلات التراكمية وبداية جديدة تماماً.')) return;
+  
+  showLoading();
+  
+  try {
+    cumBackup = {
+      cumHistory: JSON.parse(JSON.stringify(cumHistory)),
+      data: JSON.parse(JSON.stringify(data))
+    };
+    localStorage.setItem(CUM_BACKUP_KEY, JSON.stringify(cumBackup));
+    
+    cumHistory = {};
+    
+    data.forEach((group, gi) => {
+      group.stickers.forEach((sticker, si) => {
+        sticker.students.forEach((student, sti) => {
+          student.cumulative = "";
+          student.count = 0;
+        });
+      });
+    });
+    
+    writeCumToFirebase({});
+    writeGroupsToFirebase(data);
+    
+    cumHistory = {};
+    
+    render();
+    cumResults.innerHTML = '<div style="color:var(--muted);text-align:center;padding:20px;background:#f8f9fa;border-radius:8px;">✅ تم تصفير التراكمي لجميع الطلاب بنجاح<br><small>بدأت دورة تراكمية جديدة</small></div>';
+    showToast('✅ تم تصفير التراكمي الكامل بنجاح', true);
+  } finally {
+    hideLoading();
+  }
+});
+
+btnCalcCum.addEventListener('click', calculateCumulativeAll);
+btnUndoCum.addEventListener('click', undoCalculateCumulative);
+
+function renderCumulativeResults(updates){
+  let html = '<div class="table-wrap"><table><thead><tr><th>#</th><th>اسم الطالب</th><th>المجموعة</th><th>الستكر</th><th>المعدل الحالي</th><th>المعدل التراكمي</th><th>عدد المرات</th></tr></thead><tbody>';
+  updates.forEach((u, i)=>{
+    const lbl = getCumulativeLabel(u.cumulative);
+    html += `<tr>
+      <td>${i+1}</td>
+      <td style="text-align:right">${escapeHtml(u.name)}</td>
+      <td>${escapeHtml(u.group)}</td>
+      <td>${escapeHtml(u.sticker)}</td>
+      <td><strong>${u.current}</strong></td>
+      <td><strong>${u.cumulative}</strong><div style="margin-top:4px"><span class="badge ${lbl.cls}">${lbl.text}</span></div></td>
+      <td>${u.count}</td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+  cumResults.innerHTML = html;
+}
+
+/* ========= init ========= */
+function initUI(){
+  fillGrade(modalHifz,''); fillGrade(modalWard,''); fillGrade(modalAkhlak,'');
+  startMessageRotation();
+  updateUIAfterAuth();
+  updateZoomButtonsLabels();
+  render();
+  setupHomeworkNavigation();
+  setupFontSizeControls();
+}
+
+// بدء التطبيق
+async function initializeAppData() {
+  if (isInitialized) return;
+  
+  try {
+    await optimizedFirebaseFetch();
+    isInitialized = true;
+    initUI();
+    
+    incrementVisitorIfNeeded().catch(()=>{});
+    
+    readVisitorsOnce().then(v=>{
+      updateVisitorsUI(v.count, v.lastReset);
+    }).catch(()=>{});
+    
+    btnResetVisitors.addEventListener('click', resetVisitors);
+    
+  } catch (error) {
+    console.error('خطأ في التهيئة:', error);
+    data = loadData();
+    messages = loadMessages();
+    cumHistory = loadCum();
+    homeworkData = loadHomework();
+    try {
+      studentProfiles = JSON.parse(localStorage.getItem('studentProfiles')) || {};
+    } catch(e) {
+      studentProfiles = {};
+    }
+    normalizeData();
+    initUI();
+  }
+}
+
+let isInitialized = false;
+
+initializeAppData();
+
+window.refreshData = function() {
+  optimizedFirebaseFetch().then(() => {
+    render();
+  });
+};
+
+window._debug = { data, messages, cumHistory, homeworkData, studentProfiles, login, logout: ()=>{ role=null; currentUser=null; saveUser(); updateUIAfterAuth(); render(); } };
+
+</script>
+
+</body>
+</html>

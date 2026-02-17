@@ -37,7 +37,6 @@
   --maxw:1100px;
   --gap:10px;
   
-  /* متغيرات حجم الخط المستقلة */
   --homework-font-size: 16px; 
   --grades-font-size: 16px;
   --group-name-size: 1.4rem;
@@ -65,7 +64,6 @@ html, body {
   font-size: 16px;
 }
 
-/* السماح بالتحديد في حقول الإدخال فقط */
 input, textarea, select, [contenteditable] {
   -webkit-user-select: text !important;
   user-select: text !important;
@@ -102,7 +100,6 @@ body{
   min-width: 1100px;
 }
 
-/* العنوان الرئيسي */
 .header{
   padding: 0.625rem 0;
   border-radius: 0;
@@ -141,7 +138,6 @@ body{
 .group{border-radius:0.5rem;border:1px solid #eee;padding:0.625rem;margin-bottom:0.625rem;background:#fafafa}
 .sticker{border:1px dashed #e6e6e6;padding:0.5rem;border-radius:0.5rem;margin-bottom:0.625rem;background:#fff}
 
-/* تعديل الجداول للسماح بالالتفاف النصي الكامل */
 .table-wrap {
   width: 100%;
   overflow-x: hidden !important;
@@ -180,7 +176,6 @@ th{background:var(--accent);color:#fff;position:sticky;top:0}
 .att-excused td{background:#e6f7ff}
 .att-unexcused td{background:#ffecec}
 
-/* نافذة الرسائل */
 .messages-area{
   margin-top:1.25rem;
   padding:1.25rem;
@@ -217,7 +212,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
 .name-readonly { background-color: #f5f5f5; color: #666; cursor: not-allowed; }
 .notes-separator { border-top: 1px dashed #ccc; margin: 0.25rem 0; width: 100%; }
 
-/* تحسين عناوين المجموعات */
 .group-title {
   font-size: var(--group-name-size) !important;
   font-weight: 800 !important;
@@ -231,7 +225,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   transition: font-size 0.2s ease;
 }
 
-/* تحسين عناوين الستكرات */
 .sticker-title {
   font-size: var(--sticker-name-size) !important;
   font-weight: 700 !important;
@@ -245,7 +238,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   transition: font-size 0.2s ease;
 }
 
-/* تحسينات للأداء */
 .loading-spinner {
   display: inline-block;
   width: 1.25rem;
@@ -286,7 +278,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
     box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
 }
 
-/* تبويب التبديل بين التقديرات والواجبات */
 .tabs-container {
   display: flex;
   margin-bottom: 1.25rem;
@@ -315,7 +306,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   background: #e9ecef;
 }
 
-/* ستايلات الواجبات */
 .homework-cell-wrapper {
   display: flex;
   align-items: center;
@@ -324,20 +314,17 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
 }
 .homework-editable {
   width: 100%;
-  min-height: 5rem; /* زيادة الارتفاع حسب الطلب */
+  min-height: 5rem;
   padding: 0.5rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   resize: none;
   font-family: inherit;
-  
   text-align: right;
   cursor: text;
-  
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-word;
-  
   transition: all 0.2s ease;
   background: transparent;
   line-height: 1.6 !important;
@@ -356,9 +343,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   word-wrap: break-word;
 }
 
-/* ========= تطبيق أحجام الخطوط المتغيرة ========= */
-
-/* جدول الواجبات */
 .homework-table td, 
 .homework-table th, 
 .homework-table .homework-editable, 
@@ -368,21 +352,19 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
     transition: font-size 0.2s ease;
 }
 
-/* جدول التقديرات - التكبير المطلوب */
 .grades-table th,
-.grades-table td:nth-child(2),  /* اسم الطالب */
-.grades-table td:nth-child(4),  /* تقدير الحفظ */
-.grades-table td:nth-child(5),  /* تقدير الورد */
-.grades-table td:nth-child(6) { /* تقدير الأخلاق */
+.grades-table td:nth-child(2),
+.grades-table td:nth-child(4),
+.grades-table td:nth-child(5),
+.grades-table td:nth-child(6) {
     font-size: var(--grades-font-size) !important;
     transition: font-size 0.2s ease;
 }
 
-.grades-table td:nth-child(2) { /* اسم الطالب */
+.grades-table td:nth-child(2) {
     font-weight: 700;
 }
 
-/* إصلاح حجم الـ select ليتناسب مع الخلية */
 .grades-table select {
     font-size: 0.9em !important; 
     padding: 0.2rem !important;
@@ -408,7 +390,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border: 1px solid #ffd54f;
 }
 
-/* History Modal items */
 .history-list {
     max-height: 18.75rem;
     overflow-y: auto;
@@ -444,7 +425,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
 }
 .history-del-btn:hover { background: #dc3545; color: white; }
 
-/* روابط أسماء الطلاب للصفحات الشخصية */
 .student-name-link {
   color: var(--accent);
   text-decoration: none;
@@ -459,21 +439,17 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   color: #004d00;
 }
 
-/* تحسينات للعرض على جميع الشاشات */
 @media screen and (max-width: 75rem) {
   body {
     overflow-x: auto;
   }
-  
   .container {
     padding: 0.625rem;
     margin: 0.3125rem auto;
   }
-  
   .table-wrap {
     overflow-x: hidden;
   }
-  
   table {
     min-width: 100%;
   }
@@ -485,37 +461,30 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
     overflow-x: auto;
     min-width: 68.75rem;
   }
-  
   .container {
     padding: 0.5rem;
     margin: 0.125rem auto;
     min-width: 68.75rem;
   }
-  
   .header {
     font-size: 1.7rem;
     padding: 0.9375rem 0;
     flex-direction: column;
   }
-  
   .header-logo {
     height: 7.5rem;
     width: 7.5rem;
   }
-  
   .homework-editable {
     min-height: 4rem;
   }
-  
   .messages-box {
     padding: 0.9375rem;
     font-size: 1rem;
   }
-  
   .group-title {
     font-size: 1.3rem !important;
   }
-  
   .sticker-title {
     font-size: 1.1rem !important;
   }
@@ -527,37 +496,30 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
     overflow-x: auto;
     min-width: 68.75rem;
   }
-  
   .container {
     padding: 0.375rem;
     min-width: 68.75rem;
   }
-  
   .header {
     font-size: 1.4rem;
   }
-  
   .header-logo {
     height: 6.25rem;
     width: 6.25rem;
   }
-  
   table {
     min-width: 100%;
   }
-  
   th, td {
     padding: 0.375rem;
     font-size: 0.8rem;
   }
-  
   .button {
     padding: 0.375rem 0.5rem;
     font-size: 0.8rem;
   }
 }
 
-/* ستايلات نظام الورد التلقائي (المنقح) */
 .quran-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -580,14 +542,12 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   transition: all 0.2s;
   min-height: 50px;
 }
-
 .surah-checkbox-item:hover {
   border-color: var(--accent);
   background: #f9f9f9;
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-
 .surah-checkbox-item input[type="checkbox"] {
   margin-left: 10px;
   width: 20px;
@@ -603,12 +563,10 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   position: relative;
   flex-shrink: 0;
 }
-
 .surah-checkbox-item input[type="checkbox"]:checked {
   background-color: var(--accent);
   border-color: var(--accent);
 }
-
 .surah-checkbox-item input[type="checkbox"]:checked::after {
   content: '✓';
   position: absolute;
@@ -619,7 +577,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   font-size: 14px;
   font-weight: bold;
 }
-
 .surah-checkbox-item label {
   flex: 1;
   cursor: pointer;
@@ -628,7 +585,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   line-height: 1.4;
   font-weight: 500;
 }
-
 .surah-checkbox-item small {
   display: block;
   color: #666;
@@ -645,7 +601,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   text-align: center;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-
 .wird-title {
   color: #2E7D32;
   font-weight: bold;
@@ -658,7 +613,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   padding-bottom: 0.5rem;
   border-bottom: 2px dashed rgba(46, 125, 50, 0.2);
 }
-
 .wird-text {
   font-size: 1.5rem;
   font-weight: 800;
@@ -674,7 +628,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   align-items: center;
   justify-content: center;
 }
-
 .wird-stats {
   font-size: 0.95rem;
   color: #555;
@@ -699,7 +652,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border-radius: 8px;
   border: 1px solid #e0e0e0;
 }
-
 .quick-btn {
   flex: 1;
   min-width: 140px;
@@ -717,27 +669,23 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   justify-content: center;
   gap: 8px;
 }
-
 .quick-btn:hover {
   background: var(--accent);
   color: white;
   border-color: var(--accent);
   transform: translateY(-2px);
 }
-
 .quick-btn.select-all {
   background: #e8f5e9;
   color: #2E7D32;
   border-color: #c8e6c9;
 }
-
 .quick-btn.clear-all {
   background: #ffebee;
   color: #c62828;
   border-color: #ffcdd2;
 }
 
-/* ستايلات محددات الصفحات الجديدة */
 .page-range-selector {
   display: flex;
   align-items: center;
@@ -748,7 +696,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin-bottom: 15px;
   border: 1px solid #e0e0e0;
 }
-
 .range-select {
   flex: 1;
   padding: 10px;
@@ -758,13 +705,11 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   background: white;
   cursor: pointer;
 }
-
 .range-select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(0,100,0,0.1);
 }
-
 .range-add-btn {
   padding: 10px 20px;
   background: var(--accent);
@@ -778,12 +723,10 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   gap: 8px;
   transition: all 0.2s;
 }
-
 .range-add-btn:hover {
   background: #004d00;
   transform: translateY(-2px);
 }
-
 .saved-ranges-list {
   max-height: 200px;
   overflow-y: auto;
@@ -793,7 +736,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   padding: 10px;
   margin-top: 15px;
 }
-
 .saved-range-item {
   display: flex;
   justify-content: space-between;
@@ -804,18 +746,15 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin-bottom: 8px;
   border: 1px solid #e0e0e0;
 }
-
 .saved-range-info {
   flex: 1;
   font-size: 0.95rem;
   color: #333;
 }
-
 .saved-range-actions {
   display: flex;
   gap: 8px;
 }
-
 .range-action-btn {
   padding: 6px 12px;
   border: none;
@@ -827,24 +766,20 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   align-items: center;
   gap: 5px;
 }
-
 .range-edit-btn {
   background: #e3f2fd;
   color: #1565c0;
 }
-
 .range-delete-btn {
   background: #ffebee;
   color: #c62828;
 }
 
-/* إصلاح مشكلة ظهور التحديد في checkboxes */
 .surah-checkbox-item input[type="checkbox"]:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* ستايلات الصفحة الشخصية للطالب */
 .student-profile-modal {
   width: 95% !important;
   max-width: 1200px !important;
@@ -856,7 +791,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin: 1rem !important;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
-
 .student-profile-header {
   background: linear-gradient(135deg, var(--accent) 0%, #004d00 100%);
   color: white;
@@ -869,7 +803,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   top: 0;
   z-index: 100;
 }
-
 .student-profile-header h2 {
   margin: 0;
   font-size: 1.8rem;
@@ -877,7 +810,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   align-items: center;
   gap: 10px;
 }
-
 .student-profile-close {
   background: white !important;
   color: var(--accent) !important;
@@ -892,18 +824,15 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   gap: 8px;
   transition: all 0.3s ease;
 }
-
 .student-profile-close:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-
 .student-profile-content {
   padding: 1.5rem;
   background: #f8f9fa;
   min-height: 400px;
 }
-
 .profile-section {
   background: white;
   border-radius: 10px;
@@ -911,7 +840,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-
 .profile-section h3 {
   color: var(--accent);
   margin: 0 0 1rem 0;
@@ -922,15 +850,12 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   align-items: center;
   gap: 10px;
 }
-
-/* تخطيط أفقي للتقديرات في الصفحة الشخصية */
 .grades-horizontal {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-top: 1rem;
 }
-
 .grade-box {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 10px;
@@ -939,26 +864,22 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border: 1px solid #dee2e6;
   transition: transform 0.3s ease;
 }
-
 .grade-box:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-
 .grade-title {
   font-size: 1rem;
   color: var(--accent);
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
-
 .grade-value {
   font-size: 1.8rem;
   font-weight: 800;
   color: #111;
   margin-bottom: 0.5rem;
 }
-
 .grade-rating {
   display: inline-block;
   padding: 0.3rem 0.8rem;
@@ -966,8 +887,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   font-size: 0.85rem;
   font-weight: 600;
 }
-
-/* حاوية الشهادات مع تمرير */
 .certificates-scroll {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -979,7 +898,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border-radius: 8px;
   border: 1px solid #e0e0e0;
 }
-
 .certificate-card {
   position: relative;
   height: 220px;
@@ -988,18 +906,15 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
-
 .certificate-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
-
 .certificate-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .certificate-overlay {
   position: absolute;
   bottom: 0;
@@ -1011,8 +926,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   text-align: center;
   font-size: 0.9rem;
 }
-
-/* تحسينات الورد اليومي في الصفحة الشخصية */
 .wird-simple-stats {
   display: flex;
   justify-content: center;
@@ -1020,7 +933,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin-top: 1.5rem;
   flex-wrap: wrap;
 }
-
 .wird-stat-box {
   text-align: center;
   background: white;
@@ -1030,26 +942,21 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border: 2px solid #e0e0e0;
   transition: all 0.3s ease;
 }
-
 .wird-stat-box:hover {
   border-color: var(--accent);
   transform: translateY(-3px);
 }
-
 .wird-stat-value {
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--accent);
   margin-bottom: 0.3rem;
 }
-
 .wird-stat-label {
   font-size: 0.9rem;
   color: #666;
   font-weight: 600;
 }
-
-/* تصميم معلومات الطالب الأساسية */
 .student-basic-info {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -1059,7 +966,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   padding-bottom: 1.5rem;
   border-bottom: 2px solid #eee;
 }
-
 .student-avatar {
   width: 140px;
   height: 140px;
@@ -1073,44 +979,36 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border: 4px solid white;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-
 .student-details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
-
 .info-item {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   padding: 0.5rem 0;
 }
-
 .info-icon {
   color: var(--accent);
   font-size: 1.1rem;
   width: 24px;
 }
-
 .info-text {
   font-size: 0.95rem;
   color: #444;
 }
-
 .info-value {
   font-weight: 600;
   color: #111;
 }
-
-/* تصميم الواجبات في الصفحة الشخصية */
 .homework-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 1rem;
 }
-
 .homework-item {
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   border-radius: 10px;
@@ -1118,7 +1016,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border-right: 4px solid var(--accent);
   box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
-
 .homework-item-header {
   display: flex;
   align-items: center;
@@ -1128,7 +1025,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   font-weight: 600;
   font-size: 1.1rem;
 }
-
 .homework-item-content {
   color: #444;
   line-height: 1.6;
@@ -1140,14 +1036,11 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border-radius: 6px;
   border: 1px solid #eee;
 }
-
-/* تصميم الجداول في الصفحة الشخصية */
 .profile-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
-
 .profile-table th {
   background: var(--accent);
   color: white;
@@ -1156,22 +1049,17 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   text-align: center;
   border: 1px solid #ddd;
 }
-
 .profile-table td {
   padding: 0.8rem;
   border: 1px solid #ddd;
   text-align: center;
 }
-
 .profile-table tr:nth-child(even) {
   background: #f8f9fa;
 }
-
 .profile-table tr:hover {
   background: #e9ecef;
 }
-
-/* زر إغلاق خاص لنافذة تعديل المحفوظ */
 .memorization-close-btn {
   background: #6c757d !important;
   color: white !important;
@@ -1185,13 +1073,10 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   font-size: 0.9rem !important;
   transition: all 0.3s ease !important;
 }
-
 .memorization-close-btn:hover {
   background: #5a6268 !important;
   transform: scale(1.05) !important;
 }
-
-/* ========= ستايلات خاصة بنظام الورد المنقح ========= */
 .wird-cycle-info {
   background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
   border-radius: 8px;
@@ -1199,14 +1084,12 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   margin-top: 1rem;
   border: 1px solid #90caf9;
 }
-
 .wird-cycle-days {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.5rem;
   flex-wrap: wrap;
 }
-
 .wird-day {
   flex: 1;
   min-width: 120px;
@@ -1217,7 +1100,6 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   border: 2px solid #e0e0e0;
   transition: all 0.2s;
 }
-
 .wird-day.active {
   background: var(--accent);
   color: white;
@@ -1226,18 +1108,15 @@ input,select,textarea{padding:0.5rem;border-radius:0.375rem;border:1px solid #cc
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
-
 .wird-day-number {
   font-size: 1.2rem;
   font-weight: 800;
   margin-bottom: 0.25rem;
 }
-
 .wird-day-label {
   font-size: 0.9rem;
   opacity: 0.8;
 }
-
 .wird-pages-count {
   background: linear-gradient(135deg, #fff3e0 0%, #ffecb3 100%);
   padding: 0.5rem 1rem;
@@ -1293,7 +1172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div id="groupsContainer"></div>
 
-  <div id="homeworkSaveContainer" class="auth-only" style="display:none; margin-top: 15px; text-align: center;">
+  <div id="homeworkSaveContainer" class="auth-only" style="display:none; margin-top:15px; text-align:center;">
     <button id="btnSaveHomework" class="button gold"><i class="fas fa-save"></i> حفظ جميع الواجبات</button>
   </div>
 
@@ -1305,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div id="messagesBox" class="messages-box" title="اضغط للتقليب">
       <div id="currentMessage">مرحباً بكم في حلقات مسجد إبراهيم الحاج حسن</div>
-      </div>
+    </div>
 
     <div id="messagesControls" class="messages-controls auth-only" style="display:none">
       <input id="newMessage" type="text" placeholder="أضف رسالة جديدة (نص أو رابط صورة مباشر)..." style="flex:1"/>
@@ -1328,8 +1207,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div id="cumulativeArea" class="card auth-only" style="display:none;margin-top:12px">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
-      <h3 style="margin:0;color:#156515">المعدل التراكمي (مدير)</h3>
+      <h3 style="margin:0;color:#156515">لوحة المدير</h3>
       <div class="buttons-container">
+        <button id="btnManageUsers" class="button"><i class="fas fa-users-cog"></i> إدارة المستخدمين</button>
         <button id="btnCalcCum" class="button gold"><i class="fas fa-calculator"></i> حساب التراكمي للجميع</button>
         <button id="btnUndoCum" class="button" style="background:#6c757d;"><i class="fas fa-undo"></i> تراجع</button>
         <button id="btnResetCum" class="button danger"><i class="fas fa-eraser"></i> تصفير التراكمي</button>
@@ -1348,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="login-area card" id="loginArea">
     <h3 style="margin:0 0 8px 0">تسجيل الدخول</h3>
     <div class="login-row">
-      <input id="loginUser" type="text" placeholder="اسم المستخدم" />
+      <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" />
       <input id="loginPass" type="password" placeholder="كلمة المرور" />
       <button id="btnLogin" class="button"><i class="fas fa-sign-in-alt"></i> دخول</button>
       <button id="btnLogout" class="button danger" style="display:none"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
@@ -1393,25 +1273,19 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 
-<!-- مودال نقل الطلاب الجديد المبسط -->
+<!-- مودال نقل الطلاب -->
 <div id="modalMoveBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999">
   <div style="background:#fff;padding:14px;border-radius:10px;width:420px;max-width:95%;direction:rtl;text-align:right">
     <h3 style="margin:0 0 8px 0"><i class="fas fa-exchange-alt"></i> نقل الطالب</h3>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <div id="moveCurrentStudentInfo" style="padding:8px;background:#f5f5f5;border-radius:6px;border:1px solid #ddd">
-        <!-- سيتم تعبئتها بالجافاسكريبت -->
-      </div>
+      <div id="moveCurrentStudentInfo" style="padding:8px;background:#f5f5f5;border-radius:6px;border:1px solid #ddd"></div>
       <div>
         <label style="font-weight:600;display:block;margin-bottom:4px">المجموعة الهدف:</label>
-        <select id="modalTargetGroup" style="width:100%">
-          <option value="">-- اختر المجموعة --</option>
-        </select>
+        <select id="modalTargetGroup" style="width:100%"></select>
       </div>
       <div>
         <label style="font-weight:600;display:block;margin-bottom:4px">الستكر الهدف:</label>
-        <select id="modalTargetSticker" style="width:100%">
-          <option value="">-- اختر الستكر --</option>
-        </select>
+        <select id="modalTargetSticker" style="width:100%"></select>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end">
         <button id="modalMoveCancel" class="button danger"><i class="fas fa-times"></i> إلغاء</button>
@@ -1434,26 +1308,51 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- مودال الصفحة الشخصية للطالب -->
 <div id="studentProfileModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999;padding:1rem;">
   <div class="student-profile-modal">
-    <!-- المحتوى سيتم تعبئته بالجافاسكريبت -->
     <div id="studentProfileContent"></div>
   </div>
 </div>
 
-<!-- مودال تعديل محفوظ الطالب (للمدير فقط) -->
+<!-- مودال تعديل محفوظ الطالب -->
 <div id="memorizationModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:9999;padding:1rem;">
   <div style="background:#fff;border-radius:10px;width:95%;max-width:900px;max-height:90vh;overflow-y:auto;direction:rtl">
     <div id="memorizationModalContent"></div>
   </div>
 </div>
 
-<script type="module">
-/* ===========================================================
-   Firebase-integrated script (Independent Zoom per Tab)
-   مع دمج نظام الورد التلقائي من الملف الأول
-   =========================================================== */
+<!-- مودال إدارة المستخدمين (معدل) -->
+<div id="modalManageUsers" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:10000;padding:1rem;">
+  <div style="background:#fff;border-radius:12px;width:95%;max-width:900px;max-height:90vh;overflow-y:auto;direction:rtl;padding:1.5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <h3 style="color:var(--accent);margin:0;"><i class="fas fa-users-cog"></i> إدارة المستخدمين</h3>
+      <button onclick="closeManageUsersModal()" class="button small ghost"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="margin-bottom:1rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+      <h4>إضافة مستخدم جديد</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+        <input type="email" id="newUserEmail" placeholder="البريد الإلكتروني" style="width:100%;">
+        <input type="password" id="newUserPass" placeholder="كلمة المرور" style="width:100%;">
+        <select id="newUserRole" style="width:auto;">
+          <option value="admin">مدير عام</option>
+          <option value="manager">مشرف مجموعة</option>
+        </select>
+      </div>
+      <div id="managerGroupSelector" style="margin-top:8px;display:none;">
+        <label>المجموعة:</label>
+        <select id="newUserGroupIndex" style="width:100%;"></select>
+      </div>
+      <button id="btnAddUser" class="button gold" style="margin-top:8px;"><i class="fas fa-user-plus"></i> إضافة</button>
+    </div>
+    <div>
+      <h4>المستخدمون الحاليون</h4>
+      <div id="usersList" style="max-height:400px;overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
 
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 /* ================== Firebase config ================== */
 const firebaseConfig = {
@@ -1469,8 +1368,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
-/* ========= بيانات سور القرآن الكريمة (من الملف الأول) ========= */
+/* ========= بيانات سور القرآن الكريمة ========= */
 const QURAN_DATA = [
     {i:1, n:"الفاتحة", s:1, e:1}, {i:2, n:"البقرة", s:2, e:49}, {i:3, n:"آل عمران", s:50, e:76},
     {i:4, n:"النساء", s:77, e:106}, {i:5, n:"المائدة", s:106, e:127}, {i:6, n:"الأنعام", s:128, e:150},
@@ -1512,11 +1412,10 @@ const QURAN_DATA = [
     {i:112, n:"الإخلاص", s:604, e:604}, {i:113, n:"الفلق", s:604, e:604}, {i:114, n:"الناس", s:604, e:604}
 ];
 
-/* ========= بيانات افتراضية ========= */
+/* ========= بيانات افتراضية خالية من أي بيانات مشرفين ========= */
 const STORAGE_KEY = 'quran_v_final_v1';
 const MESSAGES_KEY = 'quran_msgs_v1';
 const CUM_KEY = 'quran_cum_v1';
-const USER_KEY = 'quran_user_v1';
 const CUM_BACKUP_KEY = 'quran_cum_backup_v1';
 const HOMEWORK_KEY = 'quran_homework_v1';
 
@@ -1527,26 +1426,17 @@ function generateUniqueId() {
 const defaultData = [
   {
     name: "مجموعة عبدالله بن مسعود",
-    username: "masoud",
-    password: "1111",
     showStudents: true,
     stickers: [
-      { title: "ذهبية", visible: true, students: [
-          { id: generateUniqueId(), name: "علي أحمد", attendance: 'present', gradeHifz: "9", gradeWard: "8", gradeAkhlak: "10", cumulative: "", count: 0 },
-          { id: generateUniqueId(), name: "محمد سعيد", attendance: 'absent_unexcused', gradeHifz: "", gradeWard: "", gradeAkhlak: "", cumulative: "", count: 0 }
-        ]},
+      { title: "ذهبية", visible: true, students: [] },
       { title: "برونزية", visible: true, students: [] }
     ]
   },
   {
     name: "مجموعة عبدالله بن عباس",
-    username: "abbas",
-    password: "2222",
     showStudents: true,
     stickers: [
-      { title: "أحمد محمد", visible: true, students: [
-        { id: generateUniqueId(), name: "أحمد محمد", attendance: 'present', gradeHifz: "8", gradeWard: "9", gradeAkhlak: "10", cumulative: "", count: 0 }
-      ] },
+      { title: "ذهبية", visible: true, students: [] },
       { title: "برونزية", visible: true, students: [] },
       { title: "براعم", visible: true, students: [] }
     ]
@@ -1559,21 +1449,17 @@ const defaultMessages = [
   "خيركم من تعلم القرآن وعلمه"
 ];
 
-/* ========= محليًا/عالميًا ========= */
+/* ========= متغيرات التطبيق ========= */
 let data = [];
 let messages = [];
 let cumHistory = {};
 let homeworkData = {};
-let studentProfiles = {}; // بيانات الصفحات الشخصية للطلاب
-let cumBackup = null;
-let currentUser = JSON.parse(localStorage.getItem(USER_KEY)) || null;
-let role = currentUser ? currentUser.type : null;
+let studentProfiles = {};
+let currentUser = null;
+let role = null;
 let currentView = 'grades'; 
 let homeworkModified = false; 
-
-/* admin credentials */
-const ADMIN_USER = 'aahhmmaadd2005';
-const ADMIN_PASS = 'Aahhmmaadd1#';
+let cumBackup = null;
 
 /* ========= DOM Elements ========= */
 const groupsContainer = document.getElementById('groupsContainer');
@@ -1597,7 +1483,7 @@ const btnZoomGroupIn = document.getElementById('btnZoomGroupIn');
 const btnZoomGroupOut = document.getElementById('btnZoomGroupOut');
 const btnZoomGroupReset = document.getElementById('btnZoomGroupReset');
 const cumResults = document.getElementById('cumResults');
-const loginUser = document.getElementById('loginUser');
+const loginEmail = document.getElementById('loginEmail');
 const loginPass = document.getElementById('loginPass');
 const btnLogin = document.getElementById('btnLogin');
 const btnLogout = document.getElementById('btnLogout');
@@ -1623,19 +1509,26 @@ const modalMoveCancel = document.getElementById('modalMoveCancel');
 const modalMoveSave = document.getElementById('modalMoveSave');
 const modalTargetGroup = document.getElementById('modalTargetGroup');
 const modalTargetSticker = document.getElementById('modalTargetSticker');
-const moveStudentInfo = document.getElementById('moveStudentInfo');
+const moveStudentInfo = document.getElementById('moveCurrentStudentInfo');
 const visitorsCountEl = document.getElementById('visitorsCount');
 const visitorsBoxEl = document.getElementById('visitorsBox');
 const btnResetVisitors = document.getElementById('btnResetVisitors');
 const lastResetTextEl = document.getElementById('lastResetText');
 const modalHistoryBackdrop = document.getElementById('modalHistoryBackdrop');
 const historyContent = document.getElementById('historyContent');
-
-// عناصر الصفحة الشخصية
 const studentProfileModal = document.getElementById('studentProfileModal');
 const studentProfileContent = document.getElementById('studentProfileContent');
 const memorizationModal = document.getElementById('memorizationModal');
 const memorizationModalContent = document.getElementById('memorizationModalContent');
+const btnManageUsers = document.getElementById('btnManageUsers');
+const modalManageUsers = document.getElementById('modalManageUsers');
+const newUserEmail = document.getElementById('newUserEmail');
+const newUserPass = document.getElementById('newUserPass');
+const newUserRole = document.getElementById('newUserRole');
+const managerGroupSelector = document.getElementById('managerGroupSelector');
+const newUserGroupIndex = document.getElementById('newUserGroupIndex');
+const btnAddUser = document.getElementById('btnAddUser');
+const usersList = document.getElementById('usersList');
 
 /* ========= helpers ========= */
 function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
@@ -1817,7 +1710,6 @@ async function writeHomeworkToFirebase(h){
   }
 }
 
-// حفظ بيانات الصفحات الشخصية
 async function writeStudentProfileToFirebase(studentId, profileData) {
   try {
     await set(ref(db, `studentProfiles/${studentId}`), profileData);
@@ -1963,9 +1855,8 @@ function loadCum(){ try{ const s = localStorage.getItem(CUM_KEY); if(s) return J
 function loadHomework(){ try{ const s = localStorage.getItem(HOMEWORK_KEY); if(s) return JSON.parse(s);}catch(e){} return {}; }
 function loadCumBackup(){ try{ const s = localStorage.getItem(CUM_BACKUP_KEY); if(s) return JSON.parse(s);}catch(e){} return null; }
 function saveCumBackup(){ localStorage.setItem(CUM_BACKUP_KEY, JSON.stringify(cumHistory)); }
-function saveUser(){ if(currentUser) localStorage.setItem(USER_KEY, JSON.stringify(currentUser)); else localStorage.removeItem(USER_KEY); }
 
-/* ========= تطبيع البيانات ========= */
+/* ========= تطبيع البيانات (إزالة أي أثر للـ username/password) ========= */
 function normalizeData() {
   if (!data || !Array.isArray(data)) {
     data = JSON.parse(JSON.stringify(defaultData));
@@ -1975,6 +1866,11 @@ function normalizeData() {
   let needsUpdate = false;
   
   data.forEach(group => {
+    if (group.username || group.password) {
+      delete group.username;
+      delete group.password;
+      needsUpdate = true;
+    }
     if (!group.stickers || !Array.isArray(group.stickers)) {
       group.stickers = [{ title: "ذهبية", visible: true, students: [] }];
       needsUpdate = true;
@@ -2258,46 +2154,42 @@ function renderMessagesControls(){
 }
 
 /* ========= auth ========= */
-function login(username, pass){
-  if(username === ADMIN_USER && pass === ADMIN_PASS){
-    role = 'admin';
-    currentUser = { type:'admin', username:ADMIN_USER };
-    saveUser();
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const userSnap = await get(ref(db, `users/${user.uid}`));
+    const userData = userSnap.val() || {};
+    currentUser = {
+      uid: user.uid,
+      email: user.email,
+      role: userData.role || 'user',
+      groupIndex: userData.groupIndex
+    };
+    role = currentUser.role;
     updateUIAfterAuth();
-    showToast('✅ تم تسجيل الدخول كمدير عام', true);
-    return true;
+    showToast(`✅ مرحبًا ${user.email}`, true);
+  } else {
+    currentUser = null;
+    role = null;
+    updateUIAfterAuth();
   }
-  
-  for(let i=0;i<data.length;i++){
-    if(data[i].username === username && data[i].password === pass){
-      role = 'manager';
-      currentUser = { type:'manager', groupIndex:i, username: data[i].username, groupName: data[i].name };
-      saveUser();
-      updateUIAfterAuth();
-      showToast('✅ تم تسجيل الدخول كرئيس مجموعة', true);
-      return true;
-    }
-  }
-  showToast('❌ اسم المستخدم أو كلمة المرور غير صحيحة', false);
-  return false;
-}
-
-btnLogin.addEventListener('click', ()=>{ 
-  const username = loginUser.value.trim();
-  const password = loginPass.value.trim();
-  
-  if(!username || !password) {
-    showToast('❌ يرجى إدخال اسم المستخدم وكلمة المرور', false);
-    return;
-  }
-  
-  login(username, password); 
 });
 
-btnLogout.addEventListener('click', ()=>{ 
-  role = null; 
-  currentUser = null; 
-  saveUser(); 
+btnLogin.addEventListener('click', async () => {
+  const email = loginEmail.value.trim();
+  const password = loginPass.value.trim();
+  if (!email || !password) {
+    showToast('❌ يرجى إدخال البريد الإلكتروني وكلمة المرور', false);
+    return;
+  }
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    showToast('❌ خطأ في تسجيل الدخول: ' + error.message, false);
+  }
+});
+
+btnLogout.addEventListener('click', async () => {
+  await signOut(auth);
   window.location.reload();
 });
 
@@ -2305,25 +2197,24 @@ function updateUIAfterAuth(){
   renderMessagesControls();
   document.getElementById('cumulativeArea').style.display = (role==='admin') ? 'block' : 'none';
   userInfo.style.display = role ? 'block' : 'none';
-  if(role==='admin') userInfo.textContent = 'مسجل دخول: المدير العام';
-  else if(role==='manager') userInfo.textContent = `مسجل دخول: رئيس مجموعة — ${currentUser.groupName || ''}`;
+  if(role==='admin') userInfo.textContent = `مدير عام: ${currentUser.email}`;
+  else if(role==='manager') userInfo.textContent = `مشرف مجموعة: ${currentUser.email} - ${data[currentUser.groupIndex]?.name || ''}`;
+  else if(role) userInfo.textContent = `مستخدم: ${currentUser.email}`;
   document.getElementById('btnLogout').style.display = role ? 'inline-block' : 'none';
   document.getElementById('btnLogin').style.display = role ? 'none' : 'inline-block';
-  loginUser.value=''; loginPass.value='';
+  loginEmail.value=''; loginPass.value='';
   render();
   renderVisitorsBoxForRole(role);
 }
 
-/* ========= admin-only management functions ========= */
-async function adminSetGroupCreds(gi){
-  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; }
-  const u = prompt('اسم المستخدم للمشرف للمجموعة:', data[gi].username||'') || '';
-  const p = prompt('كلمة المرور:', data[gi].password||'') || '';
-  data[gi].username = u.trim(); data[gi].password = p.trim();
-  writeGroupsToFirebase(data);
-  render(); showToast('✅ تم تحديث بيانات المشرف للمجموعة', true);
+/* ========= admin-only management functions (للمدير العام) ========= */
+function canEditGroup(gi){
+  if(role==='admin') return true;
+  if(role==='manager' && currentUser && currentUser.groupIndex === gi) return true;
+  return false;
 }
-async function adminAddGroup(){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const name = prompt('اسم المجموعة:'); if(!name) return; const username = prompt('اسم مستخدم للمشرف (اختياري):')||''; const pass = prompt('كلمة مرور المشرف (اختياري):')||''; data.push({name:name.trim(), username:username.trim(), password:pass.trim(), showStudents:true, stickers:[{title:'ذهبية',visible:true,students:[]}] }); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة مجموعة جديدة', true); }
+
+async function adminAddGroup(){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const name = prompt('اسم المجموعة:'); if(!name) return; data.push({name:name.trim(), showStudents:true, stickers:[{title:'ذهبية',visible:true,students:[]}] }); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة مجموعة جديدة', true); }
 async function adminDeleteGroup(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } if(!confirm('حذف المجموعة؟')) return; data.splice(gi,1); writeGroupsToFirebase(data); render(); showToast('✅ تم حذف المجموعة', true); }
 async function adminEditGroupName(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const nn = prompt('اسم جديد:', data[gi].name); if(!nn) return; data[gi].name = nn.trim(); writeGroupsToFirebase(data); render(); showToast('✅ تم تعديل اسم المجموعة', true); }
 async function adminAddSticker(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const t = prompt('اسم الستكر:'); if(!t) return; data[gi].stickers.push({title:t.trim(), visible:true, students:[]}); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة ستكر', true); }
@@ -2331,7 +2222,7 @@ async function adminToggleStickerVisibility(gi,si){ if(role!=='admin'){ showToas
 async function adminToggleGroupShow(gi){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } data[gi].showStudents = !data[gi].showStudents; writeGroupsToFirebase(data); render(); showToast('✅ تم تغيير حالة إظهار الأسماء', true); }
 
 async function adminAddStudent(gi,si){ 
-  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } 
+  if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; } 
   const n = prompt('اسم الطالب:'); 
   if(!n) return; 
   const newStudent = {
@@ -2346,11 +2237,9 @@ async function adminAddStudent(gi,si){
   };
   data[gi].stickers[si].students.push(newStudent);
   
-  // إضافة بيانات أولية للصفحة الشخصية
   const profile = {
     certificates: [],
-    memorizedSurahs: [], // سيتم تحويلها إلى customRanges
-    customRanges: [], // النظام الجديد
+    customRanges: [],
     joinDate: new Date().toISOString().split('T')[0],
     startDate: new Date().toISOString().split('T')[0]
   };
@@ -2362,7 +2251,6 @@ async function adminAddStudent(gi,si){
     history: [] 
   };
   
-  // حفظ البيانات
   studentProfiles[newStudent.id] = profile;
   writeStudentProfileToFirebase(newStudent.id, profile);
   
@@ -2373,7 +2261,7 @@ async function adminAddStudent(gi,si){
 }
 
 async function adminDeleteStudent(gi,si,sti){ 
-  if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } 
+  if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; } 
   const student = data[gi].stickers[si].students[sti];
   if(!confirm(`حذف الطالب ${student.name}؟ سيتم حذف سجل التراكمي والواجبات المرتبطة به أيضاً.`)) return; 
   
@@ -2416,13 +2304,7 @@ async function adminDeleteSticker(gi, si){
 }
 
 /* ========= manager editing (grades & attendance) ========= */
-function canEditGroup(gi){
-  if(role==='admin') return true;
-  if(role==='manager' && currentUser && currentUser.groupIndex===gi) return true;
-  return false;
-}
-
-async function setAttendance(gi,si,sti,val,tr){
+async function setAttendance(gi,si,sti,val){
   if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; }
   const s = data[gi].stickers[si].students[sti];
   s.attendance = val;
@@ -2581,13 +2463,10 @@ btnExportData.addEventListener('click', () => {
     showToast('✅ تم تصدير البيانات بنجاح', true);
 });
 
-/* ========= نظام الورد التلقائي (من الملف الأول) ========= */
+/* ========= نظام الورد التلقائي ========= */
 function calculateDailyWird(studentProfile, studentId) {
-    // التأكد من وجود customRanges
     if (!studentProfile || !studentProfile.customRanges || studentProfile.customRanges.length === 0) {
-        // محاولة تحويل memorizedSurahs القديمة إلى customRanges
         if (studentProfile && studentProfile.memorizedSurahs && studentProfile.memorizedSurahs.length > 0) {
-            // تحويل السور المحفوظة إلى نطاقات صفحات
             const newRanges = [];
             studentProfile.memorizedSurahs.forEach(surahId => {
                 const surah = QURAN_DATA.find(q => q.i === surahId);
@@ -2600,18 +2479,13 @@ function calculateDailyWird(studentProfile, studentId) {
                     });
                 }
             });
-            
-            // حفظ النطاقات الجديدة
             studentProfile.customRanges = newRanges;
             delete studentProfile.memorizedSurahs;
             writeStudentProfileToFirebase(studentId, studentProfile);
-            
             if (newRanges.length > 0) {
-                // إعادة الحساب بالنطاقات الجديدة
                 return calculateDailyWird(studentProfile, studentId);
             }
         }
-        
         return {
             displayText: "لم يتم تحديد محفوظ بعد",
             statsText: "يرجى تحديد النطاقات المحفوظة أولاً",
@@ -2622,15 +2496,12 @@ function calculateDailyWird(studentProfile, studentId) {
         };
     }
 
-    // 1. جمع كل الصفحات المحفوظة من النطاقات
     let allPages = [];
     studentProfile.customRanges.forEach(range => {
         for (let page = range.start; page <= range.end; page++) {
             allPages.push(page);
         }
     });
-    
-    // إزالة التكرارات وترتيب الصفحات
     allPages = [...new Set(allPages)].sort((a, b) => a - b);
     
     const totalPages = allPages.length;
@@ -2645,7 +2516,6 @@ function calculateDailyWird(studentProfile, studentId) {
         };
     }
 
-    // 2. حساب يوم الأسبوع في الدورة الشخصية
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -2659,14 +2529,12 @@ function calculateDailyWird(studentProfile, studentId) {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const dayIdx = diffDays % 7; // 0-6
 
-    // 3. التوزيع العادل للصفحات على 7 أيام (نفس خوارزمية الملف الأول)
     let buckets = [[], [], [], [], [], [], []];
     const base = Math.floor(totalPages / 7);
     const extra = totalPages % 7;
     let currentIndex = 0;
 
     for (let d = 0; d < 7; d++) {
-        // الأيام الأولى تأخذ صفحة إضافية إذا وجد باقي
         let count = base + (d < extra ? 1 : 0);
         for (let k = 0; k < count; k++) {
             if (currentIndex < totalPages) {
@@ -2675,10 +2543,8 @@ function calculateDailyWird(studentProfile, studentId) {
         }
     }
 
-    // 4. الحصول على صفحات اليوم
     const todayPages = buckets[dayIdx];
 
-    // 5. إذا لم يكن هناك صفحات لليوم (أيام راحة)
     if (!todayPages || todayPages.length === 0) {
         return {
             displayText: "مراجعة عامة / راحة",
@@ -2690,7 +2556,6 @@ function calculateDailyWird(studentProfile, studentId) {
         };
     }
 
-    // 6. تجميع الصفحات المتتالية في نطاقات
     let ranges = [];
     if (todayPages.length > 0) {
         let startP = todayPages[0];
@@ -2708,31 +2573,22 @@ function calculateDailyWird(studentProfile, studentId) {
         ranges.push({ s: startP, e: endP });
     }
 
-    // 7. تحويل النطاقات إلى أسماء سور مع تطبيق الشروط الذكية
     let parts = ranges.map(r => {
         let involvedSurahs = QURAN_DATA.filter(q => (q.s <= r.e && q.e >= r.s));
 
-        // تطبيق الشروط الذكية (تجاهل السور السابقة/التالية)
         involvedSurahs = involvedSurahs.filter(surah => {
-            // الشرط الأول: بداية الورد (تجاهل السورة السابقة)
             const configStart = studentProfile.customRanges.find(cr => cr.start === r.s);
             if (configStart && configStart.sIdx) {
-                // إذا كانت السورة الحالية ترتيبها قبل السورة التي اختارها المستخدم
                 if (surah.i < configStart.sIdx) {
-                    // الشرط: السورة السابقة موجودة في صفحات سابقة
-                    if (surah.s < r.s) return false; // إخفاء
+                    if (surah.s < r.s) return false;
                 }
             }
-
-            // الشرط الثاني: نهاية الورد (تجاهل السورة التالية)
             const configEnd = studentProfile.customRanges.find(cr => cr.end === r.e);
             if (configEnd && configEnd.eIdx) {
-                // إذا كانت السورة الحالية ترتيبها بعد السورة التي اختارها المستخدم
                 if (surah.i > configEnd.eIdx) {
-                    return false; // إخفاء
+                    return false;
                 }
             }
-
             return true;
         });
 
@@ -2754,7 +2610,6 @@ function calculateDailyWird(studentProfile, studentId) {
     };
 }
 
-/* ========= دالة مساعدة لجلب اسم السورة بناء على الصفحة ========= */
 function getSurahLabel(page, surahIdx) {
     if (!surahIdx) {
         let surahs = QURAN_DATA.filter(q => page >= q.s && page <= q.e);
@@ -2765,7 +2620,6 @@ function getSurahLabel(page, surahIdx) {
     }
 }
 
-/* ========= دالة لملء قوائم اختيار الصفحات ========= */
 function populatePageSelectors(startSelectId, endSelectId, selectedStart = null, selectedEnd = null) {
     const startSelect = document.getElementById(startSelectId);
     const endSelect = document.getElementById(endSelectId);
@@ -2777,8 +2631,6 @@ function populatePageSelectors(startSelectId, endSelectId, selectedStart = null,
     for (let i = 1; i <= 604; i++) {
         let surahsOnPage = QURAN_DATA.filter(q => i >= q.s && i <= q.e);
         if (surahsOnPage.length > 0) {
-            // ننشئ خيارًا لكل سورة موجودة في الصفحة
-            // Value Format: PageNumber-SurahID (e.g., "385-27")
             surahsOnPage.forEach(s => {
                 const value = `${i}-${s.i}`;
                 const selectedStartAttr = (selectedStart === value) ? 'selected' : '';
@@ -2794,9 +2646,8 @@ function populatePageSelectors(startSelectId, endSelectId, selectedStart = null,
     }
     
     startSelect.innerHTML = html;
-    endSelect.innerHTML = html.replace(/selected/g, ''); // إزالة selected من النسخة الثانية
+    endSelect.innerHTML = html.replace(/selected/g, '');
     
-    // تعيين القيم المحددة إذا وجدت
     if (selectedStart) {
         startSelect.value = selectedStart;
     }
@@ -2805,7 +2656,7 @@ function populatePageSelectors(startSelectId, endSelectId, selectedStart = null,
     }
 }
 
-/* ========= نظام نقل الطلاب الجديد المبسط مع دعم النقل داخل نفس المجموعة ========= */
+/* ========= نظام نقل الطلاب ========= */
 let currentMoveData = null;
 
 window.openMoveModal = function(gi, si, sti) {
@@ -2817,13 +2668,11 @@ window.openMoveModal = function(gi, si, sti) {
     const student = data[gi].stickers[si].students[sti];
     currentMoveData = { gi, si, sti, studentId: student.id };
     
-    // عرض معلومات الطالب الحالي
     document.getElementById('moveCurrentStudentInfo').innerHTML = `
         <strong>${student.name}</strong><br>
         <small>المجموعة الحالية: ${data[gi].name} - ${data[gi].stickers[si].title}</small>
     `;
     
-    // تعبئة قائمة المجموعات الهدف (تضمين جميع المجموعات بما فيها الحالية)
     const groupSelect = document.getElementById('modalTargetGroup');
     groupSelect.innerHTML = '<option value="">-- اختر المجموعة --</option>';
     
@@ -2837,7 +2686,6 @@ window.openMoveModal = function(gi, si, sti) {
         groupSelect.appendChild(option);
     });
     
-    // تعبئة قائمة الستكرات عند تغيير المجموعة
     groupSelect.onchange = function() {
         const targetGroupIndex = parseInt(this.value);
         const stickerSelect = document.getElementById('modalTargetSticker');
@@ -2848,7 +2696,6 @@ window.openMoveModal = function(gi, si, sti) {
                 const option = document.createElement('option');
                 option.value = stickerIndex;
                 option.textContent = sticker.title;
-                // تمييز الستكر الحالي إذا كانت نفس المجموعة
                 if (targetGroupIndex === gi && stickerIndex === si) {
                     option.textContent += ' (الحالي)';
                 }
@@ -2857,10 +2704,8 @@ window.openMoveModal = function(gi, si, sti) {
         }
     };
     
-    // اختيار المجموعة الحالية افتراضيًا
     groupSelect.value = gi;
     
-    // تعبئة الستكرات للمجموعة المختارة (الحالية)
     const stickerSelect = document.getElementById('modalTargetSticker');
     stickerSelect.innerHTML = '<option value="">-- اختر الستكر --</option>';
     data[gi].stickers.forEach((sticker, stickerIndex) => {
@@ -2873,11 +2718,9 @@ window.openMoveModal = function(gi, si, sti) {
         stickerSelect.appendChild(option);
     });
     
-    // إظهار المودال
     modalMoveBackdrop.style.display = 'flex';
 };
 
-// زر حفظ النقل
 modalMoveSave.addEventListener('click', async function() {
     if (!currentMoveData) {
         showToast('❌ لم يتم تحديد طالب للنقل', false);
@@ -2893,28 +2736,20 @@ modalMoveSave.addEventListener('click', async function() {
     }
     
     const { gi, si, sti, studentId } = currentMoveData;
-    
-    // العثور على الطالب
     const student = data[gi].stickers[si].students[sti];
     
-    // التحقق من عدم نقل الطالب لنفس المكان بالضبط
     if (gi === targetGroupIndex && si === targetStickerIndex) {
         showToast('❌ الطالب موجود بالفعل في هذا الستكر في نفس المجموعة', false);
         return;
     }
     
     try {
-        // إضافة الطالب إلى الستكر الهدف
         data[targetGroupIndex].stickers[targetStickerIndex].students.push(student);
-        
-        // حذف الطالب من موقعه القديم (فقط إذا كان في ستكر مختلف)
         data[gi].stickers[si].students.splice(sti, 1);
         
-        // إعادة التصيير والحفظ
         render();
         writeGroupsToFirebase(data);
         
-        // إغلاق المودال
         modalMoveBackdrop.style.display = 'none';
         currentMoveData = null;
         showToast(`✅ تم نقل الطالب ${student.name} بنجاح`, true);
@@ -2924,7 +2759,6 @@ modalMoveSave.addEventListener('click', async function() {
     }
 });
 
-// زر إلغاء النقل
 modalMoveCancel.addEventListener('click', function() {
     modalMoveBackdrop.style.display = 'none';
     currentMoveData = null;
@@ -2932,7 +2766,6 @@ modalMoveCancel.addEventListener('click', function() {
 
 /* ========= الصفحة الشخصية للطالب ========= */
 window.openStudentProfile = async function(studentId) {
-    // البحث عن بيانات الطالب
     let studentData = null;
     let studentGroup = null;
     let studentSticker = null;
@@ -2957,7 +2790,6 @@ window.openStudentProfile = async function(studentId) {
         return;
     }
     
-    // الحصول على بيانات الصفحة الشخصية
     const profile = studentProfiles[studentId] || {
         certificates: [],
         customRanges: [],
@@ -2965,18 +2797,13 @@ window.openStudentProfile = async function(studentId) {
         startDate: new Date().toISOString().split('T')[0]
     };
     
-    // التأكد من وجود customRanges
     if (!profile.customRanges) {
         profile.customRanges = [];
     }
     
-    // الواجبات
     const hw = homeworkData[studentId] || {};
-    
-    // حساب الورد اليومي باستخدام النظام الجديد
     const wirdData = calculateDailyWird(profile, studentId);
     
-    // المعدل التراكمي
     const cumulative = studentData.cumulative || 'غير محسوب';
     let rating = 'لا يوجد';
     let ratingClass = 'cum-gray';
@@ -3001,8 +2828,6 @@ window.openStudentProfile = async function(studentId) {
         }
     }
     
-    
-    // إنشاء محتوى الصفحة الشخصية مع الترتيب الجديد
     studentProfileContent.innerHTML = `
         <div class="student-profile-header">
             <h2><i class="fas fa-user-graduate"></i> الصفحة الشخصية للطالب</h2>
@@ -3012,7 +2837,6 @@ window.openStudentProfile = async function(studentId) {
         </div>
         
         <div class="student-profile-content">
-            <!-- معلومات الطالب الأساسية -->
             <div class="profile-section">
                 <div class="student-basic-info">
                     <div class="student-avatar">
@@ -3030,21 +2854,20 @@ window.openStudentProfile = async function(studentId) {
                         </div>
                         <div class="info-item">
                             <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <div class="info-text">تاريخ الانضمام: <span class="info-value">${profile.joinDate}</span></div>
+                            <div class="info-text">تاريخ الانضمام: <span class="info-value">${escapeHtml(profile.joinDate)}</span></div>
                         </div>
                         <div class="info-item">
                             <div class="info-icon"><i class="fas fa-chart-line"></i></div>
-                            <div class="info-text">المعدل التراكمي: <span class="info-value">${cumulative}</span></div>
+                            <div class="info-text">المعدل التراكمي: <span class="info-value">${escapeHtml(cumulative)}</span></div>
                         </div>
                         <div class="info-item">
                             <div class="info-icon"><i class="fas fa-trophy"></i></div>
-                            <div class="info-text">التقييم: <span class="badge ${ratingClass}" style="padding: 0.3rem 0.8rem;">${rating}</span></div>
+                            <div class="info-text">التقييم: <span class="badge ${ratingClass}" style="padding: 0.3rem 0.8rem;">${escapeHtml(rating)}</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- الورد اليومي -->
             <div class="profile-section">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                     <h3><i class="fas fa-book-quran"></i> الورد اليومي</h3>
@@ -3056,19 +2879,15 @@ window.openStudentProfile = async function(studentId) {
                 </div>
                 
                 <div class="wird-container">
-         <div class="wird-title"><I class="fas fa-calendar-day"></i> ورد اليوم</div>
-                    <div class="wird-text">
-                        ${wirdData.displayText}
-                    </div>
+                    <div class="wird-title"><i class="fas fa-calendar-day"></i> ورد اليوم</div>
+                    <div class="wird-text">${escapeHtml(wirdData.displayText)}</div>
                     <div class="wird-stats">
-                        <div>${wirdData.statsText}</div>
+                        <div>${escapeHtml(wirdData.statsText)}</div>
                         ${wirdData.isRestDay ? '' : `<div class="wird-pages-count">${wirdData.todayPages.length} صفحة اليوم</div>`}
                     </div>
-
                 </div>
             </div>
             
-            <!-- الواجبات -->
             <div class="profile-section">
                 <h3><i class="fas fa-tasks"></i> الواجبات الحالية</h3>
                 <div class="homework-items">
@@ -3076,7 +2895,6 @@ window.openStudentProfile = async function(studentId) {
                 </div>
             </div>
             
-            <!-- التقديرات بشكل أفقي -->
             <div class="profile-section">
                 <h3><i class="fas fa-chart-bar"></i> التقديرات</h3>
                 <div class="grades-horizontal">
@@ -3099,12 +2917,11 @@ window.openStudentProfile = async function(studentId) {
                         <div class="grade-title">المعدل</div>
                         <div class="grade-value">${studentData.gradeHifz && studentData.gradeWard && studentData.gradeAkhlak ? 
                             Math.round(((parseFloat(studentData.gradeHifz || 0) + parseFloat(studentData.gradeWard || 0) + parseFloat(studentData.gradeAkhlak || 0)) / 3) * 100) / 100 : '-'}</div>
-                        <span class="badge ${ratingClass} grade-rating">${rating}</span>
+                        <span class="badge ${ratingClass} grade-rating">${escapeHtml(rating)}</span>
                     </div>
                 </div>
             </div>
             
-            <!-- الشهادات التقديرية -->
             <div class="profile-section">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                     <h3><i class="fas fa-award"></i> الشهادات التقديرية</h3>
@@ -3162,7 +2979,7 @@ function renderCertificates(certificates, studentId) {
     
     return certificates.map(cert => `
         <div class="certificate-card">
-            <img src="${cert.imageUrl}" alt="${cert.title}" onclick="viewCertificateImage('${cert.imageUrl}')">
+            <img src="${escapeHtml(cert.imageUrl)}" alt="${escapeHtml(cert.title)}" onclick="viewCertificateImage('${escapeHtml(cert.imageUrl)}')">
             <div class="certificate-overlay">
                 ${escapeHtml(cert.title)}
             </div>
@@ -3181,7 +2998,7 @@ window.closeStudentProfile = function() {
     studentProfileModal.style.display = 'none';
 }
 
-/* ========= مودال تعديل المحفوظ للمدير (النظام الجديد) ========= */
+/* ========= مودال تعديل المحفوظ ========= */
 window.openEditMemorizationModal = async function(studentId) {
     if (role !== 'admin') {
         showToast('❌ صلاحيات المدير فقط', false);
@@ -3195,7 +3012,6 @@ window.openEditMemorizationModal = async function(studentId) {
         startDate: new Date().toISOString().split('T')[0]
     };
     
-    // التأكد من وجود customRanges
     if (!profile.customRanges) {
         profile.customRanges = [];
     }
@@ -3203,7 +3019,6 @@ window.openEditMemorizationModal = async function(studentId) {
     const customRanges = profile.customRanges || [];
     const today = new Date().toISOString().split('T')[0];
     
-    // إنشاء قائمة النطاقات المحفوظة
     let savedRangesHtml = '';
     if (customRanges.length === 0) {
         savedRangesHtml = '<div style="text-align: center; color: #666; padding: 1rem;">لا توجد نطاقات محفوظة</div>';
@@ -3220,7 +3035,7 @@ window.openEditMemorizationModal = async function(studentId) {
             
             savedRangesHtml += `
                 <div class="saved-range-item">
-                    <div class="saved-range-info">${display}</div>
+                    <div class="saved-range-info">${escapeHtml(display)}</div>
                     <div class="saved-range-actions">
                         <button class="range-action-btn range-edit-btn" onclick="editExistingRange('${studentId}', ${index})">
                             <i class="fas fa-edit"></i> تعديل
@@ -3245,24 +3060,18 @@ window.openEditMemorizationModal = async function(studentId) {
                 </button>
             </div>
             
-            <!-- اختيار نطاق جديد -->
             <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
                 <div style="font-weight: bold; margin-bottom: 0.5rem; color: var(--accent);">إضافة نطاق جديد:</div>
                 <div class="page-range-selector">
-                    <select id="rangeStart" class="range-select">
-                        <option value="">صفحة البداية...</option>
-                    </select>
+                    <select id="rangeStart" class="range-select"></select>
                     <span style="font-weight: bold; color: #555;">إلى</span>
-                    <select id="rangeEnd" class="range-select">
-                        <option value="">صفحة النهاية...</option>
-                    </select>
+                    <select id="rangeEnd" class="range-select"></select>
                     <button id="addRangeBtn" class="range-add-btn" onclick="addNewRange('${studentId}')">
                         <i class="fas fa-plus"></i> إضافة
                     </button>
                 </div>
             </div>
             
-            <!-- النطاقات المحفوظة -->
             <div style="margin-bottom: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                     <div style="font-weight: bold; color: var(--accent);">
@@ -3277,11 +3086,10 @@ window.openEditMemorizationModal = async function(studentId) {
                 </div>
             </div>
             
-            <!-- تاريخ بداية الدورة -->
             <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #555;">تاريخ بداية الدورة:</label>
-                    <input type="date" id="memorizationStartDate" value="${profile.startDate || today}" 
+                    <input type="date" id="memorizationStartDate" value="${escapeHtml(profile.startDate || today)}" 
                            style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
                 <div style="font-size: 0.9rem; color: #666; background: #e3f2fd; padding: 0.75rem; border-radius: 6px; max-width: 300px;">
@@ -3289,7 +3097,6 @@ window.openEditMemorizationModal = async function(studentId) {
                 </div>
             </div>
             
-            <!-- أزرار الحفظ -->
             <div style="display: flex; justify-content: flex-end; gap: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
                 <button onclick="saveMemorization('${studentId}')" style="background: var(--accent); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 0.5rem;">
                     <i class="fas fa-save"></i> حفظ المحفوظ
@@ -3300,18 +3107,14 @@ window.openEditMemorizationModal = async function(studentId) {
     
     memorizationModal.style.display = 'flex';
     
-    // تعبئة قوائم اختيار الصفحات بعد ظهور المودال
     setTimeout(() => {
         populatePageSelectors('rangeStart', 'rangeEnd');
-        
-        // إضافة حدث لزر الإغلاق
         document.getElementById('closeMemorizationModalBtn').addEventListener('click', () => {
             memorizationModal.style.display = 'none';
         });
     }, 100);
 };
 
-/* ========= وظائف إدارة النطاقات ========= */
 window.addNewRange = async function(studentId) {
     const startSelect = document.getElementById('rangeStart');
     const endSelect = document.getElementById('rangeEnd');
@@ -3335,7 +3138,6 @@ window.addNewRange = async function(studentId) {
     const profile = studentProfiles[studentId] || {};
     if (!profile.customRanges) profile.customRanges = [];
     
-    // التحقق من عدم وجود تداخل
     let existing = new Set();
     profile.customRanges.forEach(r => {
         for (let p = r.start; p <= r.end; p++) existing.add(p);
@@ -3348,7 +3150,6 @@ window.addNewRange = async function(studentId) {
         }
     }
     
-    // إضافة النطاق الجديد
     profile.customRanges.push({
         start: startPage,
         end: endPage,
@@ -3356,10 +3157,8 @@ window.addNewRange = async function(studentId) {
         eIdx: endSurahId
     });
     
-    // تحديث العرض
     updateRangesDisplay(studentId, profile.customRanges);
     
-    // مسح الحقول
     startSelect.value = '';
     endSelect.value = '';
     
@@ -3372,18 +3171,14 @@ window.editExistingRange = function(studentId, rangeIndex) {
     
     const range = profile.customRanges[rangeIndex];
     
-    // تعبئة الحقول بالقيم الحالية
     setTimeout(() => {
         const startVal = `${range.start}-${range.sIdx || 0}`;
         const endVal = `${range.end}-${range.eIdx || 0}`;
         
-        // تعبئة القوائم المنسدلة
         populatePageSelectors('rangeStart', 'rangeEnd', startVal, endVal);
         
-        // إزالة النطاق القديم
         profile.customRanges.splice(rangeIndex, 1);
         
-        // تحديث العرض
         updateRangesDisplay(studentId, profile.customRanges);
         
         showToast('📝 يمكنك الآن تعديل النطاق في الحقول أعلاه', true);
@@ -3408,10 +3203,8 @@ function updateRangesDisplay(studentId, ranges) {
     
     if (!rangesCount || !savedRangesList) return;
     
-    // تحديث العدد
     rangesCount.textContent = `${ranges.length} نطاق`;
     
-    // تحديث القائمة
     if (ranges.length === 0) {
         savedRangesList.innerHTML = '<div style="text-align: center; color: #666; padding: 1rem;">لا توجد نطاقات محفوظة</div>';
     } else {
@@ -3428,7 +3221,7 @@ function updateRangesDisplay(studentId, ranges) {
             
             html += `
                 <div class="saved-range-item">
-                    <div class="saved-range-info">${display}</div>
+                    <div class="saved-range-info">${escapeHtml(display)}</div>
                     <div class="saved-range-actions">
                         <button class="range-action-btn range-edit-btn" onclick="editExistingRange('${studentId}', ${index})">
                             <i class="fas fa-edit"></i> تعديل
@@ -3459,7 +3252,6 @@ window.saveMemorization = async function(studentId) {
         
         showToast('✅ تم حفظ المحفوظ بنجاح', true);
         
-        // تحديث عرض الصفحة الشخصية إذا كانت مفتوحة
         setTimeout(() => {
             if (studentProfileModal.style.display === 'flex') {
                 openStudentProfile(studentId);
@@ -3499,7 +3291,7 @@ window.openAddCertificateModal = async function(studentId) {
                     <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold;">رابط الصورة المباشر:</label>
                     <input type="url" id="certImageUrl-${studentId}" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" required>
                     <small style="color: #666; margin-top: 0.25rem; display: block;">
-                        يمكنك رفع الصورة على <a href="https://postimages.org/" target="_blank" style="color: var(--accent);">postimages.org</a> ثم نسخ الرابط المباشر
+                        يمكنك رفع الصورة على <a href="https://postimages.org/" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">postimages.org</a> ثم نسخ الرابط المباشر
                     </small>
                 </div>
                 <div style="margin-bottom: 1.5rem;">
@@ -3518,17 +3310,14 @@ window.openAddCertificateModal = async function(studentId) {
         </div>
     `;
     
-    // إنشاء مودال مؤقت
     const tempModal = document.createElement('div');
     tempModal.id = 'tempCertModal';
     tempModal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,.45); align-items: center; justify-content: center; z-index: 10000; display: flex;';
     tempModal.innerHTML = modalHtml;
     document.body.appendChild(tempModal);
     
-    // تعيين تاريخ اليوم
     document.getElementById(`certDate-${studentId}`).value = new Date().toISOString().split('T')[0];
     
-    // إضافة معالج الحدث للنموذج
     document.getElementById(`certificateForm-${studentId}`).addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -3564,13 +3353,11 @@ window.openAddCertificateModal = async function(studentId) {
             
             await writeStudentProfileToFirebase(studentId, profile);
             
-            // تحديث العرض
             const certificatesContainer = document.getElementById(`certificatesContainer-${studentId}`);
             if (certificatesContainer) {
                 certificatesContainer.innerHTML = renderCertificates(profile.certificates, studentId);
             }
             
-            // إغلاق المودال
             document.body.removeChild(tempModal);
             
             showToast('✅ تم إضافة الشهادة بنجاح', true);
@@ -3604,7 +3391,6 @@ window.deleteCertificate = async function(studentId, certId) {
             profile.certificates = profile.certificates.filter(cert => cert.id !== certId);
             await writeStudentProfileToFirebase(studentId, profile);
             
-            // تحديث العرض
             const certificatesContainer = document.getElementById(`certificatesContainer-${studentId}`);
             if (certificatesContainer) {
                 certificatesContainer.innerHTML = renderCertificates(profile.certificates, studentId);
@@ -3625,7 +3411,7 @@ window.viewCertificateImage = function(imageUrl) {
                 <button onclick="closeImageModal()" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-times"></i>
                 </button>
-                <img src="${imageUrl}" alt="صورة الشهادة" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="${escapeHtml(imageUrl)}" alt="صورة الشهادة" style="width: 100%; height: auto; border-radius: 5px;">
             </div>
         </div>
     `;
@@ -3722,11 +3508,10 @@ function render(){
     const actions = document.createElement('div'); actions.className='buttons-container';
     if(role==='admin' && currentView === 'grades'){
       const editBtn = document.createElement('button'); editBtn.className='button small'; editBtn.innerHTML='<i class="fas fa-edit"></i> تعديل'; editBtn.onclick = ()=> adminEditGroupName(gi);
-      const credsBtn = document.createElement('button'); credsBtn.className='button small'; credsBtn.innerHTML='<i class="fas fa-user-cog"></i> بيانات المشرف'; credsBtn.onclick = ()=> adminSetGroupCreds(gi);
       const addStickerBtn = document.createElement('button'); addStickerBtn.className='button small'; addStickerBtn.innerHTML='<i class="fas fa-sticky-note"></i> إضافة ستكر'; addStickerBtn.onclick = ()=> adminAddSticker(gi);
       const toggleNames = document.createElement('button'); toggleNames.className='button small'; toggleNames.innerHTML = g.showStudents ? '<i class="fas fa-eye-slash"></i> إخفاء الأسماء' : '<i class="fas fa-eye"></i> إظهار الأسماء'; toggleNames.onclick = ()=> adminToggleGroupShow(gi);
       const deleteBtn = document.createElement('button'); deleteBtn.className='button small danger'; deleteBtn.innerHTML='<i class="fas fa-trash"></i> حذف المجموعة'; deleteBtn.onclick = ()=> adminDeleteGroup(gi);
-      actions.appendChild(editBtn); actions.appendChild(credsBtn); actions.appendChild(addStickerBtn); actions.appendChild(toggleNames); actions.appendChild(deleteBtn);
+      actions.appendChild(editBtn); actions.appendChild(addStickerBtn); actions.appendChild(toggleNames); actions.appendChild(deleteBtn);
     }
     head.appendChild(actions);
     groupDiv.appendChild(head);
@@ -3797,7 +3582,6 @@ function render(){
 
         tr.innerHTML = `<td>${sti+1}</td>`;
         
-        // خلية اسم الطالب مع رابط الصفحة الشخصية
         const nameTd = document.createElement('td');
         nameTd.style.textAlign = 'right';
         const nameLink = document.createElement('a');
@@ -3814,7 +3598,7 @@ function render(){
             const sel = document.createElement('select');
             [['present','حاضر'],['absent_excused','غائب بعذر'],['absent_unexcused','غائب بغير عذر']].forEach(o=>{ const opt=document.createElement('option'); opt.value=o[0]; opt.text=o[1]; sel.appendChild(opt); });
             sel.value = s.attendance || 'present';
-            sel.onchange = (e)=> setAttendance(gi,si,sti,e.target.value,tr);
+            sel.onchange = (e)=> setAttendance(gi,si,sti,e.target.value);
             tdAtt.appendChild(sel);
           } else {
             tdAtt.textContent = s.attendance==='present' ? 'حاضر' : (s.attendance==='absent_excused' ? 'غائب بعذر' : 'غائب بغير عذر');
@@ -3882,7 +3666,6 @@ function render(){
             editBtn.onclick = ()=> openEditModal(gi,si,sti);
             tdAct.appendChild(editBtn);
             
-            // زر النقل الجديد (للمدير فقط)
             if(role==='admin'){
               const moveBtn = document.createElement('button');
               moveBtn.className='button small';
@@ -3976,7 +3759,6 @@ function openEditModal(gi,si,sti){
   const s = data[gi].stickers[si].students[sti];
   
   modalName.value = s.name;
-  
   const isNameEditable = (role === 'admin');
   modalName.disabled = !isNameEditable;
   modalName.className = isNameEditable ? '' : 'name-readonly';
@@ -4204,6 +3986,112 @@ function renderCumulativeResults(updates){
   cumResults.innerHTML = html;
 }
 
+/* ========= إدارة المستخدمين (معدلة نهائياً) ========= */
+btnManageUsers.addEventListener('click', () => {
+  if (role !== 'admin') return;
+  loadUsersList();
+  // تعبئة قائمة المجموعات لاختيار المشرف
+  newUserGroupIndex.innerHTML = '';
+  data.forEach((g, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = g.name;
+    newUserGroupIndex.appendChild(opt);
+  });
+  modalManageUsers.style.display = 'flex';
+});
+
+window.closeManageUsersModal = () => {
+  modalManageUsers.style.display = 'none';
+};
+
+newUserRole.addEventListener('change', () => {
+  if (newUserRole.value === 'manager') {
+    managerGroupSelector.style.display = 'block';
+  } else {
+    managerGroupSelector.style.display = 'none';
+  }
+});
+
+btnAddUser.addEventListener('click', async () => {
+  const email = newUserEmail.value.trim();
+  const pass = newUserPass.value.trim();
+  const roleSel = newUserRole.value;
+  if (!email || !pass) {
+    showToast('❌ الرجاء إدخال البريد وكلمة المرور', false);
+    return;
+  }
+  try {
+    // استخدام REST API لإنشاء المستخدم دون تسجيل الدخول
+    const apiKey = firebaseConfig.apiKey;
+    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass, returnSecureToken: true })
+    });
+    const data = await response.json();
+    if (data.error) {
+      showToast('❌ ' + data.error.message, false);
+      return;
+    }
+    const uid = data.localId;
+    // تخزين البيانات في Realtime Database
+    const userData = { role: roleSel };
+    if (roleSel === 'manager') {
+      userData.groupIndex = parseInt(newUserGroupIndex.value);
+    }
+    await set(ref(db, `users/${uid}`), userData);
+    showToast('✅ تم إضافة المستخدم بنجاح', true);
+    loadUsersList();
+    newUserEmail.value = '';
+    newUserPass.value = '';
+  } catch (error) {
+    showToast('❌ خطأ: ' + error.message, false);
+  }
+});
+
+async function loadUsersList() {
+  const usersSnap = await get(ref(db, 'users'));
+  if (!usersSnap.exists()) {
+    usersList.innerHTML = '<div style="text-align:center;color:#666;">لا يوجد مستخدمون بعد</div>';
+    return;
+  }
+  const users = usersSnap.val();
+  // جدول بدون بريد إلكتروني، وعمود UID موسع
+  let html = '<table style="width:100%;border-collapse:collapse;"><tr><th style="width:60%;">المعرف (UID)</th><th>الدور</th><th>المجموعة</th><th>إجراءات</th></tr>';
+  for (const uid in users) {
+    const user = users[uid];
+    html += `<tr>
+      <td style="direction:ltr; text-align:left; font-family:monospace; font-size:0.8rem; word-break:break-all;">${uid}</td>
+      <td>${user.role === 'admin' ? 'مدير' : 'مشرف'}</td>
+      <td>${user.groupIndex !== undefined ? (data[user.groupIndex]?.name || 'غير معروف') : '-'}</td>
+      <td>
+        <button onclick="deleteUser('${uid}')" class="button small danger" title="حذف من قاعدة البيانات"><i class="fas fa-trash"></i></button>
+        <button onclick="deleteUserAuth('${uid}')" class="button small" style="background:#ff9800;" title="حذف من المصادقة (يحتاج صلاحيات)"><i class="fas fa-user-slash"></i></button>
+      </td>
+    </tr>`;
+  }
+  html += '</table>';
+  html += '<div style="margin-top:1rem; padding:0.5rem; background:#fff3cd; color:#856404; border-radius:5px;"><i class="fas fa-info-circle"></i> لحذف المستخدم نهائياً من المصادقة، يجب الدخول إلى Firebase Console > Authentication وحذفه يدوياً. إذا أردت إعادة إضافة مستخدم بنفس البريد، يجب حذفه أولاً من Authentication.</div>';
+  usersList.innerHTML = html;
+}
+
+window.deleteUser = async (uid) => {
+  if (!confirm('هل أنت متأكد من حذف بيانات هذا المستخدم من قاعدة البيانات؟ (لن يتم حذف حسابه من المصادقة)')) return;
+  try {
+    await set(ref(db, `users/${uid}`), null);
+    showToast('✅ تم حذف بيانات المستخدم من قاعدة البيانات', true);
+    loadUsersList();
+  } catch (error) {
+    showToast('❌ خطأ: ' + error.message, false);
+  }
+};
+
+window.deleteUserAuth = (uid) => {
+  window.open('https://console.firebase.google.com/project/quran2-eafc8/authentication/users', '_blank');
+  showToast('📌 افتح التبويب الجديد واحذف المستخدم يدوياً من Authentication', true);
+};
+
 /* ========= init ========= */
 function initUI(){
   fillGrade(modalHifz,''); fillGrade(modalWard,''); fillGrade(modalAkhlak,'');
@@ -4215,23 +4103,17 @@ function initUI(){
   setupFontSizeControls();
 }
 
-// بدء التطبيق
 async function initializeAppData() {
-  if (isInitialized) return;
-  
+  showLoading();
   try {
     await optimizedFirebaseFetch();
     isInitialized = true;
     initUI();
-    
     incrementVisitorIfNeeded().catch(()=>{});
-    
     readVisitorsOnce().then(v=>{
       updateVisitorsUI(v.count, v.lastReset);
     }).catch(()=>{});
-    
     btnResetVisitors.addEventListener('click', resetVisitors);
-    
   } catch (error) {
     console.error('خطأ في التهيئة:', error);
     data = loadData();
@@ -4245,21 +4127,15 @@ async function initializeAppData() {
     }
     normalizeData();
     initUI();
+  } finally {
+    hideLoading();
   }
 }
 
 let isInitialized = false;
-
 initializeAppData();
 
-window.refreshData = function() {
-  optimizedFirebaseFetch().then(() => {
-    render();
-  });
-};
-
-window._debug = { data, messages, cumHistory, homeworkData, studentProfiles, login, logout: ()=>{ role=null; currentUser=null; saveUser(); updateUIAfterAuth(); render(); } };
-
+window._debug = { data, messages, cumHistory, homeworkData, studentProfiles, currentUser, role };
 </script>
 
 </body>

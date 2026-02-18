@@ -161,26 +161,8 @@ th, td {
   overflow-wrap: break-word !important;
 }
 
-/* تخفيف عرض أعمدة إدارة المستخدمين */
-#usersList table th:nth-child(1),
-#usersList table td:nth-child(1) {
-  width: 25%; /* UID أصغر قليلاً من السابق */
-  font-size: 0.75rem;
-  direction: ltr;
-  text-align: left;
-}
-#usersList table th:nth-child(2),
-#usersList table td:nth-child(2) {
-  width: 15%; /* الدور */
-}
-#usersList table th:nth-child(3),
-#usersList table td:nth-child(3) {
-  width: 30%; /* المجموعة أوسع قليلاً */
-}
-#usersList table th:nth-child(4),
-#usersList table td:nth-child(4) {
-  width: 30%; /* الإجراءات */
-}
+th:nth-child(1) { width: 5%; }
+th:nth-child(2) { width: 25%; }
 
 th{background:var(--accent);color:#fff;position:sticky;top:0}
 .notes{font-size:0.8rem;text-align:right;color:#333}
@@ -1623,10 +1605,7 @@ async function changeFontSize(direction) {
   document.documentElement.style.setProperty(cssVar, newSize + 'px');
   
   try {
-      // الكتابة إلى Firebase فقط إذا كان المستخدم موجوداً
-      if (auth.currentUser) {
-        set(ref(db, dbPath), newSize);
-      }
+      set(ref(db, dbPath), newSize);
       showToast(`✅ تم تحديث خط ${currentLabel}: ${Math.round(newSize)}px`, true);
       render();
   } catch(err) {
@@ -1674,12 +1653,10 @@ async function changeGroupFontSize(direction) {
   document.documentElement.style.setProperty(cssVar, newSize + 'rem');
   
   try {
-      if (auth.currentUser) {
-        set(ref(db, 'settings/groupFontSizes'), {
-            groupNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--group-name-size')),
-            stickerNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticker-name-size'))
-        });
-      }
+      set(ref(db, 'settings/groupFontSizes'), {
+          groupNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--group-name-size')),
+          stickerNameSize: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticker-name-size'))
+      });
       showToast(`✅ تم تحديث خط المجموعات والستكرات`, true);
       render();
   } catch(err) {
@@ -1696,41 +1673,45 @@ function setupFontSizeControls() {
   if (btnZoomGroupReset) btnZoomGroupReset.addEventListener('click', () => changeGroupFontSize('reset'));
 }
 
-/* ========= Write helpers ========= */
+/* ========= Write helpers (مع منع ظهور الأخطاء للزوار) ========= */
 function writeGroupsToFirebase(g){
-  const user = auth.currentUser;
-  if (user) {
-    set(ref(db, 'groups'), g).catch(err => {
-      console.error('خطأ أثناء حفظ المجموعات في Firebase:', err);
-    });
-  }
+  // إذا لم يكن هناك صلاحيات (role فارغ) لا نكتب ولا نظهر أخطاء
+  if (!role) return;
+  set(ref(db, 'groups'), g).catch(err => {
+    console.error('خطأ أثناء حفظ المجموعات في Firebase:', err);
+    // نعرض الخطأ فقط للمستخدمين المسجلين
+    if (role) showToast('❌ حدث خطأ أثناء الحفظ التلقائي', false);
+  });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(g));
 }
 
 function writeMessagesToFirebase(m){
+  if (!role) return;
   const sanitizedMessages = m.map(msg => {
     if (typeof msg === 'string' && isImageURL(msg)) return { text: msg, type: 'image' };
     if (typeof msg === 'string') return { text: msg, type: 'text' };
     return msg; 
   });
-  if (auth.currentUser) {
-    set(ref(db, 'messages'), sanitizedMessages).catch(err => console.error(err));
-  }
+  set(ref(db, 'messages'), sanitizedMessages).catch(err => {
+    console.error(err);
+    if (role) showToast('❌ حدث خطأ أثناء حفظ الرسالة', false);
+  });
   localStorage.setItem(MESSAGES_KEY, JSON.stringify(sanitizedMessages));
 }
 
 function writeCumToFirebase(c){ 
-  if (auth.currentUser) {
-    set(ref(db, 'cumulative'), c).catch(err => console.error(err));
-  }
+  if (!role) return;
+  set(ref(db, 'cumulative'), c).catch(err => {
+    console.error(err);
+    if (role) showToast('❌ حدث خطأ أثناء حفظ التراكمي', false);
+  });
   localStorage.setItem(CUM_KEY, JSON.stringify(c));
 }
 
 async function writeHomeworkToFirebase(h){
+  if (!role) return;
   try {
-    if (auth.currentUser) {
-      await set(ref(db, 'homework'), h);
-    }
+    await set(ref(db, 'homework'), h);
     localStorage.setItem(HOMEWORK_KEY, JSON.stringify(h));
     homeworkModified = false;
     updateSaveButtonState();
@@ -1742,14 +1723,14 @@ async function writeHomeworkToFirebase(h){
 }
 
 async function writeStudentProfileToFirebase(studentId, profileData) {
+  if (!role) return;
   try {
-    if (auth.currentUser) {
-      await set(ref(db, `studentProfiles/${studentId}`), profileData);
-    }
+    await set(ref(db, `studentProfiles/${studentId}`), profileData);
     studentProfiles[studentId] = profileData;
     localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
   } catch(err) {
     console.error('Error saving student profile:', err);
+    if (role) showToast('❌ خطأ في حفظ ملف الطالب', false);
   }
 }
 
@@ -1852,12 +1833,8 @@ async function optimizedFirebaseFetch() {
       studentProfiles = {};
     }
     normalizeData();
-    // إخفاء رسالة الخطأ عن الزوار العاديين
-    if (auth.currentUser) {
-      showToast('⚠️ استخدام البيانات المحلية بسبب مشكلة في الاتصال', false);
-    } else {
-      console.warn('استخدام البيانات المحلية بسبب مشكلة في الاتصال');
-    }
+    // لا نظهر رسالة للزوار
+    if (role) showToast('⚠️ استخدام البيانات المحلية بسبب مشكلة في الاتصال', false);
     return true;
   } finally {
     hideLoading();
@@ -2313,9 +2290,7 @@ async function adminDeleteStudent(gi,si,sti){
 
   if (studentProfiles[idKey]) {
     delete studentProfiles[idKey];
-    if (auth.currentUser) {
-      set(ref(db, `studentProfiles/${idKey}`), null);
-    }
+    set(ref(db, `studentProfiles/${idKey}`), null);
   }
 
   data[gi].stickers[si].students.splice(sti,1); 
@@ -3444,16 +3419,19 @@ window.deleteCertificate = async function(studentId, certId) {
     }
 };
 
+/* ========= عرض صورة الشهادة مع زر تحميل وإغلاق كبير ========= */
 window.viewCertificateImage = function(imageUrl) {
     const modalHtml = `
         <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 10000; display: flex;">
-            <div style="background: transparent; max-width: 90%; max-height: 90%;">
-                <button onclick="closeImageModal()" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                    <i class="fas fa-times"></i>
-                </button>
-                <a href="${escapeHtml(imageUrl)}" download style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 0.75rem 2rem; border-radius: 25px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-size: 1rem;">
-                    <i class="fas fa-download"></i> تحميل الصورة
-                </a>
+            <div style="background: transparent; max-width: 90%; max-height: 90%; position: relative;">
+                <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 10px;">
+                    <button onclick="closeImageModal()" style="background: rgba(0,0,0,0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <a href="${escapeHtml(imageUrl)}" download target="_blank" style="background: var(--accent); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none;">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
                 <img src="${escapeHtml(imageUrl)}" alt="صورة الشهادة" style="width: 100%; height: auto; border-radius: 5px;">
             </div>
         </div>
@@ -4100,12 +4078,12 @@ async function loadUsersList() {
     return;
   }
   const users = usersSnap.val();
-  // جدول مع عرض UID بشكل أصغر ومقروء، وتوسيع المجموعة
-  let html = '<table style="width:100%;border-collapse:collapse;"><thead><tr><th style="width:25%;">المعرف (UID)</th><th style="width:15%;">الدور</th><th style="width:30%;">المجموعة</th><th style="width:30%;">إجراءات</th></tr></thead><tbody>';
+  // جدول مع تحسين عرض الأعمدة
+  let html = '<table style="width:100%;border-collapse:collapse;"><thead><tr><th style="width:50%;">المعرف (UID)</th><th style="width:15%;">الدور</th><th style="width:20%;">المجموعة</th><th style="width:15%;">إجراءات</th></tr></thead><tbody>';
   for (const uid in users) {
     const user = users[uid];
     html += `<tr>
-      <td style="direction:ltr; text-align:left; font-family:monospace; font-size:0.7rem; word-break:break-all;">${uid}</td>
+      <td style="direction:ltr; text-align:left; font-family:monospace; font-size:0.8rem; word-break:break-all;">${uid}</td>
       <td>${user.role === 'admin' ? 'مدير' : 'مشرف'}</td>
       <td>${user.groupIndex !== undefined ? (data[user.groupIndex]?.name || 'غير معروف') : '-'}</td>
       <td>

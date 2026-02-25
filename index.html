@@ -463,7 +463,6 @@
             border-radius: 0.5rem;
             margin-top: 0.625rem;
             box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
-            loading: lazy; /* إضافة خاصية التحميل البطيء للصور */
         }
 
         .tabs-container {
@@ -1192,7 +1191,6 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                loading: lazy; /* تحميل بطيء لصور الشهادات */
             }
 
         .certificate-overlay {
@@ -2087,18 +2085,23 @@ async function uploadToImgBB(file) {
             loadingIndicator.style.display = 'none';
         }
 
-        // تحميل البيانات الأساسية فقط (المجموعات، الرسائل، الإعدادات)
-        async function loadEssentialData() {
+        async function optimizedFirebaseFetch() {
             showLoading();
+
             try {
-                const [groupsSnap, messagesSnap, settingsSnap] = await Promise.all([
+                const [groupsSnap, messagesSnap, cumSnap, homeworkSnap, settingsSnap, profilesSnap] = await Promise.all([
                     get(ref(db, 'groups')),
                     get(ref(db, 'messages')),
-                    get(ref(db, 'settings'))
+                    get(ref(db, 'cumulative')),
+                    get(ref(db, 'homework')),
+                    get(ref(db, 'settings')),
+                    get(ref(db, 'studentProfiles'))
                 ]);
 
                 let localData = loadData();
                 let localMessages = loadMessages();
+                let localCum = loadCum();
+                let localHomework = loadHomework();
 
                 if (groupsSnap.exists()) {
                     data = groupsSnap.val();
@@ -2121,6 +2124,27 @@ async function uploadToImgBB(file) {
                     writeMessagesToFirebase(messages);
                 }
 
+                if (cumSnap.exists()) {
+                    cumHistory = cumSnap.val();
+                } else {
+                    cumHistory = localCum;
+                    writeCumToFirebase(cumHistory);
+                }
+
+                if (homeworkSnap.exists()) {
+                    homeworkData = homeworkSnap.val();
+                } else {
+                    homeworkData = localHomework;
+                    localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
+                }
+
+                if (profilesSnap.exists()) {
+                    studentProfiles = profilesSnap.val();
+                } else {
+                    studentProfiles = {};
+                    localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
+                }
+
                 if (settingsSnap.exists()) {
                     const settings = settingsSnap.val();
                     if (settings.homeworkFontSize) {
@@ -2137,19 +2161,10 @@ async function uploadToImgBB(file) {
 
                 normalizeData();
 
-                // تحميل البيانات المحلية للتراكمي والواجبات والبروفايل (إذا وجدت) للاستخدام المؤقت
-                cumHistory = loadCum();
-                homeworkData = loadHomework();
-                try {
-                    studentProfiles = JSON.parse(localStorage.getItem('studentProfiles')) || {};
-                } catch (e) {
-                    studentProfiles = {};
-                }
-
                 return true;
 
             } catch (error) {
-                console.error('خطأ في جلب البيانات الأساسية:', error);
+                console.error('خطأ في جلب البيانات:', error);
                 data = loadData();
                 messages = loadMessages();
                 cumHistory = loadCum();
@@ -2160,50 +2175,11 @@ async function uploadToImgBB(file) {
                     studentProfiles = {};
                 }
                 normalizeData();
+                // لا نظهر رسالة للزوار
                 if (role) showToast('⚠️ استخدام البيانات المحلية بسبب مشكلة في الاتصال', false);
                 return true;
             } finally {
                 hideLoading();
-            }
-        }
-
-        // تحميل بيانات المدير الإضافية (التراكمي، الواجبات، ملفات الطلاب)
-        async function loadAdminData() {
-            if (role !== 'admin') return;
-
-            try {
-                const [cumSnap, homeworkSnap, profilesSnap] = await Promise.all([
-                    get(ref(db, 'cumulative')),
-                    get(ref(db, 'homework')),
-                    get(ref(db, 'studentProfiles'))
-                ]);
-
-                if (cumSnap.exists()) {
-                    cumHistory = cumSnap.val();
-                } else {
-                    cumHistory = loadCum();
-                }
-
-                if (homeworkSnap.exists()) {
-                    homeworkData = homeworkSnap.val();
-                } else {
-                    homeworkData = loadHomework();
-                }
-
-                if (profilesSnap.exists()) {
-                    studentProfiles = profilesSnap.val();
-                } else {
-                    studentProfiles = {};
-                }
-
-                localStorage.setItem(CUM_KEY, JSON.stringify(cumHistory));
-                localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
-                localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
-
-                render(); // إعادة الرسم لإظهار البيانات الإضافية
-            } catch (error) {
-                console.error('خطأ في تحميل بيانات المدير:', error);
-                if (role) showToast('⚠️ مشكلة في تحميل بيانات المدير، استخدام البيانات المحلية', false);
             }
         }
 
@@ -2380,36 +2356,26 @@ async function uploadToImgBB(file) {
             }
         });
 
-        // الاستماع للبيانات الإضافية فقط إذا كان المستخدم مديراً (نضيف listener بعد تسجيل الدخول)
-        let cumulativeListener = null;
-        let homeworkListener = null;
-        let profilesListener = null;
+        onValue(ref(db, 'cumulative'), (snap) => {
+            if (!snap.exists()) return;
+            const val = snap.val();
+            cumHistory = val;
+            localStorage.setItem(CUM_KEY, JSON.stringify(cumHistory));
+            if (isInitialized) debouncedRender();
+        });
 
-        function setupAdminListeners() {
-            if (cumulativeListener) cumulativeListener(); // إلغاء الاشتراك السابق
-            cumulativeListener = onValue(ref(db, 'cumulative'), (snap) => {
-                if (!snap.exists()) return;
-                const val = snap.val();
-                cumHistory = val;
-                localStorage.setItem(CUM_KEY, JSON.stringify(cumHistory));
-                if (isInitialized) debouncedRender();
-            });
+        onValue(ref(db, 'homework'), (snap) => {
+            if (!snap.exists()) return;
+            homeworkData = snap.val();
+            localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
+            if (isInitialized) debouncedRender();
+        });
 
-            if (homeworkListener) homeworkListener();
-            homeworkListener = onValue(ref(db, 'homework'), (snap) => {
-                if (!snap.exists()) return;
-                homeworkData = snap.val();
-                localStorage.setItem(HOMEWORK_KEY, JSON.stringify(homeworkData));
-                if (isInitialized) debouncedRender();
-            });
-
-            if (profilesListener) profilesListener();
-            profilesListener = onValue(ref(db, 'studentProfiles'), (snap) => {
-                if (!snap.exists()) return;
-                studentProfiles = snap.val();
-                localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
-            });
-        }
+        onValue(ref(db, 'studentProfiles'), (snap) => {
+            if (!snap.exists()) return;
+            studentProfiles = snap.val();
+            localStorage.setItem('studentProfiles', JSON.stringify(studentProfiles));
+        });
 
         onValue(ref(db, 'settings'), (snap) => {
             if (snap.exists()) {
@@ -2446,7 +2412,6 @@ async function uploadToImgBB(file) {
                 img.src = msgObj.text;
                 img.className = 'message-image';
                 img.alt = 'صورة رسالة';
-                img.loading = 'lazy'; // تحميل بطيء
                 messagesBox.appendChild(img);
                 el.textContent = 'رسالة مصورة (اضغط للتقليب)';
                 el.style.marginTop = '10px';
@@ -2581,13 +2546,6 @@ async function uploadToImgBB(file) {
                     groupIndex: userData.groupIndex
                 };
                 role = currentUser.role;
-
-                // إذا كان مديراً، حمل البيانات الإضافية وأضف المستمعين
-                if (role === 'admin') {
-                    await loadAdminData();
-                    setupAdminListeners();
-                }
-
                 updateUIAfterAuth();
                 showToast(`✅ مرحبًا ${user.email}`, true);
             } else {
@@ -3213,31 +3171,6 @@ async function uploadToImgBB(file) {
                 return;
             }
 
-            // إذا كان المستخدم مديراً ولم تكن بيانات البروفايل محملة، نحملها الآن
-            if (role === 'admin' && !studentProfiles[studentId]) {
-                try {
-                    const profileSnap = await get(ref(db, `studentProfiles/${studentId}`));
-                    if (profileSnap.exists()) {
-                        studentProfiles[studentId] = profileSnap.val();
-                    } else {
-                        studentProfiles[studentId] = {
-                            certificates: [],
-                            customRanges: [],
-                            joinDate: new Date().toISOString().split('T')[0],
-                            startDate: new Date().toISOString().split('T')[0]
-                        };
-                    }
-                } catch (error) {
-                    console.error('خطأ في تحميل ملف الطالب:', error);
-                    studentProfiles[studentId] = {
-                        certificates: [],
-                        customRanges: [],
-                        joinDate: new Date().toISOString().split('T')[0],
-                        startDate: new Date().toISOString().split('T')[0]
-                    };
-                }
-            }
-
             const profile = studentProfiles[studentId] || {
                 certificates: [],
                 customRanges: [],
@@ -3427,7 +3360,7 @@ async function uploadToImgBB(file) {
 
             return certificates.map(cert => `
             <div class="certificate-card">
-                <img src="${escapeHtml(cert.imageUrl)}" alt="${escapeHtml(cert.title)}" onclick="viewCertificateImage('${escapeHtml(cert.imageUrl)}')" loading="lazy">
+                <img src="${escapeHtml(cert.imageUrl)}" alt="${escapeHtml(cert.title)}" onclick="viewCertificateImage('${escapeHtml(cert.imageUrl)}')">
                 <div class="certificate-overlay">
                     ${escapeHtml(cert.title)}
                 </div>
@@ -4610,7 +4543,7 @@ async function uploadToImgBB(file) {
         async function initializeAppData() {
             showLoading();
             try {
-                await loadEssentialData();
+                await optimizedFirebaseFetch();
                 isInitialized = true;
                 initUI();
                 incrementVisitorIfNeeded().catch(() => { });

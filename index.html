@@ -574,6 +574,33 @@ btnLogin.addEventListener('click',async()=>{ const email=loginEmail.value.trim()
 btnLogout.addEventListener('click',async()=>{ await signOut(auth); window.location.reload(); });
 function updateUIAfterAuth(){ renderMessagesControls(); document.getElementById('cumulativeArea').style.display=(role==='admin')?'block':'none'; userInfo.style.display=role?'block':'none'; if(role==='admin') userInfo.textContent=`مدير عام: ${currentUser.email}`; else if(role==='manager') userInfo.textContent=`مشرف مجموعة: ${currentUser.email} - ${data[currentUser.groupIndex]?.name||''}`; else if(role) userInfo.textContent=`مستخدم: ${currentUser.email}`; document.getElementById('btnLogout').style.display=role?'inline-block':'none'; document.getElementById('btnLogin').style.display=role?'none':'inline-block'; loginEmail.value=''; loginPass.value=''; if(role==='admin'||role==='manager') normalizeData(); render(); renderVisitorsBoxForRole(role); }
 
+// ==========================================
+// دوال مساعدة للتحديث المركز (Targeted Updates)
+// ==========================================
+function getStudentPath(studentId) {
+    for (let gi = 0; gi < data.length; gi++) {
+        for (let si = 0; si < data[gi].stickers.length; si++) {
+            const sti = data[gi].stickers[si].students.findIndex(s => s.id === studentId);
+            if (sti !== -1) return `groups/${gi}/stickers/${si}/students/${sti}`;
+        }
+    }
+    return null;
+}
+
+async function updateStudentPointsInFirebase(sid, studentObj) {
+    const path = getStudentPath(sid);
+    if (!path) {
+        console.warn(`لم يتم العثور على مسار للطالب ${sid}`);
+        return;
+    }
+    const updates = {};
+    updates[`${path}/points`] = studentObj.points || 0;
+    updates[`${path}/pointsLog`] = studentObj.pointsLog || [];
+    await update(ref(db), updates).catch(e => console.error("Error updating points:", e));
+}
+
+// ==========================================
+
 // Admin functions
 function canEditGroup(gi){ if(role==='admin') return true; if(role==='manager' && currentUser && currentUser.groupIndex===gi) return true; return false; }
 async function adminAddGroup(){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } const name=prompt('اسم المجموعة:'); if(!name) return; data.push({name:name.trim(),showStudents:true,stickers:[{title:'ذهبية',visible:true,students:[]}]}); writeGroupsToFirebase(data); render(); showToast('✅ تم إضافة مجموعة جديدة', true); }
@@ -588,8 +615,49 @@ async function adminEditStickerName(gi,si){ if(role!=='admin'){ showToast('❌ �
 async function adminDeleteSticker(gi,si){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } if(!confirm('هل تريد حذف الستكر؟')) return; data[gi].stickers.splice(si,1); writeGroupsToFirebase(data); render(); showToast('✅ تم حذف الستكر', true); }
 
 // Manager editing
-async function setAttendance(gi,si,sti,val){ if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; } const s=data[gi].stickers[si].students[sti]; s.attendance=val; if(val==='absent_unexcused'){ s.gradeHifz='0'; s.gradeWard='0'; s.gradeAkhlak='0'; } if(val==='present'||val==='absent_excused'){ s.gradeHifz=''; s.gradeWard=''; s.gradeAkhlak=''; } render(); writeGroupsToFirebase(data); }
-async function setGrade(gi,si,sti,field,val){ if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; } const s=data[gi].stickers[si].students[sti]; if(s.attendance==='absent_unexcused'){ showToast('❌ لا يمكن تعديل تقديرات الغائب بغير عذر', false); return; } if(field==='hifz') s.gradeHifz=val; if(field==='ward') s.gradeWard=val; if(field==='akhlak') s.gradeAkhlak=val; render(); writeGroupsToFirebase(data); }
+async function setAttendance(gi, si, sti, val) {
+    if (!canEditGroup(gi)) { showToast('❌ غير مصرح', false); return; }
+    const s = data[gi].stickers[si].students[sti];
+    s.attendance = val;
+    if (val === 'absent_unexcused') {
+        s.gradeHifz = '0';
+        s.gradeWard = '0';
+        s.gradeAkhlak = '0';
+    }
+    if (val === 'present' || val === 'absent_excused') {
+        s.gradeHifz = '';
+        s.gradeWard = '';
+        s.gradeAkhlak = '';
+    }
+    render();
+    // تحديث مركز على مسار الحضور فقط
+    const path = `groups/${gi}/stickers/${si}/students/${sti}`;
+    const updates = {};
+    updates[`${path}/attendance`] = val;
+    updates[`${path}/gradeHifz`] = s.gradeHifz;
+    updates[`${path}/gradeWard`] = s.gradeWard;
+    updates[`${path}/gradeAkhlak`] = s.gradeAkhlak;
+    await update(ref(db), updates).catch(err => console.error("Error updating attendance:", err));
+}
+
+async function setGrade(gi, si, sti, field, val) {
+    if (!canEditGroup(gi)) { showToast('❌ غير مصرح', false); return; }
+    const s = data[gi].stickers[si].students[sti];
+    if (s.attendance === 'absent_unexcused') {
+        showToast('❌ لا يمكن تعديل تقديرات الغائب بغير عذر', false);
+        return;
+    }
+    if (field === 'hifz') s.gradeHifz = val;
+    if (field === 'ward') s.gradeWard = val;
+    if (field === 'akhlak') s.gradeAkhlak = val;
+    render();
+    // تحديث مركز على الحقل المحدد
+    const path = `groups/${gi}/stickers/${si}/students/${sti}`;
+    const updates = {};
+    const dbField = field === 'hifz' ? 'gradeHifz' : field === 'ward' ? 'gradeWard' : 'gradeAkhlak';
+    updates[`${path}/${dbField}`] = val;
+    await update(ref(db), updates).catch(err => console.error("Error updating grade:", err));
+}
 
 // Homework
 function updateHomework(studentId,field,value){ if(role!=='admin') return; if(!homeworkData[studentId]) homeworkData[studentId]={history:[]}; const old=homeworkData[studentId][field]; if(old!==value && old && old.trim()!==''){ if(!homeworkData[studentId].history) homeworkData[studentId].history=[]; homeworkData[studentId].history.unshift({field,value:old,timestamp:getSecureDate().toISOString()}); homeworkData[studentId].history=homeworkData[studentId].history.slice(0,10); } homeworkData[studentId][field]=value; homeworkModified=true; updateSaveButtonState(); }
@@ -662,26 +730,14 @@ async function markWirdComplete(studentId){
         const allCompleted=weekDates.every(date=>student.completedWirdDays.includes(date));
         if(allCompleted){ const weekKey=`${weekDates[0]}_to_${weekDates[6]}`; if(!student.weeklyBonusGiven) student.weeklyBonusGiven=[]; if(!student.weeklyBonusGiven.includes(weekKey)){ student.points+=currentBonusValue; student.pointsLog.push({type:'bonus',pts:currentBonusValue,note:`مكافأة إكمال الأسبوع الكامل (${weekKey})`,date:dateStr}); student.weeklyBonusGiven.push(weekKey); showToast(`🎉 مكافأة إكمال الأسبوع الكامل: +${currentBonusValue} نقطة`, true); } }
 
-        // --- NEW UPDATE LOGIC START ---
-        let targetGroupIndex = -1, targetStickerIndex = -1, targetStudentIndex = -1;
-        for(let gi=0; gi<data.length; gi++){
-            for(let si=0; si<data[gi].stickers.length; si++){
-                const sti = data[gi].stickers[si].students.findIndex(s => s.id === studentId);
-                if(sti !== -1){ targetGroupIndex = gi; targetStickerIndex = si; targetStudentIndex = sti; break; }
-            }
-            if(targetStudentIndex !== -1) break;
-        }
-
-        if(targetStudentIndex !== -1) {
+        // تحديث مركز للنقاط والسجل في Firebase
+        const path = getStudentPath(studentId);
+        if (path) {
             const updates = {};
-            const basePath = `groups/${targetGroupIndex}/stickers/${targetStickerIndex}/students/${targetStudentIndex}`;
-            updates[`${basePath}/points`] = student.points;
-            updates[`${basePath}/pointsLog`] = student.pointsLog;
-            updates[`${basePath}/completedWirdDays`] = student.completedWirdDays;
-            if(student.weeklyBonusGiven) {
-                updates[`${basePath}/weeklyBonusGiven`] = student.weeklyBonusGiven;
-            }
-            
+            updates[`${path}/points`] = student.points;
+            updates[`${path}/pointsLog`] = student.pointsLog;
+            updates[`${path}/completedWirdDays`] = student.completedWirdDays;
+            updates[`${path}/weeklyBonusGiven`] = student.weeklyBonusGiven || [];
             await update(ref(db), updates).catch(err => {
                 console.error(err);
                 showToast('❌ حدث خطأ أثناء حفظ النقاط في الخادم', false);
@@ -690,8 +746,6 @@ async function markWirdComplete(studentId){
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         render();
-        // --- NEW UPDATE LOGIC END ---
-
         localStorage.setItem('lastCompletedDate',todayStr); localStorage.setItem('lastCompletedSiblingKey',getSiblingKey(student.name));
         showToast(`✅ تم تسجيل إنجاز الورد اليومي وأضيفت ${pointsToAdd} نقطة`, true);
         openStudentProfile(studentId);
@@ -873,7 +927,16 @@ function noteForWard(v){ if(!v||v==='0') return ''; const n=Number(v); if(n>=10)
 // Edit student modal
 function openEditModal(gi,si,sti){ if(!canEditGroup(gi)){ showToast('❌ غير مصرح', false); return; } currentEdit={gi,si,sti}; const s=data[gi].stickers[si].students[sti]; modalName.value=s.name; const canEditName=(role==='admin'); modalName.disabled=!canEditName; modalName.className=canEditName?'':'name-readonly'; modalAttendance.value=s.attendance||'present'; fillGrade(modalHifz,s.gradeHifz||''); fillGrade(modalWard,s.gradeWard||''); fillGrade(modalAkhlak,s.gradeAkhlak||''); modalBackdrop.style.display='flex'; }
 modalCancel.addEventListener('click',()=>{ modalBackdrop.style.display='none'; currentEdit=null; modalName.disabled=false; modalName.className=''; });
-modalSave.addEventListener('click',async()=>{ if(!currentEdit) return; const {gi,si,sti}=currentEdit; const s=data[gi].stickers[si].students[sti]; const name=modalName.value.trim(); const att=modalAttendance.value; if(role==='admin') s.name=name; s.attendance=att; if(att==='absent_unexcused'){ s.gradeHifz='0'; s.gradeWard='0'; s.gradeAkhlak='0'; } else if(att==='absent_excused'){ s.gradeHifz=''; s.gradeWard=''; s.gradeAkhlak=''; } else { s.gradeHifz=modalHifz.value||''; s.gradeWard=modalWard.value||''; s.gradeAkhlak=modalAkhlak.value||''; } render(); writeGroupsToFirebase(data); modalBackdrop.style.display='none'; currentEdit=null; modalName.disabled=false; modalName.className=''; });
+modalSave.addEventListener('click',async()=>{ if(!currentEdit) return; const {gi,si,sti}=currentEdit; const s=data[gi].stickers[si].students[sti]; const name=modalName.value.trim(); const att=modalAttendance.value; if(role==='admin') s.name=name; s.attendance=att; if(att==='absent_unexcused'){ s.gradeHifz='0'; s.gradeWard='0'; s.gradeAkhlak='0'; } else if(att==='absent_excused'){ s.gradeHifz=''; s.gradeWard=''; s.gradeAkhlak=''; } else { s.gradeHifz=modalHifz.value||''; s.gradeWard=modalWard.value||''; s.gradeAkhlak=modalAkhlak.value||''; } render(); // تحديث مركز لكل الحقول المعدلة
+    const path = `groups/${gi}/stickers/${si}/students/${sti}`;
+    const updates = {};
+    updates[`${path}/attendance`] = s.attendance;
+    updates[`${path}/gradeHifz`] = s.gradeHifz;
+    updates[`${path}/gradeWard`] = s.gradeWard;
+    updates[`${path}/gradeAkhlak`] = s.gradeAkhlak;
+    if(role==='admin') updates[`${path}/name`] = s.name;
+    await update(ref(db), updates).catch(err => console.error("Error updating student:", err));
+    modalBackdrop.style.display='none'; currentEdit=null; modalName.disabled=false; modalName.className=''; });
 
 // Cumulative functions 
 async function calculateCumulativeAll(){ if(role!=='admin'){ showToast('❌ المدير فقط', false); return; } if(!confirm('حساب التراكمي لجميع الطلاب الآن؟')) return; showLoading(); try{ cumBackup=JSON.parse(JSON.stringify({cumHistory:{...cumHistory},data:JSON.parse(JSON.stringify(data))})); localStorage.setItem(CUM_BACKUP_KEY,JSON.stringify(cumBackup)); const updates=[]; let total=0; data.forEach(g=>{ if(g.showStudents===false) return; g.stickers.forEach(st=>{ if(st.visible===false) return; st.students.forEach(s=>{ if(!s.id) return; total++; const idKey=s.id; let currAvg=null, newCnt=0, prevCnt=Number(cumHistory[idKey+'_count']||0); if(s.attendance==='absent_excused') return; if(s.attendance==='absent_unexcused'){ currAvg=0; newCnt=prevCnt+1; } else{ const h=Number(s.gradeHifz)||0, w=Number(s.gradeWard)||0, a=Number(s.gradeAkhlak)||0; if(h===0&&w===0&&a===0) return; currAvg=(h+w+a)/3; newCnt=prevCnt+1; } const prev=Number(cumHistory[idKey]||0); const newCum=prevCnt>0?(prev*prevCnt+currAvg)/newCnt:currAvg; cumHistory[idKey]=Math.round(newCum*100)/100; cumHistory[idKey+'_count']=newCnt; s.cumulative=cumHistory[idKey]; s.count=newCnt; updates.push({name:s.name,group:g.name,sticker:st.title,current:Math.round(currAvg*100)/100,cumulative:s.cumulative,count:newCnt}); }); }); }); writeCumToFirebase(cumHistory); writeGroupsToFirebase(data); updates.sort((a,b)=>b.cumulative-a.cumulative); renderCumulativeResults(updates); showToast(`✅ انتهى حساب التراكمي لعدد ${updates.length} من ${total} طالب`, true); } finally{ hideLoading(); } }
@@ -917,7 +980,7 @@ function renderPointsStudentList(){ const search=document.getElementById('points
     `; cont.appendChild(card); } if(all.length===0) cont.innerHTML='<div style="text-align:center;color:#888;padding:2rem;">لا يوجد طلاب مطابقون</div>'; }
 
 // تطبيق الإجراء السريع (تعديل النقاط المباشر من الأسباب الجاهزة)
-window.applyQuickReason = function(sid, selectEl) {
+window.applyQuickReason = async function(sid, selectEl) {
     const idx = selectEl.value;
     if(idx === "") return;
     const reason = pointsReasons[idx];
@@ -937,19 +1000,114 @@ window.applyQuickReason = function(sid, selectEl) {
         s.pointsLog.push({type: 'remove', pts: amt, note: reason.text, date: ds});
         showToast(`✅ تم خصم ${amt} نقطة من ${s.name}`, true);
     }
-    writeGroupsToFirebase(data);
+    // تحديث مركز للنقاط والسجل
+    await updateStudentPointsInFirebase(sid, s);
     renderPointsStudentList();
     render();
 }
 
-window.doAddPointsInline=function(sid){ const amt=parseInt(document.getElementById('addAmt_'+sid).value); if(!amt||amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; } const note=document.getElementById('addNote_'+sid).value.trim(); const now=getSecureDate(); const ds=now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}); const s=findStudentById(sid); if(s){ if(!s.pointsLog) s.pointsLog=[]; s.points=(s.points||0)+amt; s.pointsLog.push({type:'add',pts:amt,note,date:ds}); writeGroupsToFirebase(data); renderPointsStudentList(); showToast(`✅ تمت إضافة ${amt} نقطة لـ ${s.name}`, true); } document.getElementById('addAmt_'+sid).value=''; document.getElementById('addNote_'+sid).value=''; };
-window.doRemovePointsInline=function(sid){ const amt=parseInt(document.getElementById('remAmt_'+sid).value); if(!amt||amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; } const note=document.getElementById('remNote_'+sid).value.trim(); const now=getSecureDate(); const ds=now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}); const s=findStudentById(sid); if(s){ if(!s.pointsLog) s.pointsLog=[]; s.points=(s.points||0)-amt; s.pointsLog.push({type:'remove',pts:amt,note,date:ds}); writeGroupsToFirebase(data); renderPointsStudentList(); showToast(`✅ تم خصم ${amt} نقطة من ${s.name}`, true); } document.getElementById('remAmt_'+sid).value=''; document.getElementById('remNote_'+sid).value=''; };
-window.inlineAddPts=function(sid){ const amt=parseInt(document.getElementById('pts_amt_'+sid).value); if(!amt||amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; } const note=document.getElementById('pts_note_'+sid)?.value.trim()||''; const now=getSecureDate(); const ds=now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}); const s=findStudentById(sid); if(s){ if(!s.pointsLog) s.pointsLog=[]; s.points=(s.points||0)+amt; s.pointsLog.push({type:'add',pts:amt,note,date:ds}); writeGroupsToFirebase(data); const disp=document.getElementById('pts_display_'+sid); if(disp) disp.textContent='⭐ '+s.points; showToast(`✅ تمت إضافة ${amt} نقطة`, true); } document.getElementById('pts_amt_'+sid).value=''; if(document.getElementById('pts_note_'+sid)) document.getElementById('pts_note_'+sid).value=''; };
-window.inlineRemPts=function(sid){ const amt=parseInt(document.getElementById('pts_amt_'+sid).value); if(!amt||amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; } const note=document.getElementById('pts_note_'+sid)?.value.trim()||''; const now=getSecureDate(); const ds=now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}); const s=findStudentById(sid); if(s){ if(!s.pointsLog) s.pointsLog=[]; s.points=(s.points||0)-amt; s.pointsLog.push({type:'remove',pts:amt,note,date:ds}); writeGroupsToFirebase(data); const disp=document.getElementById('pts_display_'+sid); if(disp) disp.textContent='⭐ '+s.points; showToast(`✅ تم خصم ${amt} نقطة`, true); } document.getElementById('pts_amt_'+sid).value=''; if(document.getElementById('pts_note_'+sid)) document.getElementById('pts_note_'+sid).value=''; };
-window.openPointsLog=function(sid,sname){ currentLogStudentId=sid; document.getElementById('pointsLogTitle').innerHTML=`<i class="fas fa-history"></i> سجل النقاط: ${sname}`; renderPointsLog(); document.getElementById('modalPointsLog').style.display='flex'; };
-window.closePointsLogModal=function(){ document.getElementById('modalPointsLog').style.display='none'; currentLogStudentId=null; renderPointsStudentList(); };
-function renderPointsLog(){ if(!currentLogStudentId) return; const s=findStudentById(currentLogStudentId); const log=s?.pointsLog||[]; const el=document.getElementById('pointsLogContent'); if(!log.length){ el.innerHTML='<div style="text-align:center;color:#aaa;padding:2rem;font-size:1rem;">لا توجد سجلات بعد</div>'; return; } let html=`<div style="text-align:center;background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #D4AF37;border-radius:10px;padding:12px;margin-bottom:14px;"><div style="color:#888;font-size:0.85rem;">إجمالي النقاط</div><div style="font-size:2.2rem;font-weight:900;color:#D4AF37;">⭐ ${s?.points||0}</div></div>`; const reversed=[...log].reverse(); reversed.forEach((entry,revIdx)=>{ const realIdx=log.length-1-revIdx; const isAdd=['add', 'wird', 'bonus'].includes(entry.type); const col=isAdd?'#28a745':'#dc3545'; const icon=isAdd?'➕':'➖'; const bg=isAdd?'#f0fff4':'#fff5f5'; const bd=isAdd?'#c3e6cb':'#f5c6cb'; let typeLabel=''; if(entry.type==='wird') typeLabel=' (الورد اليومي)'; else if(entry.type==='bonus') typeLabel=' (مكافأة أسبوعية)'; html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${bg};border:1px solid ${bd};border-radius:8px;margin-bottom:6px;flex-wrap:wrap;"><span style="font-size:1rem;">${icon}</span><span style="font-weight:700;color:${col};min-width:45px;">${isAdd?'+':'-'}${entry.pts}</span><span style="flex:1;color:#444;font-size:0.95rem;">${escapeHtml(entry.note||'—')}${typeLabel}</span><span style="color:#999;font-size:0.78rem;white-space:nowrap;">${entry.date||''}</span><button onclick="deletePointLog('${currentLogStudentId}',${realIdx})" class="button small danger" style="padding:3px 8px;"><i class="fas fa-trash"></i></button></div>`; }); el.innerHTML=html; }
-window.deletePointLog=function(sid,idx){ if(!confirm('حذف هذا السجل؟')) return; const s=findStudentById(sid); if(!s?.pointsLog||idx<0||idx>=s.pointsLog.length) return; const entry=s.pointsLog[idx]; const isAddLog = ['add', 'wird', 'bonus'].includes(entry.type); s.points=isAddLog?Math.max(0,(s.points||0)-entry.pts):(s.points||0)+entry.pts; s.pointsLog.splice(idx,1); writeGroupsToFirebase(data); renderPointsLog(); showToast('✅ تم حذف السجل وتحديث النقاط', true); };
+window.doAddPointsInline = async function(sid) {
+    const amt = parseInt(document.getElementById('addAmt_'+sid).value);
+    if(!amt || amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; }
+    const note = document.getElementById('addNote_'+sid).value.trim();
+    const now = getSecureDate();
+    const ds = now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+    const s = findStudentById(sid);
+    if(s){
+        if(!s.pointsLog) s.pointsLog = [];
+        s.points = (s.points||0) + amt;
+        s.pointsLog.push({type:'add', pts:amt, note, date:ds});
+        await updateStudentPointsInFirebase(sid, s);
+        renderPointsStudentList();
+        showToast(`✅ تمت إضافة ${amt} نقطة لـ ${s.name}`, true);
+    }
+    document.getElementById('addAmt_'+sid).value = '';
+    document.getElementById('addNote_'+sid).value = '';
+}
+
+window.doRemovePointsInline = async function(sid) {
+    const amt = parseInt(document.getElementById('remAmt_'+sid).value);
+    if(!amt || amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; }
+    const note = document.getElementById('remNote_'+sid).value.trim();
+    const now = getSecureDate();
+    const ds = now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+    const s = findStudentById(sid);
+    if(s){
+        if(!s.pointsLog) s.pointsLog = [];
+        s.points = (s.points||0) - amt;
+        s.pointsLog.push({type:'remove', pts:amt, note, date:ds});
+        await updateStudentPointsInFirebase(sid, s);
+        renderPointsStudentList();
+        showToast(`✅ تم خصم ${amt} نقطة من ${s.name}`, true);
+    }
+    document.getElementById('remAmt_'+sid).value = '';
+    document.getElementById('remNote_'+sid).value = '';
+}
+
+window.inlineAddPts = async function(sid) {
+    const amt = parseInt(document.getElementById('pts_amt_'+sid).value);
+    if(!amt || amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; }
+    const note = document.getElementById('pts_note_'+sid)?.value.trim() || '';
+    const now = getSecureDate();
+    const ds = now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+    const s = findStudentById(sid);
+    if(s){
+        if(!s.pointsLog) s.pointsLog = [];
+        s.points = (s.points||0) + amt;
+        s.pointsLog.push({type:'add', pts:amt, note, date:ds});
+        await updateStudentPointsInFirebase(sid, s);
+        const disp = document.getElementById('pts_display_'+sid);
+        if(disp) disp.textContent = '⭐ ' + s.points;
+        showToast(`✅ تمت إضافة ${amt} نقطة`, true);
+    }
+    document.getElementById('pts_amt_'+sid).value = '';
+    if(document.getElementById('pts_note_'+sid)) document.getElementById('pts_note_'+sid).value = '';
+}
+
+window.inlineRemPts = async function(sid) {
+    const amt = parseInt(document.getElementById('pts_amt_'+sid).value);
+    if(!amt || amt<=0){ showToast('❌ أدخل عدد نقاط صحيح', false); return; }
+    const note = document.getElementById('pts_note_'+sid)?.value.trim() || '';
+    const now = getSecureDate();
+    const ds = now.toLocaleDateString('ar-SA')+' '+now.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+    const s = findStudentById(sid);
+    if(s){
+        if(!s.pointsLog) s.pointsLog = [];
+        s.points = (s.points||0) - amt;
+        s.pointsLog.push({type:'remove', pts:amt, note, date:ds});
+        await updateStudentPointsInFirebase(sid, s);
+        const disp = document.getElementById('pts_display_'+sid);
+        if(disp) disp.textContent = '⭐ ' + s.points;
+        showToast(`✅ تم خصم ${amt} نقطة`, true);
+    }
+    document.getElementById('pts_amt_'+sid).value = '';
+    if(document.getElementById('pts_note_'+sid)) document.getElementById('pts_note_'+sid).value = '';
+}
+
+window.openPointsLog = function(sid, sname) {
+    currentLogStudentId = sid;
+    document.getElementById('pointsLogTitle').innerHTML = `<i class="fas fa-history"></i> سجل النقاط: ${sname}`;
+    renderPointsLog();
+    document.getElementById('modalPointsLog').style.display = 'flex';
+}
+window.closePointsLogModal = function() {
+    document.getElementById('modalPointsLog').style.display = 'none';
+    currentLogStudentId = null;
+    renderPointsStudentList();
+}
+function renderPointsLog(){ if(!currentLogStudentId) return; const s=findStudentById(currentLogStudentId); const log=s?.pointsLog||[]; const el=document.getElementById('pointsLogContent'); if(!log.length){ el.innerHTML='<div style="text-align:center;color:#aaa;padding:2rem;font-size:1rem;">لا توجد سجلات بعد</div>'; return; } let html=`<div style="text-align:center;background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #D4AF37;border-radius:10px;padding:12px;margin-bottom:14px;"><div style="color:#888;font-size:0.85rem;">إجمالي النقاط</div><div style="font-size:2.2rem;font-weight:900;color:#D4AF37;">⭐ ${s?.points||0}</div></div>`; const reversed=[...log].reverse(); reversed.forEach((entry,revIdx)=>{ const realIdx=log.length-1-revIdx; const isAdd=['add','wird','bonus'].includes(entry.type); const col=isAdd?'#28a745':'#dc3545'; const icon=isAdd?'➕':'➖'; const bg=isAdd?'#f0fff4':'#fff5f5'; const bd=isAdd?'#c3e6cb':'#f5c6cb'; let typeLabel=''; if(entry.type==='wird') typeLabel=' (الورد اليومي)'; else if(entry.type==='bonus') typeLabel=' (مكافأة أسبوعية)'; html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${bg};border:1px solid ${bd};border-radius:8px;margin-bottom:6px;flex-wrap:wrap;"><span style="font-size:1rem;">${icon}</span><span style="font-weight:700;color:${col};min-width:45px;">${isAdd?'+':'-'}${entry.pts}</span><span style="flex:1;color:#444;font-size:0.95rem;">${escapeHtml(entry.note||'—')}${typeLabel}</span><span style="color:#999;font-size:0.78rem;white-space:nowrap;">${entry.date||''}</span><button onclick="deletePointLog('${currentLogStudentId}',${realIdx})" class="button small danger" style="padding:3px 8px;"><i class="fas fa-trash"></i></button></div>`; }); el.innerHTML=html; }
+window.deletePointLog = async function(sid, idx) {
+    if(!confirm('حذف هذا السجل؟')) return;
+    const s = findStudentById(sid);
+    if(!s?.pointsLog || idx<0 || idx>=s.pointsLog.length) return;
+    const entry = s.pointsLog[idx];
+    const isAddLog = ['add','wird','bonus'].includes(entry.type);
+    s.points = isAddLog ? Math.max(0,(s.points||0)-entry.pts) : (s.points||0)+entry.pts;
+    s.pointsLog.splice(idx, 1);
+    await updateStudentPointsInFirebase(sid, s);
+    renderPointsLog();
+    showToast('✅ تم حذف السجل وتحديث النقاط', true);
+}
 
 // الأسباب الجاهزة - منطق العرض، التعديل والإضافة والحذف
 function resetReasonForm() {

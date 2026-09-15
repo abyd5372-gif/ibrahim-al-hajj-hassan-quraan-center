@@ -448,8 +448,8 @@
         .range-edit-btn { background: #c9960c; color: #fff; }
         .range-delete-btn { background: #e74c3c; color: #fff; }
         .certificates-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-        .certificate-card { position: relative; overflow: hidden; min-height: 120px; border-radius: 10px; background: #fff; border: 1px solid rgba(44,99,130,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        .certificate-card img { width: 100%; height: 120px; display: block; object-fit: cover; cursor: pointer; transition: transform 0.3s; }
+        .certificate-card { position: relative; overflow: hidden; aspect-ratio: 1 / 1; border-radius: 10px; background: #fff; border: 1px solid rgba(44,99,130,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .certificate-card img { width: 100%; height: 100%; display: block; object-fit: cover; cursor: pointer; transition: transform 0.3s; }
         .certificate-card:hover img { transform: scale(1.03); }
         .certificate-overlay { position: absolute; right: 0; left: 0; bottom: 0; padding: 7px 9px; color: #fff; background: linear-gradient(transparent, rgba(21,52,72,0.9)); font-weight: 700; font-size: 0.85rem; }
         .certificate-empty { width: 100%; box-sizing: border-box; padding: 28px 18px; border: 2px dashed var(--gold-accent); border-radius: 12px; text-align: center; color: #b8860b; background: rgba(212,175,55,0.05); font-weight: 700; }
@@ -2907,7 +2907,7 @@ function showMushafView() {
         };
         function renderCertificates(certificates, profileKey) {
             if (!certificates?.length) return '<div class="certificate-empty"><i class="fa-solid fa-award"></i>لا توجد شهادات حتى الآن</div>';
-            return `<div class="certificates-grid">${certificates.map(cert => `<div class="certificate-card"><img src="${safeProfileText(cert.imageUrl)}" alt="${safeProfileText(cert.title)}" onclick="viewCertificateImage('${profileKey}','${safeProfileText(cert.id)}')"><div class="certificate-overlay">${safeProfileText(cert.title)}</div>${isAdmin ? `<button class="range-action-btn range-delete-btn" style="position:absolute;top:10px;left:10px;border-radius:50%;width:32px;height:32px;padding:0;" onclick="deleteCertificate('${profileKey}','${safeProfileText(cert.id)}')"><i class="fa-solid fa-trash"></i></button>` : ''}</div>`).join('')}</div>`;
+            return `<div class="certificates-grid">${certificates.map(cert => `<div class="certificate-card"><img src="${safeProfileText(cert.thumbUrl || cert.imageUrl)}" alt="${safeProfileText(cert.title)}" loading="lazy" decoding="async" onclick="viewCertificateImage('${profileKey}','${safeProfileText(cert.id)}')"><div class="certificate-overlay">${safeProfileText(cert.title)}</div>${isAdmin ? `<button class="range-action-btn range-delete-btn" style="position:absolute;top:10px;left:10px;border-radius:50%;width:32px;height:32px;padding:0;" onclick="deleteCertificate('${profileKey}','${safeProfileText(cert.id)}')"><i class="fa-solid fa-trash"></i></button>` : ''}</div>`).join('')}</div>`;
         }
         window.openAddCertificateModal = function(profileKey) {
             if (!isAdmin) { alert('هذه العملية متاحة للمدير فقط.'); return; }
@@ -2915,18 +2915,18 @@ function showMushafView() {
             modal.style.cssText = 'position:fixed;inset:0;background:rgba(17,24,39,.7);display:flex;align-items:center;justify-content:center;z-index:10002;padding:20px;box-sizing:border-box;';
             modal.innerHTML = `<div class="profile-admin-modal"><div class="profile-admin-toolbar"><h3><i class="fa-solid fa-award"></i> إضافة شهادة جديدة</h3><button class="profile-modal-btn muted" onclick="closeAddCertificateModal()">إغلاق</button></div><form id="certificateForm"><div class="profile-admin-section"><label for="certTitle">عنوان الشهادة</label><input id="certTitle" type="text" placeholder="مثال: شهادة تفوق في الحفظ" required><label for="certDate" style="margin-top:12px;">تاريخ الشهادة</label><input id="certDate" type="date" required><label for="certDescription" style="margin-top:12px;">وصف الشهادة (اختياري)</label><textarea id="certDescription" placeholder="تفاصيل إضافية..."></textarea></div><div class="profile-admin-section"><label for="certImageFile">صورة الشهادة</label><input id="certImageFile" type="file" accept="image/*" required><div id="uploadStatus" style="margin-top:8px;color:#666;"></div><div id="imagePreview" style="margin-top:10px;"></div></div><div class="profile-admin-actions"><button type="button" class="profile-modal-btn muted" onclick="closeAddCertificateModal()">إلغاء</button><button type="submit" id="saveCertBtn" class="profile-modal-btn primary" disabled>حفظ الشهادة</button></div></form></div>`;
             document.body.appendChild(modal); document.getElementById('certDate').value = getTodayDateString();
-            let imageUrl = '';
+            let imageUrl = '', thumbUrl = '';
             const fileInput = document.getElementById('certImageFile'), status = document.getElementById('uploadStatus'), preview = document.getElementById('imagePreview'), saveBtn = document.getElementById('saveCertBtn');
             fileInput.addEventListener('change', async () => {
                 const file = fileInput.files[0]; if (!file) return;
                 status.textContent = 'جاري رفع الصورة...'; status.style.color = '#666'; saveBtn.disabled = true;
-                try { imageUrl = await uploadToImgBB(file); status.innerHTML = 'تم رفع الصورة بنجاح'; status.style.color = '#2e7d32'; preview.innerHTML = `<img src="${safeProfileText(imageUrl)}" style="max-width:220px;max-height:160px;border-radius:8px;">`; saveBtn.disabled = false; }
+                try { const uploaded = await uploadToImgBB(file); imageUrl = uploaded.url; thumbUrl = uploaded.thumbUrl; status.innerHTML = 'تم رفع الصورة بنجاح'; status.style.color = '#2e7d32'; preview.innerHTML = `<img src="${safeProfileText(thumbUrl)}" style="max-width:220px;max-height:160px;border-radius:8px;">`; saveBtn.disabled = false; }
                 catch (error) { status.textContent = `فشل رفع الصورة: ${error.message}`; status.style.color = '#c62828'; }
             });
             document.getElementById('certificateForm').addEventListener('submit', event => {
                 event.preventDefault(); if (!imageUrl) { alert('الرجاء اختيار صورة شهادة ورفعها أولاً.'); return; }
                 const profile = getOrCreateStudentProfile(profileKey);
-                profile.certificates.push({ id: generateUniqueId(), title: document.getElementById('certTitle').value.trim(), date: document.getElementById('certDate').value, imageUrl, description: document.getElementById('certDescription').value.trim(), addedAt: new Date().toISOString() });
+                profile.certificates.push({ id: generateUniqueId(), title: document.getElementById('certTitle').value.trim(), date: document.getElementById('certDate').value, imageUrl, thumbUrl, description: document.getElementById('certDescription').value.trim(), addedAt: new Date().toISOString() });
                 persistStudentProfiles(); closeAddCertificateModal();
                 if (activeProfileContext) openStudentProfile(activeProfileContext.circleId, activeProfileContext.groupId, activeProfileContext.studentIndex, true);
                 alert('تمت إضافة الشهادة بنجاح.');
@@ -2947,7 +2947,7 @@ function showMushafView() {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const result = await response.json();
             if (!result.success) throw new Error(result.error?.message || 'فشل رفع الصورة');
-            return result.data.url;
+            return { url: result.data.url, thumbUrl: result.data.thumb?.url || result.data.medium?.url || result.data.url };
         }
         window.viewCertificateImage = function(profileKey, certId) {
             const cert = studentProfiles[profileKey]?.certificates?.find(item => String(item.id) === String(certId));

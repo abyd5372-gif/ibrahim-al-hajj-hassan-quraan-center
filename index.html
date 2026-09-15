@@ -312,7 +312,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 20px; 
-            width: 95vw; max-width:1300px; max-height:95vh; 
+            width: 95vw; max-width:1300px; height:90vh; 
             overflow-y:auto; direction:rtl; 
             box-shadow: 0 25px 50px rgba(0,0,0,0.2); 
         }
@@ -448,15 +448,14 @@
         .range-edit-btn { background: #c9960c; color: #fff; }
         .range-delete-btn { background: #e74c3c; color: #fff; }
         .certificates-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-        .certificate-card { position: relative; overflow: hidden; aspect-ratio: 1 / 1; border-radius: 10px; background: #fff; border: 1px solid rgba(44,99,130,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        .certificate-card img { width: 100%; height: 100%; display: block; object-fit: cover; cursor: pointer; transition: transform 0.3s; }
+        .certificate-card { position: relative; overflow: hidden; height: 220px; border-radius: 10px; background: #fff; border: 1px solid rgba(44,99,130,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .certificate-card img { width: 100%; height: 100%; display: block; object-fit: contain; background: #fff; cursor: pointer; transition: transform 0.3s; }
         .certificate-card:hover img { transform: scale(1.03); }
         .certificate-overlay { position: absolute; right: 0; left: 0; bottom: 0; padding: 7px 9px; color: #fff; background: linear-gradient(transparent, rgba(21,52,72,0.9)); font-weight: 700; font-size: 0.85rem; }
         .certificate-empty { width: 100%; box-sizing: border-box; padding: 28px 18px; border: 2px dashed var(--gold-accent); border-radius: 12px; text-align: center; color: #b8860b; background: rgba(212,175,55,0.05); font-weight: 700; }
         .certificate-empty i { display: block; font-size: 2.7rem; margin-bottom: 10px; }
         @media (max-width: 720px) {
             .page-range-selector { grid-template-columns: 1fr; }
-            .certificates-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .saved-range-item { align-items: flex-start; flex-direction: column; }
         }
 

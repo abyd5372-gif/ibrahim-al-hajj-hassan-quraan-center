@@ -449,7 +449,7 @@
         .range-delete-btn { background: #e74c3c; color: #fff; }
         .certificates-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
         .certificate-card { position: relative; overflow: hidden; height: 220px; border-radius: 10px; background: #fff; border: 1px solid rgba(44,99,130,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        .certificate-card img { width: 100%; height: 100%; display: block; object-fit: contain; background: #fff; cursor: pointer; transition: transform 0.3s; }
+        .certificate-card img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top; background: #fff; cursor: pointer; transition: transform 0.3s; }
         .certificate-card:hover img { transform: scale(1.03); }
         .certificate-overlay { position: absolute; right: 0; left: 0; bottom: 0; padding: 7px 9px; color: #fff; background: linear-gradient(transparent, rgba(21,52,72,0.9)); font-weight: 700; font-size: 0.85rem; }
         .certificate-empty { width: 100%; box-sizing: border-box; padding: 28px 18px; border: 2px dashed var(--gold-accent); border-radius: 12px; text-align: center; color: #b8860b; background: rgba(212,175,55,0.05); font-weight: 700; }
@@ -2906,7 +2906,7 @@ function showMushafView() {
         };
         function renderCertificates(certificates, profileKey) {
             if (!certificates?.length) return '<div class="certificate-empty"><i class="fa-solid fa-award"></i>لا توجد شهادات حتى الآن</div>';
-            return `<div class="certificates-grid">${certificates.map(cert => `<div class="certificate-card"><img src="${safeProfileText(cert.thumbUrl || cert.imageUrl)}" alt="${safeProfileText(cert.title)}" loading="lazy" decoding="async" onclick="viewCertificateImage('${profileKey}','${safeProfileText(cert.id)}')"><div class="certificate-overlay">${safeProfileText(cert.title)}</div>${isAdmin ? `<button class="range-action-btn range-delete-btn" style="position:absolute;top:10px;left:10px;border-radius:50%;width:32px;height:32px;padding:0;" onclick="deleteCertificate('${profileKey}','${safeProfileText(cert.id)}')"><i class="fa-solid fa-trash"></i></button>` : ''}</div>`).join('')}</div>`;
+            return `<div class="certificates-grid">${certificates.map(cert => `<div class="certificate-card"><img src="${safeProfileText(cert.imageUrl || cert.thumbUrl)}" alt="${safeProfileText(cert.title)}" loading="lazy" decoding="async" onclick="viewCertificateImage('${profileKey}','${safeProfileText(cert.id)}')"><div class="certificate-overlay">${safeProfileText(cert.title)}</div>${isAdmin ? `<button class="range-action-btn range-delete-btn" style="position:absolute;top:10px;left:10px;border-radius:50%;width:32px;height:32px;padding:0;" onclick="deleteCertificate('${profileKey}','${safeProfileText(cert.id)}')"><i class="fa-solid fa-trash"></i></button>` : ''}</div>`).join('')}</div>`;
         }
         window.openAddCertificateModal = function(profileKey) {
             if (!isAdmin) { alert('هذه العملية متاحة للمدير فقط.'); return; }

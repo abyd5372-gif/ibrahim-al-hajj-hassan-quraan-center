@@ -1426,6 +1426,15 @@
         }
         loadPrayerTimes();
 
+        // إعادة تحميل أوقات الصلاة والتاريخ عند رجوع الصفحة من الأرشفة (bfcache) أو رجوع التبويب للظهور،
+        // لتفادي عرض بيانات قديمة مجمّدة (يحدث غالباً على الموقع المستضيف عند ترك التبويب مفتوحاً لأيام)
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) loadPrayerTimes();
+        });
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') loadPrayerTimes();
+        });
+
         /* ملاحظة: منع التكبير أصبح معتمداً بالكامل على إعداد viewport (user-scalable=no) أعلى الصفحة
            بدل التعامل مع أحداث اللمس يدوياً، لأن التعامل اليدوي كان يمنع بعض النقرات من الاستجابة. */
 

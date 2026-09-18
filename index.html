@@ -1381,7 +1381,9 @@
                 gDate.textContent = `${parseInt(g.day, 10)} / ${gMonthName}: ${parseInt(g.month.number, 10)} / ${g.year} م`;
                 hDate.textContent = `${parseInt(h.day, 10)} / ${hMonthName}: ${parseInt(h.month.number, 10)} / ${h.year} هـ`;
 
-                const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+                const nowAmman = new Date().toLocaleString('en-US', { timeZone: 'Asia/Amman', hour12: false, hour: '2-digit', minute: '2-digit' });
+                const [nowH, nowM] = nowAmman.split(':').map(n => parseInt(n, 10));
+                const nowMin = nowH * 60 + nowM;
                 let nextKey = null, nextDiff = Infinity;
                 PT_PRAYERS.forEach(p => {
                     if (p.key === 'Sunrise') return;
@@ -1398,16 +1400,22 @@
                 grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#999;padding:20px;">تعذر عرض مواقيت الصلاة حالياً.</div>';
             }
         }
+        function ptTodayInAmman() {
+            // يرجع تاريخ اليوم بتوقيت عمّان (Asia/Amman) دايماً، بغض النظر عن توقيت جهاز المستخدم أو UTC
+            return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Amman', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+        }
         async function loadPrayerTimes() {
             const grid = document.getElementById('ptTimesGrid');
-            const todayKey = new Date().toISOString().slice(0, 10);
+            const todayKey = ptTodayInAmman(); // مثال: 2026-09-17
             try {
                 const cached = JSON.parse(localStorage.getItem(PT_CACHE_KEY) || 'null');
                 if (cached && cached.dateKey === todayKey && cached.data) {
                     renderPrayerTimes(cached.data);
                     return;
                 }
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Amman&country=Jordan&method=3`);
+                const [y, m, d] = todayKey.split('-');
+                const dateParam = `${d}-${m}-${y}`; // صيغة Aladhan: DD-MM-YYYY
+                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity/${dateParam}?city=Amman&country=Jordan&method=23`);
                 const json = await res.json();
                 if (json.code !== 200 || !json.data) throw new Error('bad response');
                 localStorage.setItem(PT_CACHE_KEY, JSON.stringify({ dateKey: todayKey, data: json.data }));

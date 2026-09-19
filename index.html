@@ -211,15 +211,18 @@
             background-position: center;
             min-height: 190px;
         }
-        #dpBannerVerse { font-size: 1.35rem !important; font-weight: 800; color: var(--primary-dark) !important; }
         .dp-admin-box { background: #f0f6fa; border: 2px dashed var(--primary-blue); border-radius: 14px; padding: 22px; margin-bottom: 28px; }
         .dp-admin-box h4 { margin: 0 0 16px 0; color: var(--primary-blue); font-size: 1.35rem; display: flex; align-items: center; gap: 8px; }
         .dp-admin-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
         .dp-admin-row input[type="text"], .dp-admin-row select { flex: 1; min-width: 180px; padding: 12px 14px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Tajawal'; font-size: 1.15rem; }
         .dp-tile { border: 1px solid #e2e2e2; border-radius: 16px; padding: 20px 24px; margin-bottom: 16px; display: flex; align-items: center; cursor: pointer; transition: box-shadow .2s, border-color .2s; background: #fff; }
         .dp-tile:hover { box-shadow: 0 6px 18px rgba(21,52,72,.1); border-color: #cfd9de; }
-        .dp-tile-chevron { color: #999; font-size: 1.2rem; margin-left: auto; }
-        .dp-tile-main { display: flex; align-items: center; gap: 16px; }
+        .dp-tile-thumb { width: min(44%, 300px); aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: #eef1f3; border: 1px solid #e2e6e9; display: flex; align-items: center; justify-content: center; position: relative; }
+        .dp-tile-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .dp-tile-thumb.is-pdf img { object-position: top center; }
+        .dp-tile-thumb .dp-thumb-fallback { color: var(--footer-green); font-size: 2.4rem; }
+        .dp-tile-thumb .dp-thumb-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2rem; background: rgba(0,0,0,.18); pointer-events: none; }
+        .dp-tile-main { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
         .dp-tile-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); }
         .dp-new-badge { color: #e53935; font-size: 0.8rem; font-weight: 700; }
         .dp-tile-icon { background: var(--footer-green); color: #fff; width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
@@ -230,6 +233,9 @@
         .dp-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
         @media (max-width: 760px) {
             .dp-tile-title { font-size: 1.25rem; }
+            .dp-tile { padding: 14px 14px; }
+            .dp-tile-main { gap: 12px; }
+            .dp-tile-thumb { width: 44%; }
         }
 
         /* نافذة الحلقات */
@@ -1617,7 +1623,7 @@
             list.innerHTML = daawahPrograms.map((p, idx) => `
                 <div class="dp-tile" onclick="openDaawahProgramDetail('${p.id}')">
                     <div class="dp-tile-main">
-                        <span class="dp-tile-icon"><i class="fa-solid fa-book"></i></span>
+                        ${dpThumbHtml(p)}
                         <span class="dp-tile-title">${safeProfileText(p.title)}</span>
                         ${idx === 0 ? '<span class="dp-new-badge">(جديد)</span>' : ''}
                     </div>
@@ -1625,8 +1631,37 @@
                         <button class="action-btn btn-edit" onclick="dpEditProgram('${p.id}')" title="تعديل"><i class="fa-solid fa-pen"></i></button>
                         <button class="action-btn btn-delete" onclick="dpDeleteProgram('${p.id}')" title="حذف"><i class="fa-solid fa-trash"></i></button>
                     </div>` : ''}
-                    <i class="fa-solid fa-chevron-left dp-tile-chevron"></i>
                 </div>`).join('');
+            daawahPrograms.forEach(p => { if (p.type !== 'video') dpLoadPdfThumb(p); });
+        }
+        const dpThumbCache = {};
+        function dpThumbHtml(p) {
+            if (p.type === 'video') {
+                const vid = dpExtractYouTubeId(p.videoUrl);
+                if (vid) return `<span class="dp-tile-thumb"><img src="https://i.ytimg.com/vi/${vid}/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><i class="fa-solid fa-video dp-thumb-fallback" style="display:none;"></i><span class="dp-thumb-play"><i class="fa-solid fa-circle-play"></i></span></span>`;
+                return `<span class="dp-tile-thumb"><i class="fa-solid fa-video dp-thumb-fallback"></i></span>`;
+            }
+            const cached = dpThumbCache[p.id];
+            return `<span class="dp-tile-thumb is-pdf" data-dp-thumb="${p.id}">${cached ? `<img src="${cached}" alt="">` : '<i class="fa-solid fa-file-pdf dp-thumb-fallback"></i>'}</span>`;
+        }
+        async function dpLoadPdfThumb(p) {
+            if (dpThumbCache[p.id] || !p.pdfData || !window.pdfjsLib) return;
+            try {
+                const pdf = await pdfjsLib.getDocument(p.pdfData).promise;
+                const page = await pdf.getPage(1);
+                const base = page.getViewport({ scale: 1 });
+                const viewport = page.getViewport({ scale: 480 / base.width });
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                await page.render({ canvasContext: ctx, viewport }).promise;
+                dpThumbCache[p.id] = canvas.toDataURL('image/jpeg', 0.8);
+                const box = document.querySelector('[data-dp-thumb="' + p.id + '"]');
+                if (box) box.innerHTML = '<img src="' + dpThumbCache[p.id] + '" alt="">';
+            } catch (e) {}
         }
         function dpExtractYouTubeId(url) {
             if (!url) return null;
@@ -1650,7 +1685,6 @@
                 const vid = dpExtractYouTubeId(entry.videoUrl);
                 content.innerHTML = `
                     <div class="dp-video-wrap">${vid ? `<iframe src="https://www.youtube.com/embed/${vid}?rel=0" title="${safeProfileText(entry.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>` : '<div style="padding:40px;text-align:center;color:#c0392b;">رابط الفيديو غير صالح.</div>'}</div>
-                    ${vid ? `<div style="text-align:center;margin-bottom:16px;"><a href="https://www.youtube.com/watch?v=${vid}" target="_blank" rel="noopener" style="color:var(--primary-blue);font-weight:700;font-size:1rem;"><i class="fa-brands fa-youtube"></i> إذا لم يظهر الفيديو هنا، اضغط لفتحه في يوتيوب</a></div>` : ''}
                     <div class="dp-detail-title">${safeProfileText(entry.title)}</div>`;
             } else {
                 content.innerHTML = `

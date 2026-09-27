@@ -551,6 +551,9 @@
         .record-column h4 { margin:0 0 10px; color:var(--primary-blue); font-size:1.1rem; border-bottom:1px solid #dfe6e9; padding-bottom:7px; }
         .record-list { max-height:560px; overflow-y:auto; }
         .record-item { background:#fff; border:1px solid #e7ebed; border-radius:7px; padding:8px; margin-bottom:7px; font-size:0.98rem; line-height:1.55; }
+        .record-item-row { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+        .record-item-del { background:#e74c3c; color:#fff; border:none; border-radius:50%; width:30px; height:30px; flex-shrink:0; cursor:pointer; font-size:0.9rem; }
+        .admin-points-badge { font-size:0.72rem; font-weight:700; color:#8a6d1a; background:#fff6da; border:1px solid #f0dfa0; border-radius:20px; padding:1px 8px; margin-inline-start:4px; white-space:nowrap; }
         .record-item small { color:#888; display:block; margin-top:3px; }
         @media (max-width: 760px) { .grades-editor-grid, .homework-editor-grid, .record-columns { grid-template-columns:1fr; } .admin-records-banner { align-items:flex-start; flex-direction:column; } .records-toolbar .records-hint { width:100%; margin-right:0; } }
 
@@ -2404,7 +2407,8 @@ function showMushafView() {
         window.openTransferActivitiesModal = function(profileKey, studentName) {
             if (!isAdmin) { alert('هذه الصفحة متاحة للمدير فقط.'); return; }
             currentTransferProfileKey = profileKey; currentTransferStudentName = studentName;
-            document.getElementById('transferActivitiesTitle').innerHTML = `<i class="fa-solid fa-clipboard-check"></i> قراءة الإنجاز: ${safeProfileText(studentName)}`;
+            const taStudentForBadge = getAdminStudent(profileKey);
+            document.getElementById('transferActivitiesTitle').innerHTML = `<i class="fa-solid fa-clipboard-check"></i> قراءة الإنجاز: ${safeProfileText(studentName)} <span class="admin-points-badge">${Number(taStudentForBadge?.profile?.points || 0)} نقطة</span>`;
             document.getElementById('taPtsAmt').value = '';
             document.getElementById('taPtsNote').value = '';
             document.getElementById('taLogSection').style.display = 'none';
@@ -2428,6 +2432,7 @@ function showMushafView() {
             recordProfileHistory(student.profile, 'points', { amount: amt, note: note || 'إضافة نقاط' });
             saveAdminProfile(currentTransferProfileKey, student.profile);
             document.getElementById('taPtsAmt').value = ''; document.getElementById('taPtsNote').value = '';
+            refreshTaPointsBadge(student);
             if (document.getElementById('taLogSection').style.display !== 'none') renderTaPointsContent(currentTransferProfileKey);
             renderAdminRecords();
         };
@@ -2443,9 +2448,15 @@ function showMushafView() {
             recordProfileHistory(student.profile, 'points', { amount: -amt, note: note || 'خصم نقاط' });
             saveAdminProfile(currentTransferProfileKey, student.profile);
             document.getElementById('taPtsAmt').value = ''; document.getElementById('taPtsNote').value = '';
+            refreshTaPointsBadge(student);
             if (document.getElementById('taLogSection').style.display !== 'none') renderTaPointsContent(currentTransferProfileKey);
             renderAdminRecords();
         };
+        function refreshTaPointsBadge(student) {
+            const el = document.getElementById('transferActivitiesTitle');
+            if (!el) return;
+            el.innerHTML = `<i class="fa-solid fa-clipboard-check"></i> قراءة الإنجاز: ${safeProfileText(currentTransferStudentName)} <span class="admin-points-badge">${Number(student.profile.points || 0)} نقطة</span>`;
+        }
         window.toggleTaLog = function() {
             const sec = document.getElementById('taLogSection');
             const btn = document.getElementById('taLogToggleBtn');
@@ -2468,7 +2479,7 @@ function showMushafView() {
             const el = document.getElementById('taPointsContent');
             const student = getAdminStudent(profileKey); if (!student) { el.innerHTML = ''; return; }
             const items = (student.profile.pointsLog || []).slice(0, 80);
-            el.innerHTML = historyItems(items, item => `<div class="record-item"><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div>`, 'لا توجد سجلات نقاط بعد');
+            el.innerHTML = historyItems(items, (item, i) => `<div class="record-item record-item-row"><div><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div><button class="record-item-del" onclick="deletePointsLogEntry('${profileKey}', ${i}, 'ta')" title="حذف"><i class="fa-solid fa-trash"></i></button></div>`, 'لا توجد سجلات نقاط بعد');
         }
         function renderTransferActivitiesList() {
             if (!currentTransferProfileKey) return;
@@ -3245,7 +3256,18 @@ function showMushafView() {
             let newGroup = newCircle.groups.find(g => g.id === tGroupId);
             oldGroup.students.splice(studentIndex, 1);
             newGroup.students.push(studentName);
-            saveData(); closeMoveModal(); alert(`تم نقل الطالب "${studentName}" بنجاح.`);
+            const oldProfileKey = getStudentProfileKey(circleId, groupId, studentName);
+            const newProfileKey = getStudentProfileKey(tCircleId, tGroupId, studentName);
+            if (oldProfileKey !== newProfileKey && studentProfiles[oldProfileKey]) {
+                if (studentProfiles[newProfileKey]) {
+                    alert(`تنبيه: يوجد طالب آخر بنفس الاسم "${studentName}" في المجموعة الهدف، فتم الاحتفاظ بسجل الطالب المنقول منفصلاً لتفادي دمج البيانات بالخطأ.`);
+                } else {
+                    studentProfiles[newProfileKey] = studentProfiles[oldProfileKey];
+                    delete studentProfiles[oldProfileKey];
+                    persistStudentProfiles();
+                }
+            }
+            saveData(); closeMoveModal(); alert(`تم نقل الطالب "${studentName}" بنجاح مع كامل سجله (النقاط والورد والواجبات).`);
         }
 
         /* ============================================================ */
@@ -3466,7 +3488,7 @@ function showMushafView() {
             const rowRenderer = (item, idx) => {
                 const p = item.profile;
                 const numCell = renderAdminSeqCell(item.profileKey, item.name, idx + 1);
-                const nameCell = `<span class="admin-grid-student student-link" onclick="openStudentProfile(${item.circleId},${item.groupId},${item.studentIndex})" title="فتح الصفحة الشخصية">${safeProfileText(item.name)}</span>${viewerIsAdmin ? `<button class="record-file-icon" onclick="openStudentRecord('${item.profileKey}')" title="السجل المشترك"><i class="fa-solid fa-folder-open"></i></button>` : ''}`;
+                const nameCell = `<span class="admin-grid-student student-link" onclick="openStudentProfile(${item.circleId},${item.groupId},${item.studentIndex})" title="فتح الصفحة الشخصية">${safeProfileText(item.name)}</span>${viewerIsAdmin ? `<button class="record-file-icon" onclick="openStudentRecord('${item.profileKey}')" title="السجل المشترك"><i class="fa-solid fa-folder-open"></i></button><span class="admin-points-badge" title="مجموع نقاط الطالب">${Number(p.points || 0)} نقطة</span>` : ''}`;
                 const pointsRow = viewerIsAdmin ? `<tr class="admin-points-row"><td colspan="6"><div class="admin-inline-points compact-points-row"><button class="record-arrow-btn points-log-icon" onclick="openPointsHistory('${item.profileKey}')" title="سجل النقاط"><i class="fa-solid fa-arrow-left"></i><span>سجل النقاط</span></button><input id="pointsAmount_${item.profileKey}" type="number" min="1" placeholder="عدد النقاط"><input id="pointsNote_${item.profileKey}" type="text" placeholder="سبب الإضافة أو الحذف"><button class="points-add-btn" onclick="adjustAdminPoints('${item.profileKey}',1)">إضافة</button><button class="points-remove-btn" onclick="adjustAdminPoints('${item.profileKey}',-1)">حذف</button><select class="quick-points-select" onchange="applyQuickAdminPoint('${item.profileKey}',this)"><option value="">إجراء سريع</option>${QUICK_POINT_ACTIONS.map((action, index) => `<option value="${index}">${action.label}</option>`).join('')}</select></div></td></tr>` : '';
                 return `<tr>
                     <td style="font-weight:800;text-align:center;">${numCell}</td>
@@ -3491,7 +3513,7 @@ function showMushafView() {
                 const homework = item.profile.homework || {};
                 return `<tr>
                     <td style="font-weight:800;text-align:center;">${renderAdminSeqCell(item.profileKey, item.name, idx + 1)}</td>
-                    <td><div class="admin-table-student-name"><span class="admin-grid-student student-link" onclick="openStudentProfile(${item.circleId},${item.groupId},${item.studentIndex})" title="فتح الصفحة الشخصية">${safeProfileText(item.name)}</span><button class="record-file-icon" onclick="openStudentRecord('${item.profileKey}')" title="السجل المشترك"><i class="fa-solid fa-folder-open"></i></button></div></td>
+                    <td><div class="admin-table-student-name"><span class="admin-grid-student student-link" onclick="openStudentProfile(${item.circleId},${item.groupId},${item.studentIndex})" title="فتح الصفحة الشخصية">${safeProfileText(item.name)}</span><button class="record-file-icon" onclick="openStudentRecord('${item.profileKey}')" title="السجل المشترك"><i class="fa-solid fa-folder-open"></i></button><span class="admin-points-badge" title="مجموع نقاط الطالب">${Number(item.profile.points || 0)} نقطة</span></div></td>
                     ${homeworkField(item, homework, 'recitation', 'واجب التلاوة')}
                     ${homeworkField(item, homework, 'memorization', 'واجب الحفظ')}
                     ${homeworkField(item, homework, 'review', 'واجب المراجعة')}
@@ -3571,7 +3593,7 @@ function showMushafView() {
             document.querySelectorAll(`textarea[data-profile="${profileKey}"][data-homework]`).forEach(textarea => {
                 const field = textarea.dataset.homework, value = textarea.value.trim(), oldValue = logged[field] || '';
                 homework[field] = value;
-                if (value !== oldValue) { logged[field] = value; changed.push({ field, oldValue, newValue: value }); }
+                if (value !== oldValue && value !== '') { logged[field] = value; changed.push({ field, oldValue, newValue: value }); }
             });
             student.profile.homework = homework;
             student.profile.homeworkLogged = logged;
@@ -3596,6 +3618,19 @@ function showMushafView() {
         }
 
         function formatHistoryValue(value) { return value === '' || value === undefined || value === null ? '-' : safeProfileText(value); }
+        window.deletePointsLogEntry = function(profileKey, index, context) {
+            if (!confirm('هل تريد حذف هذه العملية من سجل النقاط؟ سيتم تعديل مجموع نقاط الطالب تبعاً لذلك.')) return;
+            const student = getAdminStudent(profileKey); if (!student) return;
+            const log = Array.isArray(student.profile.pointsLog) ? student.profile.pointsLog : [];
+            const entry = log[index]; if (!entry) return;
+            student.profile.points = Math.max(0, Number(student.profile.points || 0) - Number(entry.pts || 0));
+            log.splice(index, 1);
+            saveAdminProfile(profileKey, student.profile);
+            renderAdminRecords();
+            if (context === 'ta') renderTaPointsContent(profileKey);
+            else if (context === 'shared') { closeStudentRecord(); openStudentRecord(profileKey); }
+            else if (context === 'focused') { closeStudentRecord(); openPointsHistory(profileKey); }
+        };
         function historyItems(items, renderer, emptyText) {
             if (!items?.length) return `<div style="color:#999;text-align:center;padding:10px;">${emptyText}</div>`;
             return items.map(renderer).join('');
@@ -3606,7 +3641,7 @@ function showMushafView() {
             const homeworkHistory = (profile.homeworkHistory || []).slice(0, 80);
             const pointsHistory = (profile.pointsLog || []).slice(0, 80);
             const modal = document.createElement('div'); modal.id = 'tempStudentRecordModal'; modal.className = 'record-modal-backdrop';
-            modal.innerHTML = `<div class="record-modal"><div class="record-modal-header"><h3><i class="fa-solid fa-folder-open"></i> السجل المشترك: ${safeProfileText(student.name)}</h3><button class="record-close-btn" onclick="closeStudentRecord()">إغلاق</button></div><div style="color:#777;margin-bottom:14px;">${safeProfileText(student.circleName)} — ${safeProfileText(student.groupName)}</div><div class="record-columns"><div class="record-column"><h4><i class="fa-solid fa-book"></i> سجل الواجبات</h4><div class="record-list">${historyItems(homeworkHistory, item => `<div class="record-item"><strong>${safeProfileText(item.field)}</strong><br>${formatHistoryValue(item.newValue)}<small>${safeProfileText(item.date)}</small></div>`, 'لا يوجد تعديل مسجل')}</div></div><div class="record-column"><h4><i class="fa-solid fa-coins"></i> سجل النقاط</h4><div class="record-list">${historyItems(pointsHistory, item => `<div class="record-item"><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || item.amount || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div>`, 'لا يوجد تعديل مسجل')}</div></div></div></div>`;
+            modal.innerHTML = `<div class="record-modal"><div class="record-modal-header"><h3><i class="fa-solid fa-folder-open"></i> السجل المشترك: ${safeProfileText(student.name)}</h3><button class="record-close-btn" onclick="closeStudentRecord()">إغلاق</button></div><div style="color:#777;margin-bottom:14px;">${safeProfileText(student.circleName)} — ${safeProfileText(student.groupName)}</div><div class="record-columns"><div class="record-column"><h4><i class="fa-solid fa-book"></i> سجل الواجبات</h4><div class="record-list">${historyItems(homeworkHistory, item => `<div class="record-item"><strong>${safeProfileText(item.field)}</strong><br>${formatHistoryValue(item.newValue)}<small>${safeProfileText(item.date)}</small></div>`, 'لا يوجد تعديل مسجل')}</div></div><div class="record-column"><h4><i class="fa-solid fa-coins"></i> سجل النقاط</h4><div class="record-list">${historyItems(pointsHistory, (item, i) => `<div class="record-item record-item-row"><div><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || item.amount || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div><button class="record-item-del" onclick="deletePointsLogEntry('${profileKey}', ${i}, 'shared')" title="حذف"><i class="fa-solid fa-trash"></i></button></div>`, 'لا يوجد تعديل مسجل')}</div></div></div></div>`;
             document.body.appendChild(modal);
         }
         function openHomeworkHistory(profileKey) {
@@ -3617,7 +3652,7 @@ function showMushafView() {
         function openPointsHistory(profileKey) {
             const student = getAdminStudent(profileKey); if (!student) return;
             const items = (student.profile.pointsLog || []).slice(0, 100);
-            openFocusedRecordModal(student, 'سجل النقاط', 'fa-coins', items.length ? items.map(item => `<div class="record-item"><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div>`).join('') : '<div style="color:#999;text-align:center;padding:12px;">لا يوجد تعديل مسجل</div>');
+            openFocusedRecordModal(student, 'سجل النقاط', 'fa-coins', items.length ? items.map((item, i) => `<div class="record-item record-item-row"><div><strong>${Number(item.pts || 0) > 0 ? 'إضافة' : 'حذف'}</strong>: ${Math.abs(Number(item.pts || 0))} نقطة<br>${safeProfileText(item.note || '')}<small>${safeProfileText(item.date || '')}</small></div><button class="record-item-del" onclick="deletePointsLogEntry('${profileKey}', ${i}, 'focused')" title="حذف"><i class="fa-solid fa-trash"></i></button></div>`).join('') : '<div style="color:#999;text-align:center;padding:12px;">لا يوجد تعديل مسجل</div>');
         }
         function openFocusedRecordModal(student, title, icon, content) {
             const modal = document.createElement('div'); modal.id = 'tempStudentRecordModal'; modal.className = 'record-modal-backdrop';

@@ -11,7 +11,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
@@ -56,6 +56,9 @@
         /* ===== مزامنة عامة لكل بيانات التطبيق مع قاعدة البيانات ===== */
         window.fbSet = function (path, value) {
             return set(ref(fbDb, path), value === undefined ? null : value).catch(e => console.error('fbSet error @' + path, e));
+        };
+        window.fbUpdate = function (path, values) {
+            return update(ref(fbDb, path), values).then(() => true).catch(e => { console.error('fbUpdate error @' + path, e); return false; });
         };
         window.fbGetOnce = async function (path) {
             const snap = await get(ref(fbDb, path));
@@ -2217,9 +2220,59 @@ function showMushafView() {
         function generateUniqueId() { return `${Date.now()}_${Math.random().toString(36).slice(2, 9)}`; }
         function getDateString(date) { return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; }
         function getTodayDateString() { return getDateString(new Date()); }
-        function persistStudentProfiles() { window.fbSet('studentProfiles', studentProfiles); localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(studentProfiles)); }
+        function showToast(msg, type, ms) {
+            document.getElementById('appToast')?.remove();
+            const t = document.createElement('div');
+            t.id = 'appToast';
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:10050;padding:14px 26px;border-radius:14px;font-weight:800;font-size:1.15rem;color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.28);max-width:90vw;text-align:center;background:' + (type === 'error' ? '#c0392b' : '#2e7d32') + ';';
+            document.body.appendChild(t);
+            setTimeout(() => { if (t.parentNode) t.remove(); }, ms || 2000);
+        }
+        /* حفظ آمن: لا نكتب إلا الملفات المتغيّرة فعلاً (وليس كل الطلاب)، ولا نكتب قبل تحميل البيانات من الخادم، ولا نستبدل ملفاً موجوداً بملف فارغ */
+        let _syncedProfiles = {};
+        let _profilesServerReady = false;
+        const _localDirtyUntil = {};
+        function isPristineProfile(p) {
+            if (!p) return true;
+            const strip = o => { const c = { ...o }; delete c.joinDate; delete c.startDate; return JSON.stringify(c); };
+            return strip(p) === strip(createStudentProfile());
+        }
+        async function persistStudentProfiles(opts) {
+            const silent = opts && opts.silent;
+            localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(studentProfiles));
+            if (!_profilesServerReady) {
+                if (!silent) showToast('لم يكتمل تحميل البيانات من الخادم بعد، لم يُحفظ التغيير. أعد المحاولة بعد لحظات', 'error', 3500);
+                return false;
+            }
+            const updates = {};
+            Object.keys(studentProfiles).forEach(k => {
+                const p = studentProfiles[k];
+                const j = JSON.stringify(p);
+                if (_syncedProfiles[k] === j) return;
+                if (isPristineProfile(p)) return;
+                updates[k] = p;
+            });
+            Object.keys(_syncedProfiles).forEach(k => { if (!(k in studentProfiles)) updates[k] = null; });
+            const keys = Object.keys(updates);
+            if (!keys.length) return true;
+            keys.forEach(k => { _localDirtyUntil[k] = Date.now() + 6000; });
+            const ok = await Promise.race([window.fbUpdate('studentProfiles', updates), new Promise(r => setTimeout(() => r(false), 10000))]);
+            if (ok) { keys.forEach(k => { if (updates[k] === null) delete _syncedProfiles[k]; else _syncedProfiles[k] = JSON.stringify(updates[k]); }); }
+            else if (!silent) showToast('تعذّر تأكيد الحفظ على الخادم، تحقق من الإنترنت وتسجيل الدخول', 'error', 3500);
+            return ok;
+        }
         registerFbWatch('studentProfiles', function(val) {
-            studentProfiles = val || {};
+            const remote = val || {};
+            const now = Date.now();
+            Object.keys(_localDirtyUntil).forEach(k => {
+                if (_localDirtyUntil[k] > now && studentProfiles[k]) remote[k] = studentProfiles[k];
+                else if (_localDirtyUntil[k] <= now) delete _localDirtyUntil[k];
+            });
+            _syncedProfiles = {};
+            Object.keys(val || {}).forEach(k => { _syncedProfiles[k] = JSON.stringify(val[k]); });
+            studentProfiles = remote;
+            _profilesServerReady = true;
             localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(studentProfiles));
             // تحديث خفيف: لا نعيد بناء صفحات إدخال العلامات/الواجبات أثناء التحرير حتى لا تُفقد الكتابة الجارية
             if (document.getElementById('circlesView') && document.getElementById('circlesView').style.display !== 'none') renderCircles();
@@ -3082,15 +3135,41 @@ function showMushafView() {
 
         let quranCircles = JSON.parse(localStorage.getItem('mosqueCirclesData') || 'null') || defaultData;
 
+        /* حفظ آمن للحلقات: نكتب فقط الحلقات المتغيّرة، ولا نكتب قبل تحميل بيانات الخادم */
+        let _syncedCircles = [];
+        let _circlesServerReady = false;
+        const _circlesDirtyUntil = {};
+        async function persistCircles() {
+            if (!_circlesServerReady) { showToast('لم يكتمل تحميل البيانات من الخادم بعد، لم يُحفظ التغيير. أعد المحاولة بعد لحظات', 'error', 3500); return false; }
+            const updates = {};
+            quranCircles.forEach((c, i) => { if (_syncedCircles[i] !== JSON.stringify(c)) updates[i] = c; });
+            for (let i = quranCircles.length; i < _syncedCircles.length; i++) updates[i] = null;
+            const keys = Object.keys(updates);
+            if (!keys.length) return true;
+            keys.forEach(k => { _circlesDirtyUntil[k] = Date.now() + 6000; });
+            const ok = await Promise.race([window.fbUpdate('circles', updates), new Promise(r => setTimeout(() => r(false), 10000))]);
+            if (ok) { keys.forEach(k => { if (updates[k] === null) _syncedCircles[k] = undefined; else _syncedCircles[k] = JSON.stringify(updates[k]); }); _syncedCircles = _syncedCircles.slice(0, quranCircles.length); }
+            else showToast('تعذّر تأكيد الحفظ على الخادم، تحقق من الإنترنت وتسجيل الدخول', 'error', 3500);
+            return ok;
+        }
         function saveData() {
-            window.fbSet('circles', quranCircles);
             localStorage.setItem('mosqueCirclesData', JSON.stringify(quranCircles));
+            persistCircles();
             renderCircles();
         }
         registerFbWatch('circles', function(val) {
             quranCircles = Array.isArray(val) ? val : (val && typeof val === 'object' ? Object.keys(val).sort((a, b) => a - b).map(k => val[k]) : defaultData);
             if (!quranCircles.length) quranCircles = defaultData;
+            const remoteWasEmpty = !(Array.isArray(val) ? val.length : (val && typeof val === 'object' && Object.keys(val).length));
+            const prevCircles = quranCircles;
             quranCircles.forEach(c => { c.groups = Array.isArray(c.groups) ? c.groups : (c.groups ? Object.values(c.groups) : []); c.groups.forEach(g => { g.students = Array.isArray(g.students) ? g.students : (g.students ? Object.values(g.students) : []); }); });
+            _syncedCircles = remoteWasEmpty ? [] : quranCircles.map(c => JSON.stringify(c));
+            const nowTs = Date.now();
+            Object.keys(_circlesDirtyUntil).forEach(k => {
+                if (_circlesDirtyUntil[k] > nowTs && prevCircles[k]) quranCircles[k] = prevCircles[k];
+                else if (_circlesDirtyUntil[k] <= nowTs) delete _circlesDirtyUntil[k];
+            });
+            _circlesServerReady = true;
             localStorage.setItem('mosqueCirclesData', JSON.stringify(quranCircles));
             if (document.getElementById('circlesView') && document.getElementById('circlesView').style.display !== 'none') renderCircles();
             if (isAdmin && document.getElementById('adminRecordsView') && document.getElementById('adminRecordsView').style.display !== 'none') renderAdminRecords();
@@ -3437,7 +3516,7 @@ function showMushafView() {
             return list;
         }
         function getAdminStudent(profileKey) { return getAdminStudents().find(item => item.profileKey === profileKey); }
-        function saveAdminProfile(profileKey, profile) { studentProfiles[profileKey] = profile; persistStudentProfiles(); }
+        function saveAdminProfile(profileKey, profile) { studentProfiles[profileKey] = profile; return persistStudentProfiles(); }
         function gradeOptions(value) {
             let html = '<option value="">-</option>';
             for (let score = 10; score >= 1; score--) html += `<option value="${score}" ${String(value) === String(score) ? 'selected' : ''}>${score}</option>`;
@@ -3628,7 +3707,13 @@ function showMushafView() {
             student.profile.homework[field] = textarea.value;
             const timerKey = profileKey + '|' + field;
             clearTimeout(_homeworkLiveSaveTimers[timerKey]);
-            _homeworkLiveSaveTimers[timerKey] = setTimeout(() => { saveAdminProfile(profileKey, student.profile); }, 350);
+            const liveValue = textarea.value;
+            _homeworkLiveSaveTimers[timerKey] = setTimeout(() => {
+                const fresh = getAdminStudent(profileKey); if (!fresh) return;
+                fresh.profile.homework = fresh.profile.homework || {};
+                fresh.profile.homework[field] = liveValue;
+                saveAdminProfile(profileKey, fresh.profile);
+            }, 350);
         }
         function flushHomeworkSave(textarea) {
             const profileKey = textarea.dataset.profile, field = textarea.dataset.homework, student = getAdminStudent(profileKey); if (!student) return;
@@ -3637,7 +3722,7 @@ function showMushafView() {
             clearTimeout(_homeworkLiveSaveTimers[profileKey + '|' + field]);
             saveAdminProfile(profileKey, student.profile);
         }
-        function saveHomeworkCard(profileKey) {
+        function saveHomeworkCard(profileKey, defer) {
             const student = getAdminStudent(profileKey); if (!student) return 0;
             const homework = { ...(student.profile.homework || {}) };
             const logged = { ...(student.profile.homeworkLogged || {}) };
@@ -3657,16 +3742,17 @@ function showMushafView() {
                     recordProfileHistory(student.profile, 'homework', entry);
                 });
             }
-            saveAdminProfile(profileKey, student.profile);
+            if (defer) studentProfiles[profileKey] = student.profile; else saveAdminProfile(profileKey, student.profile);
             return changed.length;
         }
-        function saveAllHomework() {
+        async function saveAllHomework() {
             const profiles = new Set(Array.from(document.querySelectorAll('#adminHomeworkPage textarea[data-profile]')).map(el => el.dataset.profile));
             let totalChanged = 0;
-            profiles.forEach(profileKey => { totalChanged += saveHomeworkCard(profileKey); });
-            const note = document.getElementById('homeworkGlobalSaveNote');
-            if (note) { note.textContent = totalChanged ? 'تم حفظ السجل بنجاح' : 'لا توجد تغييرات جديدة لتسجيلها في السجل'; setTimeout(() => { if (note) note.textContent = ''; }, 2200); }
+            profiles.forEach(profileKey => { totalChanged += saveHomeworkCard(profileKey, true); });
+            const ok = await persistStudentProfiles({ silent: true });
             renderAdminHomework();
+            if (ok) showToast(totalChanged ? 'تم حفظ الواجبات والسجل بنجاح ✓' : 'تم حفظ الواجبات بنجاح ✓ (لا تغييرات جديدة للسجل)', 'success', 2000);
+            else showToast('تعذّر تأكيد الحفظ على الخادم، تحقق من الإنترنت وتسجيل الدخول', 'error', 3500);
         }
 
         function formatHistoryValue(value) { return value === '' || value === undefined || value === null ? '-' : safeProfileText(value); }

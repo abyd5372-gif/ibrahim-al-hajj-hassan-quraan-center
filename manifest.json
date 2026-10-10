@@ -1,0 +1,22 @@
+{
+  "name": "حلقات مسجد إبراهيم الحاج حسن",
+  "short_name": "حلقات مسجد",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#153448",
+  "theme_color": "#153448",
+  "icons": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

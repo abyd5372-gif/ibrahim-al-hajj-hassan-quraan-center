@@ -18,6 +18,9 @@
     <link rel="manifest" href='data:application/manifest+json,{"name":"%D8%AD%D9%84%D9%82%D8%A7%D8%AA%20%D9%85%D8%B3%D8%AC%D8%AF%20%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85%20%D8%A7%D9%84%D8%AD%D8%A7%D8%AC%20%D8%AD%D8%B3%D9%86","short_name":"%D8%AD%D9%84%D9%82%D8%A7%D8%AA%20%D9%85%D8%B3%D8%AC%D8%AF","start_url":"./","display":"standalone","theme_color":"%23153448","icons":[{"src":"https%3A%2F%2Fi.ibb.co%2FQFXWj6Mm%2F1000182481-removebg-preview.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"https%3A%2F%2Fi.ibb.co%2FQFXWj6Mm%2F1000182481-removebg-preview.png","sizes":"512x512","type":"image/png","purpose":"any"}]}'>
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="حلقات مسجد إبراهيم الحاج حسن">
+    <meta property="og:image:type" content="image/png">
+    <meta name="twitter:card" content="summary_large_image">
     <meta property="og:title" content="حلقات مسجد إبراهيم الحاج حسن">
     <meta property="og:description" content="حلقات مسجد إبراهيم الحاج حسن - المنصة القرآنية">
     <meta property="og:image" content="https://i.ibb.co/QFXWj6Mm/1000182481-removebg-preview.png">
@@ -25,7 +28,6 @@
     <meta property="og:image:width" content="1024">
     <meta property="og:image:height" content="1024">
 
-    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="حلقات مسجد إبراهيم الحاج حسن">
     <meta name="twitter:description" content="المنصة القرآنية لحلقات مسجد إبراهيم الحاج حسن">
     <meta name="twitter:image" content="https://i.ibb.co/QFXWj6Mm/1000182481-removebg-preview.png">
@@ -2585,7 +2587,25 @@ function aboutFitFrame(frame, topics) {
             }
             ranges.push({ s: startPage, e: endPage });
             const parts = ranges.map(range => {
-                let surahs = QURAN_DATA.filter(q => q.s <= range.e && q.e >= range.s);
+                // لا تعرض سورة تتجاوز حدود المحفوظ الذي حدده المشرف.
+                // بعض صفحات المصحف تحتوي نهاية سورة وبداية السورة التالية في الصفحة نفسها؛
+                // لذلك نراعي حدود السور المخزنة في كل نطاق، لا رقم الصفحة وحده.
+                const allowedIndexes = new Set();
+                profile.customRanges.forEach(savedRange => {
+                    const savedStart = Math.max(1, Number(savedRange.start) || 0);
+                    const savedEnd = Math.min(604, Number(savedRange.end) || 0);
+                    if (savedEnd < range.s || savedStart > range.e) return;
+                    const firstIdx = Number(savedRange.sIdx) || 1;
+                    const lastIdx = Number(savedRange.eIdx) || 114;
+                    QURAN_DATA.forEach(q => {
+                        if (q.i >= Math.min(firstIdx, lastIdx) && q.i <= Math.max(firstIdx, lastIdx) && q.s <= range.e && q.e >= range.s) {
+                            allowedIndexes.add(q.i);
+                        }
+                    });
+                });
+                let surahs = QURAN_DATA.filter(q => allowedIndexes.has(q.i) && q.s <= range.e && q.e >= range.s);
+                // توافق مع النطاقات القديمة التي لا تحتوي على فهارس السور.
+                if (!surahs.length) surahs = QURAN_DATA.filter(q => q.s <= range.e && q.e >= range.s);
                 const names = [...new Set(surahs.map(s => s.n))];
                 const rangeText = range.s === range.e ? `ص${range.s}` : `ص${range.s}-${range.e}`;
                 return `${names.join('، ')} (${rangeText})`;

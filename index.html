@@ -3212,6 +3212,64 @@ function aboutFitFrame(frame, topics) {
             /* أي حالة أقصر من ذلك: أفضل تقريب متاح */
             return parts.join(' ');
         }
+        /* ===== قفل الجهاز للورد (نسخة محسّنة) =====
+           - يُخزَّن اسم الطالب الذي سجّل + التاريخ بدل نص عائلة ثابت.
+           - المقارنة بعد توحيد الحروف العربية (أ/إ/آ->ا، ة->ه، ى->ي، حذف التشكيل).
+           - الإخوة: نفس كلمة العائلة (الأخيرة) + تطابق اسم الأب (حتى لو اختلف عدد كلمات الاسم).
+           - ينتهي القفل تلقائياً مع بداية كل يوم جديد (نفس يوم الورد getTodayDateString).
+           - يُمسح القفل عند دخول المدير من هذا الجهاز. */
+        const WIRD_DEVICE_LOCK_V2_KEY = 'wird_device_lock_v2';
+        function normalizeArabicForCompare(text) {
+            return String(text || '')
+                .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+                .replace(/[أإآٱ]/g, 'ا')
+                .replace(/ة/g, 'ه')
+                .replace(/ى/g, 'ي')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .toLowerCase();
+        }
+        function getStudentNameFromProfileKey(profileKey) {
+            try { return decodeURIComponent(profileKey).split('|')[2] || ''; } catch (e) { return ''; }
+        }
+        function isSameWirdFamily(nameA, nameB) {
+            const a = normalizeArabicForCompare(nameA).split(' ').filter(Boolean);
+            const b = normalizeArabicForCompare(nameB).split(' ').filter(Boolean);
+            if (!a.length || !b.length) return true; /* لا بيانات كافية: لا نمنع */
+            if (a.join(' ') === b.join(' ')) return true;
+            if (a.length < 2 || b.length < 2) return a[a.length - 1] === b[b.length - 1];
+            if (a[a.length - 1] !== b[b.length - 1]) return false; /* كلمة العائلة */
+            const fa = a[1], fb = b[1]; /* اسم الأب */
+            return b.slice(1, -1).includes(fa) || a.slice(1, -1).includes(fb);
+        }
+        function readWirdDeviceLocks() {
+            const today = getTodayDateString();
+            let list = [];
+            try {
+                const raw = JSON.parse(localStorage.getItem(WIRD_DEVICE_LOCK_V2_KEY) || '[]');
+                if (Array.isArray(raw)) list = raw.filter(x => x && x.n);
+            } catch (e) { list = []; }
+            /* القفل القديم (دائم بلا تاريخ): يُحذف نهائياً */
+            try { if (localStorage.getItem(WIRD_DEVICE_FAMILY_KEY)) localStorage.removeItem(WIRD_DEVICE_FAMILY_KEY); } catch (e) {}
+            /* القفل صالح لليوم الحالي فقط */
+            const fresh = list.filter(x => x.d === today);
+            if (fresh.length !== list.length) {
+                try { localStorage.setItem(WIRD_DEVICE_LOCK_V2_KEY, JSON.stringify(fresh)); } catch (e) {}
+            }
+            return fresh;
+        }
+        function writeWirdDeviceLock(studentName) {
+            try {
+                const list = readWirdDeviceLocks();
+                const hit = list.find(x => isSameWirdFamily(x.n, studentName));
+                if (hit) { hit.t = Date.now(); hit.n = studentName; }
+                else list.push({ n: studentName, t: Date.now(), d: getTodayDateString() });
+                localStorage.setItem(WIRD_DEVICE_LOCK_V2_KEY, JSON.stringify(list));
+            } catch (e) {}
+        }
+        function clearWirdDeviceLocks() {
+            try { localStorage.removeItem(WIRD_DEVICE_LOCK_V2_KEY); localStorage.removeItem(WIRD_DEVICE_FAMILY_KEY); } catch (e) {}
+        }
         window.markWirdComplete = function(profileKey) {
             if (isProcessingWird) return;
             const profile = studentProfiles[profileKey];
@@ -3223,10 +3281,14 @@ function aboutFitFrame(frame, topics) {
                 return;
             }
             if (!isAdmin) {
-                const curFamily = getFamilyNameFromProfileKey(profileKey);
-                const lockedFamily = localStorage.getItem(WIRD_DEVICE_FAMILY_KEY);
-                if (lockedFamily && curFamily && lockedFamily !== curFamily) {
-                    alert(`❌ لا يمكن تسجيل الورد اليومي من هذا الجهاز لهذا الطالب.\nهذا الجهاز سبق استخدامه من قِبل طالب من عائلة مختلفة (${lockedFamily}). يُسمح فقط للإخوة من نفس العائلة.`);
+                const curName = getStudentNameFromProfileKey(profileKey);
+                const locks = readWirdDeviceLocks();
+                if (locks.length && curName && !locks.some(x => isSameWirdFamily(x.n, curName))) {
+                    const l = locks[0];
+                    const who = l.n;
+                    let when = '';
+                    try { when = new Date(l.t).toLocaleDateString('ar-EG'); } catch (e) {}
+                    alert(`❌ لا يمكن تسجيل الورد اليومي من هذا الجهاز لهذا الطالب.\nهذا الجهاز سبق استخدامه لتسجيل الورد لطالب من عائلة مختلفة (${who}${when ? ' - ' + when : ''}). يُسمح فقط للإخوة من نفس العائلة.\nإن كان هذا خطأً (جهاز جديد أو مستعمل سابقاً) فيرجى مراجعة إدارة الحلقة لفك القفل، أو ينتهي القفل تلقائياً مع بداية الورد في اليوم التالي.`);
                     return;
                 }
             }
@@ -3253,8 +3315,8 @@ function aboutFitFrame(frame, topics) {
                 }
                 persistStudentProfiles();
                 if (!isAdmin) {
-                    const curFamily = getFamilyNameFromProfileKey(profileKey);
-                    if (curFamily) localStorage.setItem(WIRD_DEVICE_FAMILY_KEY, curFamily);
+                    const curName = getStudentNameFromProfileKey(profileKey);
+                    if (curName) writeWirdDeviceLock(curName);
                 }
                 showWirdCelebration(bonusEarned);
                 if (activeProfileContext) openStudentProfile(activeProfileContext.circleId, activeProfileContext.groupId, activeProfileContext.studentIndex, true);
@@ -3535,6 +3597,7 @@ function aboutFitFrame(frame, topics) {
             }
             if (record.role === 'admin') {
                 isAdmin = true; isSupervisor = false; supervisorCircleId = null;
+                clearWirdDeviceLocks();
                 loginBtn.innerHTML = "تسجيل الخروج (مدير)";
             } else {
                 const targetCircle = quranCircles.find(c => c.id === record.circleId);
